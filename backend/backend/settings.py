@@ -33,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ##test
+##test2
 
 # Application definition
 
