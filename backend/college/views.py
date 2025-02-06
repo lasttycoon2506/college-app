@@ -6,6 +6,7 @@ from .serializers import CollegeSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
+
 @api_view(['GET'])
 def getAllColleges(request):
     colleges = College.objects.all()
@@ -13,6 +14,7 @@ def getAllColleges(request):
     collegesSerialized = CollegeSerializer(colleges, many=True)
 
     return Response(collegesSerialized.data)
+
 
 @api_view(['GET'])
 def getCollege(request, id):
@@ -22,12 +24,14 @@ def getCollege(request, id):
 
     return Response(collegeSerialized.data)
 
+
 @api_view(['POST'])
 def addCollege(request):
     data = request.data
     newCollege = College.objects.create(**data)
 
     return Response(status=status.HTTP_201_CREATED)
+
 
 @api_view(['PUT'])
 def editCollege(request, id):
@@ -47,6 +51,14 @@ def editCollege(request, id):
 
     collegeToEdit.save()
 
-
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['DELETE'])
+def deleteCollege(request, id):
+    collegeToDelete = get_object_or_404(College, id=id)
+
+    collegeToDelete.delete()
+
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
