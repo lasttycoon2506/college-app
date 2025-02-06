@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import College
 from .serializers import CollegeSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework import status
 
 @api_view(['GET'])
 def getAllColleges(request):
@@ -26,9 +27,7 @@ def addCollege(request):
     data = request.data
     newCollege = College.objects.create(**data)
 
-    newCollegeSerialized = CollegeSerializer(newCollege, many=False)
-
-    return Response(newCollegeSerialized.data)
+    return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['PUT'])
 def editCollege(request, id):
@@ -48,7 +47,6 @@ def editCollege(request, id):
 
     collegeToEdit.save()
 
-    collegeToEditSerialized = CollegeSerializer(collegeToEdit, many=False)
 
-    return Response(collegeToEditSerialized)
+    return Response(status=status.HTTP_200_OK)
 
