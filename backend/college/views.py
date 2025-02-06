@@ -5,13 +5,14 @@ from .models import College
 from .serializers import CollegeSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from .filters import CollegesFilter
 
 
 @api_view(['GET'])
 def getAllColleges(request):
-    colleges = College.objects.all()
+    collegesFiltered = CollegesFilter(request.GET, queryset=College.objects.all().order_by('id'))
 
-    collegesSerialized = CollegeSerializer(colleges, many=True)
+    collegesSerialized = CollegeSerializer(collegesFiltered.qs, many=True)
 
     return Response(collegesSerialized.data)
 
@@ -28,7 +29,7 @@ def getCollege(request, id):
 @api_view(['POST'])
 def addCollege(request):
     data = request.data
-    newCollege = College.objects.create(**data)
+    College.objects.create(**data)
 
     return Response(status=status.HTTP_201_CREATED)
 
