@@ -14,8 +14,8 @@ def getAllColleges(request):
 
 @api_view(['GET'])
 def getCollege(request, id):
-    college = College.objects.filter(id=id)
+    college = College.objects.get(id=id)
 
     collegeAsJson = CollegeSerializer(college, many=False)
 
-    return Response(collegeAsJson)
+    return Response(collegeAsJson.data)
