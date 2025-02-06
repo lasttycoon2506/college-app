@@ -22,7 +22,7 @@ def getCollege(request, id):
     return Response(collegeSerialized.data)
 
 @api_view(['POST'])
-def createCollege(request):
+def addCollege(request):
     data = request.data
     newCollege = College.objects.create(**data)
 
