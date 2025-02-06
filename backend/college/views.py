@@ -9,14 +9,24 @@ from django.shortcuts import get_object_or_404
 def getAllColleges(request):
     colleges = College.objects.all()
 
-    collegesAsJson = CollegeSerializer(colleges, many=True)
+    collegesSerialized = CollegeSerializer(colleges, many=True)
 
-    return Response(collegesAsJson.data)
+    return Response(collegesSerialized.data)
 
 @api_view(['GET'])
 def getCollege(request, id):
     college = get_object_or_404(College, id=id)
 
-    collegeAsJson = CollegeSerializer(college, many=False)
+    collegeSerialized = CollegeSerializer(college, many=False)
 
-    return Response(collegeAsJson.data)
+    return Response(collegeSerialized.data)
+
+@api_view(['POST'])
+def createCollege(request):
+    data = request.data
+    newCollege = College.objects.create(**data)
+
+    newCollegeSerialized = CollegeSerializer(newCollege, many=False)
+
+    return Response(newCollegeSerialized.data)
+
