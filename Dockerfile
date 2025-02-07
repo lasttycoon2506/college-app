@@ -18,7 +18,6 @@ COPY . .
 
 # Expose the port on which the container will run
 EXPOSE 8000
-EXPOSE 5678
 
 # Start the Django development server with debugpy
 CMD ["python", "-m", "debugpy", "--wait-for-client", "--listen", "0.0.0.0:5678", "manage.py", "runserver", "0.0.0.0:8000"]
