@@ -12,20 +12,14 @@ import sys
 @api_view(['GET'])
 def getAllColleges(request):
     collegesFiltered = CollegesFilter(request.GET, queryset=College.objects.all().order_by('id'))
-    if str(list(collegesFiltered.data.dict().values())) != "['D1']" or str(list(collegesFiltered.data.dict().values())) != "['D2']" or str(list(collegesFiltered.data.dict().values())) != "['D3']": 
-        print("chacha")
-        sys.stdout.flush()
-        return Response("nahnah")
-    else:
-        collegesSerialized = CollegeSerializer(collegesFiltered.qs, many=True)
+    collegesSerialized = CollegeSerializer(collegesFiltered.qs, many=True)
 
-        return Response(collegesSerialized.data)
+    return Response(collegesSerialized.data)
 
 
 @api_view(['GET'])
 def getCollege(request, id):
     college = get_object_or_404(College, id=id)
-
     collegeSerialized = CollegeSerializer(college, many=False)
 
     return Response(collegeSerialized.data)
