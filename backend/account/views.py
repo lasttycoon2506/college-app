@@ -2,14 +2,14 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
-from backend.account.serializers import SignUpSerializer
+from .serializers import SignUpSerializer
 from django.contrib.auth.hashers import make_password
 
 
 @api_view(['POST'])
 def register(request):
     data = request.data
-    user = SignUpSerializer(data)
+    user = SignUpSerializer(data=data)
 
     if user.is_valid():
         if not User.objects.filter(username= data["email"]).exists():
@@ -19,6 +19,7 @@ def register(request):
                                           email = data["email"],
                                           password = make_password(data["password"])
                                         )
+            return Response(status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "email already registered"}, status=status.HTTP_200_OK)
     else:
