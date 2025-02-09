@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE)
-    essay = models.FileField()
-    sat = models.IntegerField()
-    gpa = models.IntegerField()
+    user = models.OneToOneField(User, related_name="userProfile", on_delete=models.CASCADE)
+    essay = models.FileField(null=True)
+    sat = models.IntegerField(null=True)
+    gpa = models.IntegerField(null=True)

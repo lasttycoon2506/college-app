@@ -16,6 +16,10 @@ class SignUpSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    essay = serializers.CharField(source="userProfile.essay")
+    sat = serializers.IntegerField(source="userProfile.sat")
+    gpa = serializers.IntegerField(source="userProfile.gpa")
+
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "username")
+        fields = ("first_name", "last_name", "email", "username", "essay", "sat", "gpa")
