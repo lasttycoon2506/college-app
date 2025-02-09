@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import College
 from .serializers import CollegeSerializer
@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .filters import CollegesFilter
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+
 
 
 @api_view(['GET'])
@@ -36,6 +38,7 @@ def getCollege(request, id):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def addCollege(request):
     data = request.data
     College.objects.create(**data)
@@ -44,6 +47,7 @@ def addCollege(request):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def editCollege(request, id):
     collegeToEdit = get_object_or_404(College, id=id)
 
@@ -65,6 +69,7 @@ def editCollege(request, id):
 
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def deleteCollege(request, id):
     collegeToDelete = get_object_or_404(College, id=id)
 
