@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
 
-    'college.apps.CollegeConfig'
+    'college.apps.CollegeConfig',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORk = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    )
+}
+
+
 
 
 # Internationalization
