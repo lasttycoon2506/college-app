@@ -6,15 +6,26 @@ from .serializers import CollegeSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .filters import CollegesFilter
-import sys
+from rest_framework.pagination import PageNumberPagination
 
 
 @api_view(['GET'])
 def getAllColleges(request):
     collegesFiltered = CollegesFilter(request.GET, queryset=College.objects.all().order_by('id'))
-    collegesSerialized = CollegeSerializer(collegesFiltered.qs, many=True)
+    count = collegesFiltered.qs.count()
 
-    return Response(collegesSerialized.data)
+    resultsPerPg = 5
+    paginator = PageNumberPagination()
+    paginator.page_size = resultsPerPg
+
+    paginatedResult = paginator.paginate_queryset(collegesFiltered.qs, request)
+
+    collegesSerialized = CollegeSerializer(paginatedResult, many=True)
+
+    return Response({"count": count, 
+                     "colleges": collegesSerialized.data,
+                     "resultsPerPg": resultsPerPg
+                     })
 
 
 @api_view(['GET'])
