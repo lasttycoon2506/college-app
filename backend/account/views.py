@@ -7,6 +7,14 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getCurrUser(request):
+    currUser = UserSerializer(request.user)
+
+    return Response(currUser.data)
+
+
 @api_view(["POST"])
 def register(request):
     data = request.data
@@ -27,9 +35,21 @@ def register(request):
         return Response(user.errors)
 
 
-@api_view(["GET"])
+@api_view(["PUT"])
 @permission_classes([IsAuthenticated])
-def getCurrUser(request):
-    currUser = UserSerializer(request.user)
+def editUser(request):
+    user = request.user
+    data = request.data
 
-    return Response(currUser.data)
+    user.first_name = data["first_name"]
+    user.last_name = data["last_name"]
+    user.email = data["email"]
+
+    if data["password"] is not None:
+        user.password = make_password(data["password"])
+
+    user.save()
+
+    serializedResults = UserSerializer(user)
+
+    return Response(serializedResults.data)
