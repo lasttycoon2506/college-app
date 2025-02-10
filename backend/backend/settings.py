@@ -141,6 +141,17 @@ USE_I18N = True
 USE_TZ = True
 
 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORE_BUCKET_NAME = os.environ.get("AWS_STORE_BUCKET_NAME")
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORE = "storages.backends.s3boto3.s3Boto3Storage"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
