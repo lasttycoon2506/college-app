@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'storages',
 
     'college.apps.CollegeConfig',
     'account.apps.AccountConfig'

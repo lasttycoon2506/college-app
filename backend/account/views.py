@@ -53,3 +53,18 @@ def editUser(request):
     serializedResults = UserSerializer(user)
 
     return Response(serializedResults.data)
+
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def uploadEssay(request):
+    user = request.user
+    file = request.FILE["essay"]
+
+    if file is None:
+        return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.userProfile.essay = file
+    user.userProfile.save()
+
+    return Response(status=status.HTTP_200_OK)
