@@ -5,3 +5,16 @@ local_settings.py
 
 **/.env
 **/__pycache__/
+
+env/
+venv/
+*.egg-info/
+
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+.DS_Store
+Thumbs.db
