@@ -21,7 +21,7 @@ def register(request):
     user = SignUpSerializer(data=data)
 
     if user.is_valid():
-        if not User.objects.filter(username= data["email"]).exists():
+        if not User.objects.filter(username = data["email"]).exists():
             user = User.objects.create(first_name = data["first_name"],
                                           last_name = data["last_name"],
                                           username = data["email"],
@@ -64,7 +64,7 @@ def uploadEssay(request):
     if essay is None:
         return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
 
-    user.userprofile.essay = essay
-    user.userprofile.save()
+    user.userProfile.essay = essay
+    user.userProfile.save()
 
     return Response(status=status.HTTP_200_OK)
