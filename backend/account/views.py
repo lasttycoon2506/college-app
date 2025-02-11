@@ -59,7 +59,7 @@ def editUser(request):
 @permission_classes([IsAuthenticated])
 def uploadEssay(request):
     user = request.user
-    essay = request.FILE["essay"]
+    essay = request.FILES["essay"]
 
     if essay is None:
         return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
