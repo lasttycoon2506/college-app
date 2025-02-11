@@ -11,11 +11,3 @@ class UserProfile(models.Model):
     gpa = models.IntegerField(null=True)
 
 
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, created, **kwargs):
-
-    user = instance
-
-    if created:
-        profile = UserProfile(user=user)
-        profile.save()
