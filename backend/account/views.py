@@ -64,7 +64,7 @@ def uploadEssay(request):
     if essay is None:
         return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
 
-    user.userProfile.essay = essay
-    user.userProfile.save()
+    user.userprofile.essay = essay
+    user.userprofile.save()
 
     return Response(status=status.HTTP_200_OK)
