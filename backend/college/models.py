@@ -26,6 +26,7 @@ class College(models.Model):
     postgrad = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     campusSize = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     division = models.CharField(choices=Division.choices, default=Division.D1, max_length=10)
+    applicationDeadline = models.DateField(null=True)
 
 
 class Applicants(models.Model):
