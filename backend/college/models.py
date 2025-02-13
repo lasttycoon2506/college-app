@@ -7,10 +7,12 @@ class Types(models.TextChoices):
     Public = "Public"
     Private = "Private"
 
+
 class Division(models.TextChoices):
     D1 = "D1"
     D2 = "D2"
     D3 = "D3"
+
 
 class College(models.Model):
     name = models.CharField(max_length=100, null=True)
@@ -24,6 +26,7 @@ class College(models.Model):
     postgrad = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     campusSize = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     division = models.CharField(choices=Division.choices, default=Division.D1, max_length=10)
+
 
 class Applicants(models.Model):
     college = models.ForeignKey(College, on_delete=models.CASCADE)
