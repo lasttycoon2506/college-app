@@ -49,7 +49,7 @@ def addCollege(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def apply(request, id):
+def applyCollege(request, id):
     applicant = request.user
     college = get_object_or_404(College, id)
 
@@ -73,7 +73,7 @@ def apply(request, id):
         sat = applicant.userprofile.sat,
         gpa = applicant.userprofile.gpa
     )
-    
+
     return Response({'applied': True, 'applicationId': collegeApplied.id}, status=status.HTTP_200_OK)
 
 
