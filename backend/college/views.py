@@ -7,8 +7,7 @@ from rest_framework import status
 from .filters import CollegesFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
-from django.utils import timezone
-
+from datetime import date
 
 
 @api_view(['GET'])
@@ -63,7 +62,7 @@ def applyCollege(request, id):
         return Response({"error": "missing gpa"}, status=status.HTTP_400_BAD_REQUEST)
     if not applicant.userprofile.sat:
         return Response({"error": "missing sat"}, status=status.HTTP_400_BAD_REQUEST)
-    if timezone.now() > college.applicationDeadline:
+    if date.today() > college.applicationDeadline:
         return Response({"error": "deadline passed!"}, status=status.HTTP_400_BAD_REQUEST)
     
     collegeApplied = Applicants.objects.create(
