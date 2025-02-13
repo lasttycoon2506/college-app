@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
+
 
 class Types(models.TextChoices):
     Public = "Public"
@@ -22,3 +24,8 @@ class College(models.Model):
     postgrad = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     campusSize = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000000)])
     division = models.CharField(choices=Division.choices, default=Division.D1, max_length=10)
+
+class Applicants(models.Model):
+    college = models.ForeignKey(College, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    dateApplied = models.DateField(auto_now_add=True)
