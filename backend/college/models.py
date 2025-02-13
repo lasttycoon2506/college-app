@@ -32,7 +32,7 @@ class College(models.Model):
 class Applicants(models.Model):
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     applicant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    essay = models.CharField(max_length=300)
-    sat = models.IntegerField()
-    gpa = models.DecimalField(max_digits=4, decimal_places=2)
+    essay = models.CharField(max_length=300, null=True)
+    sat = models.IntegerField(null=True)
+    gpa = models.DecimalField(max_digits=4, decimal_places=2, null=True)
     dateApplied = models.DateField(auto_now_add=True)
