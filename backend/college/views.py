@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import College, Applicants
-from .serializers import CollegeSerializer
+from .serializers import ApplicantsSerializer, CollegeSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .filters import CollegesFilter
@@ -35,6 +35,17 @@ def getCollege(request, id):
     collegeSerialized = CollegeSerializer(college, many=False)
 
     return Response(collegeSerialized.data)
+
+
+@api_view(['GET'])
+def getCurrUserApplications(request):
+    user = request.user
+
+    filterTerm = {"applicant_id": user.id}
+    applications = Applicants.objects.filter(**filterTerm)
+    serializedResults = ApplicantsSerializer(applications, many=True)
+
+    return Response(serializedResults.data)
 
 
 @api_view(['POST'])
