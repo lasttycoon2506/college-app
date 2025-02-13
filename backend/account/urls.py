@@ -5,5 +5,5 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('currentUser/', views.getCurrUser, name='current_user'),
     path('currentUser/edit/', views.editUser, name='edit_user'),
-    path('upload/essay/', views.uploadEssay, name='upload_essay')
+    path('upload/info/', views.uploadInfo, name='upload_info')
 ]
