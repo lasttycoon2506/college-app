@@ -34,5 +34,5 @@ class Applicants(models.Model):
     applicant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     essay = models.CharField(max_length=300)
     sat = models.IntegerField()
-    gpa = models.DecimalField()
+    gpa = models.DecimalField(max_digits=4, decimal_places=2)
     dateApplied = models.DateField(auto_now_add=True)
