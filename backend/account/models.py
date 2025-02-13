@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="userprofile", on_delete=models.CASCADE)
     essay = models.FileField(null=True)
     sat = models.IntegerField(null=True)
-    gpa = models.IntegerField(null=True)
+    gpa = models.DecimalField(null=True)
 
 
 @receiver(post_save, sender=User)

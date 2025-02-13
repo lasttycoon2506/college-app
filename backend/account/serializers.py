@@ -18,7 +18,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     essay = serializers.CharField(source="userprofile.essay")
     sat = serializers.IntegerField(source="userprofile.sat")
-    gpa = serializers.IntegerField(source="userprofile.gpa")
+    gpa = serializers.DecimalField(source="userprofile.gpa")
 
     class Meta:
         model = User
