@@ -61,8 +61,14 @@ def uploadInfo(request):
     user = request.user
     data = request.data
 
-    if data["essay"] is None or data["sat"] is None or data["gpa"] is None:
-        return Response({"error": "missing field(s)"}, status=status.HTTP_400_BAD_REQUEST)
+    if not data["essay"]:
+        return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not data["sat"]:
+        return Response({"error": "missing sat"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not data["gpa"]:
+        return Response({"error": "missing gpa"}, status=status.HTTP_400_BAD_REQUEST)
 
     user.userprofile.essay = data["essay"]
     user.userprofile.gpa = data["gpa"]
