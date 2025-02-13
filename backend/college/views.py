@@ -51,9 +51,9 @@ def addCollege(request):
 @permission_classes([IsAuthenticated])
 def applyCollege(request, id):
     applicant = request.user
-    college = get_object_or_404(College, id)
+    college = get_object_or_404(College, id=id)
 
-    hasApplied = college.applicants_set.filter(user=applicant).exists()
+    hasApplied = college.applicants_set.filter(applicant=applicant).exists()
 
     if hasApplied:
         return Response({"error": "already applied"}, status=status.HTTP_400_BAD_REQUEST)
