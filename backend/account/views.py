@@ -57,14 +57,17 @@ def editUser(request):
 
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
-def uploadEssay(request):
+def uploadInfo(request):
     user = request.user
-    essay = request.FILES["essay"]
+    data = request.data
 
-    if essay is None:
-        return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
+    if data["essay"] is None or data["sat"] is None or data["gpa"] is None:
+        return Response({"error": "missing field(s)"}, status=status.HTTP_400_BAD_REQUEST)
 
-    user.userprofile.essay = essay
+    user.userprofile.essay = data["essay"]
+    user.userprofile.gpa = data["gpa"]
+    user.userprofile.sat = data["sat"]
+
     user.userprofile.save()
 
     return Response(status=status.HTTP_200_OK)
