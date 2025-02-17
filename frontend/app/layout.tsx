@@ -20,12 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  data,
 }: Readonly<{
   children: React.ReactNode;
-  data: any;
 }>) {
-  console.log(data);
+  console.log(getColleges());
   return (
     <html lang="en">
       <body
@@ -39,8 +37,8 @@ export default function RootLayout({
 }
 
 export async function getColleges() {
-  const data = await fetch("http://localhost:8000");
-  const colleges = data.json();
+  const x = await fetch("http://localhost:8000");
+  const data = await x.json();
 
-  return { data: colleges };
+  return data;
 }
