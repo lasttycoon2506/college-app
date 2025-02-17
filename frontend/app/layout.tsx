@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import axios from "axios";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +21,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  data,
 }: Readonly<{
   children: React.ReactNode;
+  data: any;
 }>) {
+  console.log(data);
   return (
     <html lang="en">
       <body
@@ -33,4 +37,13 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await axios.get("http://localhost:8000/api/colleges/");
+  const data = res.data;
+
+  return {
+    props: { data },
+  };
 }
