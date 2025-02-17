@@ -13,7 +13,6 @@ export default function Navbar() {
         />
         <span className="font-semibold text-xl tracking-tight">EZ Apply</span>
       </div>
-
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow">
           <a
@@ -36,25 +35,26 @@ export default function Navbar() {
           </a>
         </div>
         <div className="flex flex-shrink-0 text-white">
-          <form className="bg-white shadow-md rounded" />
-          <input
-            className="shadow rounded w-full py-3 px-3 text-gray-700 leading-tight focus:shadow-outline mr-2"
-            id="username"
-            type="text"
-            placeholder="Username"
-          />
-          <input
-            className="shadow rounded w-full py-3 px-3 text-gray-700 leading-tight focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="Password"
-          />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Login
-          </button>
+          <form>
+            <input
+              className="shadow rounded py-3 px-3 text-gray-700 leading-tight focus:shadow-outline mr-2"
+              id="username"
+              type="text"
+              placeholder="Username"
+            />
+            <input
+              className="shadow rounded py-3 px-3 text-gray-700 leading-tight focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="Password"
+            />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </nav>
