@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import axios from "axios";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,11 +38,9 @@ export default function RootLayout({
   );
 }
 
-export async function getServerSideProps() {
-  const res = await axios.get("http://localhost:8000/api/colleges/");
-  const data = res.data;
+export async function getColleges() {
+  const data = await fetch("http://localhost:8000");
+  const colleges = data.json();
 
-  return {
-    props: { data },
-  };
+  return { data: colleges };
 }
