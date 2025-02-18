@@ -1,6 +1,7 @@
 import Image from "next/image";
+import type { College } from "@/models/college";
 
-export default function College({ data: any }) {
+export default function College({ data }: { data: College }) {
   return (
     <div className="max-w-sm w-full lg:max-w-full lg:flex">
       <div

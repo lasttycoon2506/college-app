@@ -1,4 +1,5 @@
 export type College = {
+  id: number;
   name: string;
   address: string;
   tuition: number;
