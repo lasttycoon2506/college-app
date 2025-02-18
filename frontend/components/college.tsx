@@ -23,32 +23,23 @@ export default function College({ college }: { college: College }) {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{college.name}</h2>
-        <p>{college.address}</p>
-        <p>{college.tuition}</p>
-        <p>{college.applicationDeadline.toString()}</p>
-        <div className="grid grid-cols-10 gap-1">
-          <div className="...">
-            <Image
-              className="dark:invert mt-4 "
-              src="/info.svg"
-              alt="info icon"
-              width={20}
-              height={20}
-            />
+        <div className="grid grid-flow-col grid-rows-4 gap-2">
+          <div className="row-span-3 col-span 2 ...">
+            <h2 className="card-title">
+              <strong>
+                <em>{college.name}</em>
+              </strong>
+            </h2>
+            <p>{college.address}</p>
+            <p>${college.tuition} / semester</p>
+            <p>Deadline: {college.applicationDeadline.toString()}</p>
           </div>
-          <div className="...">{college.established}</div>
-          <div className="...">{college.type}</div>
-          <div className="...">{college.academicStaff}</div>
-          <div className="...">{college.undergrad}</div>
-          <div className="...">{college.postgrad}</div>
-          <div className="...">{college.endowment}</div>
-          <div className="...">{college.division}</div>
-          <div className="...">{college.campusSize}</div>
-        </div>
-
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Watch</button>
+          <div className="col-span-1 row-span-3 ... flex justify-center items-center">
+            <button className="btn btn-neutral">Info</button>
+          </div>
+          <div className="col-span-1 row-span-3 ... flex justify-center items-center">
+            <button className="btn btn-primary">Apply</button>
+          </div>
         </div>
       </div>
     </div>
