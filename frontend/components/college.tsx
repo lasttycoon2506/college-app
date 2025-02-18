@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function College() {
+export default function College({ data: any }) {
   return (
     <div className="max-w-sm w-full lg:max-w-full lg:flex">
       <div
