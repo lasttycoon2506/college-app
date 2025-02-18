@@ -1,4 +1,4 @@
-import AllColleges from "@/components/tester";
+import AllColleges from "@/components/collegesResolved";
 import filters from "@/components/filters";
 
 export default function Home() {

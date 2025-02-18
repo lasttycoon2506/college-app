@@ -1,9 +1,13 @@
 "use client";
-import type { College } from "@/models/college";
 import { use } from "react";
 import CollegeComponent from "./college";
+import { PaginatedColleges } from "@/models/paginatedColleges";
 
-export default function Colleges({ colleges }: { colleges: Promise<College> }) {
+export default function Colleges({
+  colleges,
+}: {
+  colleges: Promise<PaginatedColleges>;
+}) {
   const allColleges = use(colleges);
 
   return (

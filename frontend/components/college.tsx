@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { College } from "@/models/college";
-import { getRandomInt } from "@/app/helpers/randomIntGen";
+import { getRandomInt } from "@/helpers/randomIntGen";
 import { useEffect, useState } from "react";
 
 export default function College({ college }: { college: College }) {
