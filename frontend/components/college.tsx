@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { College } from "@/models/college";
 
-export default function College({ data }: { data: College }) {
+export default function College({ college }: { college: College }) {
   return (
     <div className="max-w-sm w-full lg:max-w-full lg:flex">
       <div
@@ -22,7 +22,7 @@ export default function College({ data }: { data: College }) {
             Members only
           </p>
           <div className="text-gray-900 font-bold text-xl mb-2">
-            Can coffee make you a better developer?
+            {college.name}
           </div>
           <p className="text-gray-700 text-base">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.

@@ -1,5 +1,5 @@
-import College from "@/components/college";
+import AllColleges from "@/components/tester";
 
 export default function Home() {
-  return College({ data: getColleges() });
+  return AllColleges();
 }
