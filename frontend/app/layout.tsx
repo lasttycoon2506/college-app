@@ -23,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(getColleges());
   return (
     <html lang="en">
       <body
@@ -34,11 +33,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
-
-export async function getColleges() {
-  const x = await fetch("http://localhost:8000");
-  const data = await x.json();
-
-  return data;
 }
