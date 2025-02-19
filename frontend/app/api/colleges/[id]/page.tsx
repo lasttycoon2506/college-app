@@ -7,10 +7,13 @@ async function getCollegeDetails(id: number) {
 
 export default async function CollegeDetails({
   params,
+  searchParams,
 }: {
   params: { id: number };
+  searchParams: any;
 }) {
   const { id } = await params;
+  const { picId } = await searchParams;
   const college = await getCollegeDetails(id);
 
   return (
@@ -18,7 +21,7 @@ export default async function CollegeDetails({
       <figure>
         <Image
           className="dark:invert mr-6"
-          src={`/campus.jpg`}
+          src={`/campus${picId}.jpg`}
           alt="clg campus"
           width={200}
           height={200}
