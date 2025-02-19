@@ -12,7 +12,7 @@ export default function College({ college }: { college: College }) {
   }, []);
 
   return (
-    <div className="card card-side bg-base-100 shadow-xl">
+    <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral">
       <figure>
         <Image
           className="dark:invert mr-6"
