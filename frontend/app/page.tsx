@@ -1,7 +1,7 @@
 import AllColleges from "@/app/api/colleges/collegesResolved";
 import filters from "@/components/ui/filters";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <div className="grid grid-flow-col grid-rows-3 gap-4">

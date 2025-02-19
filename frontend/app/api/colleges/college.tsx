@@ -3,6 +3,7 @@ import type { College } from "@/models/college";
 import { getRandomInt } from "@/helpers/randomIntGen";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CollegeDetails from "./[id]/page";
 
 export default function College({ college }: { college: College }) {
   const [randomInt, setRandomInt] = useState(0);
@@ -36,14 +37,7 @@ export default function College({ college }: { college: College }) {
             <p>Deadline: {college.applicationDeadline.toString()}</p>
           </div>
           <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <Link
-              href={{
-                pathname: `/api/colleges/${college.id}`,
-                query: {
-                  search: "search",
-                },
-              }}
-            >
+            <Link href={`/api/colleges/${college.id}`}>
               <button className="btn btn-neutral">Info</button>
             </Link>
           </div>
