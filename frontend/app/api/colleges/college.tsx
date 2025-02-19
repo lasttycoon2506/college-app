@@ -36,7 +36,14 @@ export default function College({ college }: { college: College }) {
             <p>Deadline: {college.applicationDeadline.toString()}</p>
           </div>
           <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <Link href={`/api/colleges/${college.id}`}>
+            <Link
+              href={{
+                pathname: `/api/colleges/${college.id}`,
+                query: {
+                  search: "search",
+                },
+              }}
+            >
               <button className="btn btn-neutral">Info</button>
             </Link>
           </div>
