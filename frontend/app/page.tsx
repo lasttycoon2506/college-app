@@ -1,4 +1,4 @@
-import AllColleges from "@/components/college/collegesResolved";
+import AllColleges from "@/app/api/colleges/collegesResolved";
 import filters from "@/components/ui/filters";
 
 export default function Home() {
