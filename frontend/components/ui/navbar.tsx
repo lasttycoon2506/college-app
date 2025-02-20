@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 bg-info">
+    <div className="navbar bg-base-100 bg-primary">
       <Image
         className="dark:invert mr-6 rounded-lg shadow-xl"
         src="college.svg"
@@ -34,12 +34,8 @@ export default function Navbar() {
           </button>
         </div>
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">username</div>
+          <div tabIndex={0} role="button" className="btn btn-circle">
+            <div className="rounded-full">username</div>
           </div>
           <ul
             tabIndex={0}

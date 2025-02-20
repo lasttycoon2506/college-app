@@ -16,15 +16,15 @@ export default async function CollegeDetails({
   const currentDate = new Date().toISOString().slice(0, 10);
 
   return (
-    <div className="grid grid-cols-3 gap-5 mx-10 my-10">
+    <div className="grid grid-cols-3 gap-5">
       <div>
         <img
           src={`/campus${picId}.jpg`}
-          className="max-w-sm rounded-lg shadow-2xl "
+          className="max-w-sm rounded-lg shadow-2xl mt-7 ms-7"
         />
       </div>
-      <div className="bg-neutral-content rounded-lg mx-10">
-        <div className="bg-primary-content rounded-lg">
+      <div className="bg-neutral-content rounded-lg mt-7">
+        <div className="bg-primary-content rounded-lg py-5">
           <h1 className="text-5xl font-bold text-center">{college.name}</h1>
         </div>
         <p className="pt-6 text-center">{college.address}</p>

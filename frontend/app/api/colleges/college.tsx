@@ -54,13 +54,13 @@ export default function College({ college }: { college: College }) {
             <div className="grid grid-rows-2 gap-4">
               <div className="flex justify-center items-center">
                 <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
-                  <button className="btn btn-wide bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none text-base">
+                  <button className="btn btn-wide bg-info shadow-xl shadow-neutral-400/50 border-none text-base">
                     Info
                   </button>
                 </Link>
               </div>
               <div className="flex justify-center items-center">
-                <button className="btn btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none text-base">
+                <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base">
                   Apply
                 </button>
               </div>
