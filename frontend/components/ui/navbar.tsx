@@ -11,7 +11,7 @@ export default function Navbar() {
         height={50}
       />
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">EZ Apply</a>
+        <a className="btn btn-ghost text-2xl font-bold">EZ Apply</a>
       </div>
       <div className="flex gap-2">
         <div className="form-control">

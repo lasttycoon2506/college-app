@@ -52,7 +52,7 @@ export default function College({ college }: { college: College }) {
             <div className="grid grid-rows-2 gap-4">
               <div className="flex justify-center items-center">
                 <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
-                  <button className="btn btn-wide bg-info shadow-xl shadow-neutral-400/50 border-none text-base">
+                  <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
                     Info
                   </button>
                 </Link>
@@ -62,13 +62,13 @@ export default function College({ college }: { college: College }) {
                 .toISOString()
                 .slice(0, 10) ? (
                 <div className="flex justify-center items-center">
-                  <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base opacity-50 cursor-not-allowed">
+                  <button className="btn btn-wide bg-error shadow-md border-none text-base opacity-50 cursor-not-allowed">
                     Apply
                   </button>
                 </div>
               ) : (
                 <div className="flex justify-center items-center">
-                  <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base">
+                  <button className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base">
                     Apply
                   </button>
                 </div>

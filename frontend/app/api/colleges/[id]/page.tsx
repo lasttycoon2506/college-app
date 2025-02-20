@@ -27,7 +27,7 @@ export default async function CollegeDetails({
         <div className="bg-primary-content rounded-lg py-5">
           <h1 className="text-5xl font-bold text-center">{college.name}</h1>
         </div>
-        <p className="pt-6 text-center">{college.address}</p>
+        <p className="pt-2 text-center">{college.address}</p>
         <p className="py-2 text-center">
           <strong>$</strong>
           {college.tuition} / semester
@@ -60,38 +60,36 @@ export default async function CollegeDetails({
         </p>
       </div>
       <div>
-        <div className="grid grid-rows-2 gap-4 mt-20">
-          <div>
-            {currentDate > college.applicationDeadline ? (
-              <div>
-                <div className="card bg-error text-neutral-content w-96">
-                  <div className="card-body items-center text-center">
-                    <h2 className="card-title">App. Deadline</h2>
-                    <p>{college.applicationDeadline}</p>
-                  </div>
+        {currentDate > college.applicationDeadline ? (
+          <div className="grid grid-rows-2 gap-4 mt-20">
+            <div>
+              <div className="card bg-error text-neutral-content w-96">
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">App. Deadline</h2>
+                  <p>{college.applicationDeadline}</p>
                 </div>
               </div>
-            ) : (
-              <div className="flex justify-center items-center">
-                <div className="card bg-success text-neutral-content w-96">
-                  <div className="card-body items-center text-center">
-                    <h2 className="card-title">
-                      <strong>
-                        <em>App. Deadline</em>
-                      </strong>
-                    </h2>
-                    <p>{college.applicationDeadline}</p>
-                  </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-rows-2 gap-4 mt-20">
+            <div>
+              <div className="card bg-info text-neutral-content w-96">
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">App. Deadline</h2>
+                  <p>{college.applicationDeadline}</p>
                 </div>
               </div>
-            )}
+            </div>
+            <div>
+              <div className="flex justify-center items-center m-10">
+                <button className="btn btn-lg btn-wide bg-success shadow-xl shadow-green-500/50 border-none text-2xl">
+                  Apply
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center items-center mt-20">
-            <button className="btn btn-lg btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none text-2xl">
-              Apply
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
