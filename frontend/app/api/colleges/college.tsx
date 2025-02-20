@@ -38,11 +38,15 @@ export default function College({ college }: { college: College }) {
           </div>
           <div className="col-span-1 row-span-3 ... flex justify-center items-center">
             <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
-              <button className="btn btn-neutral">Info</button>
+              <button className="btn bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none">
+                Info
+              </button>
             </Link>
           </div>
           <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <button className="btn btn-primary">Apply</button>
+            <button className="btn bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
+              Apply
+            </button>
           </div>
         </div>
       </div>

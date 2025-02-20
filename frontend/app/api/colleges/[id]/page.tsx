@@ -34,7 +34,7 @@ export default async function CollegeDetails({
         <p className="py-2">{college.address}</p>
       </div>
       <div className="row-span-3 col-span-1 ... flex justify-center items-center">
-        <button className="btn bg-cyan-500 shadow-lg shadow-cyan-500/50">
+        <button className="btn bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
           Apply
         </button>
       </div>
