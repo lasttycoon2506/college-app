@@ -59,11 +59,22 @@ export default function College({ college }: { college: College }) {
                   </button>
                 </Link>
               </div>
-              <div className="flex justify-center items-center">
-                <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base">
-                  Apply
-                </button>
-              </div>
+              {currentDate >
+              new Date(college.applicationDeadline)
+                .toISOString()
+                .slice(0, 10) ? (
+                <div className="flex justify-center items-center">
+                  <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base opacity-50 cursor-not-allowed">
+                    Apply
+                  </button>
+                </div>
+              ) : (
+                <div className="flex justify-center items-center">
+                  <button className="btn btn-wide bg-success shadow-xl shadow-cyan-500/50 border-none text-base">
+                    Apply
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
