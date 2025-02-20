@@ -1,6 +1,9 @@
 export default function filters() {
   return (
-    <div className="form-control">
+    <div className="form-control py-20">
+      <h3 className="text-center pb-8 text-lg font-black underline underline-offset-2">
+        Filter:
+      </h3>
       <label className="label cursor-pointer">
         <span className="label-text">Remember me</span>
         <input
