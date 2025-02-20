@@ -4,9 +4,9 @@ import filters from "@/components/ui/filters";
 export default function HomePage() {
   return (
     <>
-      <div className="grid grid-flow-col grid-rows-3 gap-4">
-        <div className="row-span-3 ...">{filters()}</div>
-        <div className="col-span-2 row-span-3 ...">
+      <div className="grid grid-cols-4 gap-4">
+        <div className="col-start-1">{filters()}</div>
+        <div className="col-span-3 col-start-2 ...">
           <AllColleges />
         </div>
       </div>
