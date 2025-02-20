@@ -23,18 +23,41 @@ export default async function CollegeDetails({
           className="max-w-sm rounded-lg shadow-2xl "
         />
       </div>
-      <div className="mx-10">
-        <h1 className="text-5xl font-bold">{college.name}</h1>
-        <p className="pt-6">{college.address}</p>
-        <p className="py-2">${college.tuition} / semester</p>
-        <p className="py-2">{college.type}</p>
-        <p className="py-2">Est: {college.established}</p>
-        <p className="py-2">Endowment: ${college.endowment}</p>
-        <p className="py-2">Academic Staff: {college.academicStaff}</p>
-        <p className="py-2">Undergrad: {college.undergrad}</p>
-        <p className="py-2">Postgrad: {college.postgrad}</p>
-        <p className="py-2">Size: {college.campusSize} acres</p>
-        <p className="py-2">Division: {college.division}</p>
+      <div className="bg-neutral-content rounded-lg mx-10">
+        <div className="bg-primary-content rounded-lg">
+          <h1 className="text-5xl font-bold text-center">{college.name}</h1>
+        </div>
+        <p className="pt-6 text-center">{college.address}</p>
+        <p className="py-2 text-center">
+          <strong>$</strong>
+          {college.tuition} / semester
+        </p>
+        <p className="py-2 text-center">{college.type}</p>
+        <p className="py-2 text-center">
+          <strong>Est:</strong> {college.established}
+        </p>
+        <p className="py-2 text-center">
+          <strong>Endowment: $</strong>
+          {college.endowment}
+        </p>
+        <p className="py-2 text-center">
+          <strong>Academic Staff: </strong> {college.academicStaff}
+        </p>
+        <p className="py-2 text-center">
+          <strong>Undergrad: </strong>
+          {college.undergrad}
+        </p>
+        <p className="py-2 text-center">
+          <strong>Postgrad: </strong>
+          {college.postgrad}
+        </p>
+        <p className="py-2 text-center">
+          <strong>Size: </strong>
+          {college.campusSize} acres
+        </p>
+        <p className="py-2 text-center">
+          <strong>Division:</strong> {college.division}
+        </p>
       </div>
       <div>
         <div className="grid grid-flow-col grid-rows-2 gap-4 mt-20">

@@ -17,7 +17,7 @@ export default function College({ college }: { college: College }) {
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">
       <figure>
         <Image
-          className="dark:invert mr-6"
+          className="dark:invert mr-6 rounded-lg"
           src={`/campus${randomInt}.jpg`}
           alt="clg campus"
           width={200}
