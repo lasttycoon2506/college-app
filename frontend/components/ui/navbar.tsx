@@ -34,8 +34,14 @@ export default function Navbar() {
           </button>
         </div>
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-circle">
-            <div className="rounded-full">username</div>
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img src="/profile.svg" />
+            </div>
           </div>
           <ul
             tabIndex={0}
