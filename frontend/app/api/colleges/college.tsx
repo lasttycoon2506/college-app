@@ -25,7 +25,7 @@ export default function College({ college }: { college: College }) {
         />
       </figure>
       <div className="card-body">
-        <div className="grid grid-flow-col grid-rows-4 gap-2">
+        <div className="grid grid-flow-col grid-rows-2 gap-2">
           <div className="row-span-3 col-span 2 ...">
             <h2 className="card-title mb-1">
               <strong>
@@ -44,20 +44,27 @@ export default function College({ college }: { college: College }) {
                 </p>
               </div>
             ) : (
-              <p>Deadline: {college.applicationDeadline.toString()}</p>
+              <p>
+                <strong>Deadline:</strong>{" "}
+                {college.applicationDeadline.toString()}
+              </p>
             )}
           </div>
-          <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
-              <button className="btn bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none">
-                Info
-              </button>
-            </Link>
-          </div>
-          <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <button className="btn bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
-              Apply
-            </button>
+          <div className="col-span-1 row-span-2 ...">
+            <div className="grid grid-flow-col grid-rows-2 gap-4">
+              <div className="flex justify-center items-center">
+                <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
+                  <button className="btn btn-wide bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none">
+                    Info
+                  </button>
+                </Link>
+              </div>
+              <div className="flex justify-center items-center">
+                <button className="btn btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
+                  Apply
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
