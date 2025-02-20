@@ -1,5 +1,5 @@
-import AllColleges from "@/app/api/colleges/collegesResolved";
-import filters from "@/components/ui/filters";
+import AllColleges from "@/components/collegesResolved";
+import filters from "@/components/filters";
 
 export default function HomePage() {
   return (

@@ -3,7 +3,7 @@ async function getCollegeDetails(id: number) {
   return res.json();
 }
 
-export default async function CollegeDetails({
+export default async function CollegeDetailsPg({
   params,
   searchParams,
 }: {
