@@ -29,7 +29,7 @@ export default function Navbar() {
           />
         </div>
         <div>
-          <button className="btn bg-success shadow-xl border-none text-base">
+          <button className="btn bg-stone-300 shadow-xl border-none text-base">
             Login
           </button>
         </div>
