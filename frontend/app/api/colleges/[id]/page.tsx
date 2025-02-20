@@ -33,7 +33,7 @@ export default async function CollegeDetails({
         <p className="py-2">{college.address}</p>
       </div>
       <div className="row-span-3 col-span-1 ... flex justify-center items-center">
-        <div className="grid grid-flow-col grid-rows-2 gap-4">
+        <div className="grid grid-flow-col grid-rows-2 gap-4 mt-20">
           <div>
             {currentDate > college.applicationDeadline ? (
               <div>
@@ -49,7 +49,7 @@ export default async function CollegeDetails({
                 </div>
               </div>
             ) : (
-              <div>
+              <div className="flex justify-center items-center">
                 <div className="card bg-success text-neutral-content w-96">
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">App. Deadline</h2>
@@ -63,8 +63,8 @@ export default async function CollegeDetails({
               </div>
             )}
           </div>
-          <div>
-            <button className="btn bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
+          <div className="flex justify-center items-center">
+            <button className="btn btn-lg btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
               Apply
             </button>
           </div>
