@@ -17,33 +17,26 @@ export default async function CollegeDetails({
   const college = await getCollegeDetails(id);
 
   return (
-    <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral">
-      <figure>
-        <Image
-          className="dark:invert mr-6"
+    <div className="grid grid-flow-col grid-rows-3 gap-4">
+      <div className="row-span-2 ...">
+        <img
           src={`/campus${picId}.jpg`}
-          alt="clg campus"
-          width={200}
-          height={200}
+          className="max-w-sm rounded-lg shadow-2xl "
         />
-      </figure>
-      <div className="card-body">
-        <div className="grid grid-flow-col grid-rows-4 gap-2">
-          <div className="row-span-3 col-span 2 ...">
-            <h2 className="card-title mb-1">
-              <strong>
-                <em>{college.name}</em>
-              </strong>
-            </h2>
-            <p>{college.address}</p>
-            <p>${college.tuition} / semester</p>
-            <p>Deadline: {college.applicationDeadline.toString()}</p>
-          </div>
-          <div className="col-span-1 row-span-3 ... flex justify-center items-center"></div>
-          <div className="col-span-1 row-span-3 ... flex justify-center items-center">
-            <button className="btn btn-primary">Apply</button>
-          </div>
-        </div>
+      </div>
+      <div className="row-span-3 col-span-1 ... ">
+        <h1 className="text-5xl font-bold">{college.name}</h1>
+        <p className="pt-6">{college.address}</p>
+        <p className="py-2">{college.tuition}</p>
+        <p className="py-2">{college.type}</p>
+        <p className="py-2">{college.address}</p>
+        <p className="py-2">{college.address}</p>
+        <p className="py-2">{college.address}</p>
+      </div>
+      <div className="row-span-3 col-span-1 ... flex justify-center items-center">
+        <button className="btn bg-cyan-500 shadow-lg shadow-cyan-500/50">
+          Apply
+        </button>
       </div>
     </div>
   );
