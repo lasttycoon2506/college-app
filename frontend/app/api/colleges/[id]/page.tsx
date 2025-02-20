@@ -60,7 +60,7 @@ export default async function CollegeDetails({
         </p>
       </div>
       <div>
-        <div className="grid grid-flow-col grid-rows-2 gap-4 mt-20">
+        <div className="grid grid-rows-2 gap-4 mt-20">
           <div>
             {currentDate > college.applicationDeadline ? (
               <div>
@@ -75,15 +75,19 @@ export default async function CollegeDetails({
               <div className="flex justify-center items-center">
                 <div className="card bg-success text-neutral-content w-96">
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">App. Deadline</h2>
+                    <h2 className="card-title">
+                      <strong>
+                        <em>App. Deadline</em>
+                      </strong>
+                    </h2>
                     <p>{college.applicationDeadline}</p>
                   </div>
                 </div>
               </div>
             )}
           </div>
-          <div className="flex justify-center items-center">
-            <button className="btn btn-lg btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
+          <div className="flex justify-center items-center mt-20">
+            <button className="btn btn-lg btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none text-2xl">
               Apply
             </button>
           </div>

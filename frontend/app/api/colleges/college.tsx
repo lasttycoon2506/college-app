@@ -25,9 +25,9 @@ export default function College({ college }: { college: College }) {
         />
       </figure>
       <div className="card-body">
-        <div className="grid grid-flow-col grid-rows-2 gap-2">
-          <div className="row-span-3 col-span 2 ...">
-            <h2 className="card-title mb-1">
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <h2 className="card-title mb-5 text-2xl">
               <strong>
                 <em>{college.name}</em>
               </strong>
@@ -50,17 +50,17 @@ export default function College({ college }: { college: College }) {
               </p>
             )}
           </div>
-          <div className="col-span-1 row-span-2 ...">
-            <div className="grid grid-flow-col grid-rows-2 gap-4">
+          <div>
+            <div className="grid grid-rows-2 gap-4">
               <div className="flex justify-center items-center">
                 <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
-                  <button className="btn btn-wide bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none">
+                  <button className="btn btn-wide bg-neutral-400 shadow-xl shadow-neutral-400/50 border-none text-base">
                     Info
                   </button>
                 </Link>
               </div>
               <div className="flex justify-center items-center">
-                <button className="btn btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none">
+                <button className="btn btn-wide bg-cyan-500 shadow-xl shadow-cyan-500/50 border-none text-base">
                   Apply
                 </button>
               </div>
