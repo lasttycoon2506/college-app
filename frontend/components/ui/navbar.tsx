@@ -2,61 +2,64 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-3">
-      <div className="flex items-center flex-shrink-0 text-white mr-12">
-        <Image
-          className="dark:invert mr-6"
-          src="/college.svg"
-          alt="clg icon"
-          width={45}
-          height={45}
-        />
-        <span className="font-semibold text-xl tracking-tight">EZ Apply</span>
+    <div className="navbar bg-base-100 bg-info">
+      <Image
+        className="dark:invert mr-6 rounded-lg shadow-xl"
+        src="college.svg"
+        alt="clg campus"
+        width={50}
+        height={50}
+      />
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">EZ Apply</a>
       </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >
-            Docs
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >
-            Examples
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-          >
-            Blog
-          </a>
+      <div className="flex gap-2">
+        <div className="form-control">
+          <input
+            type="text"
+            placeholder="Username"
+            className="input input-bordered md:w-auto"
+          />
         </div>
-        <div className="flex flex-shrink-0 text-white">
-          <form>
-            <input
-              className="shadow rounded py-3 px-3 text-gray-700 leading-tight focus:shadow-outline mr-2"
-              id="username"
-              type="text"
-              placeholder="Username"
-            />
-            <input
-              className="shadow rounded py-3 px-3 text-gray-700 leading-tight focus:shadow-outline"
-              id="password"
-              type="password"
-              placeholder="Password"
-            />
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Login
-            </button>
-          </form>
+        <div className="form-control">
+          <input
+            type="password"
+            placeholder="Password"
+            className="input input-bordered md:w-auto"
+          />
+        </div>
+        <div>
+          <button className="btn bg-success shadow-xl border-none text-base">
+            Login
+          </button>
+        </div>
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">username</div>
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <a>Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }
