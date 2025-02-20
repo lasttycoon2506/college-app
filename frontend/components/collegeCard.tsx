@@ -22,6 +22,7 @@ export default function College({ college }: { college: College }) {
           alt="clg campus"
           width={200}
           height={200}
+          priority={true}
         />
       </figure>
       <div className="card-body">

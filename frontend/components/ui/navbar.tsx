@@ -9,6 +9,7 @@ export default function Navbar() {
         alt="clg campus"
         width={50}
         height={50}
+        priority={true}
       />
       <div className="flex-1">
         <a className="btn btn-ghost text-2xl font-bold">EZ Apply</a>
