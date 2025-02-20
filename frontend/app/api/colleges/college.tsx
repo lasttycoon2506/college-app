@@ -3,10 +3,10 @@ import type { College } from "@/models/college";
 import { getRandomInt } from "@/helpers/randomIntGen";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import CollegeDetails from "./[id]/page";
 
 export default function College({ college }: { college: College }) {
   const [randomInt, setRandomInt] = useState(0);
+  const currentDate = new Date().toISOString().slice(0, 10);
 
   useEffect(() => {
     const randomInt = getRandomInt(5);
@@ -34,7 +34,18 @@ export default function College({ college }: { college: College }) {
             </h2>
             <p>{college.address}</p>
             <p>${college.tuition} / semester</p>
-            <p>Deadline: {college.applicationDeadline.toString()}</p>
+            {currentDate >
+            new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
+              <div className="bg-error rounded">
+                <p>
+                  <strong>
+                    Deadline: {college.applicationDeadline.toString()}
+                  </strong>
+                </p>
+              </div>
+            ) : (
+              <p>Deadline: {college.applicationDeadline.toString()}</p>
+            )}
           </div>
           <div className="col-span-1 row-span-3 ... flex justify-center items-center">
             <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
