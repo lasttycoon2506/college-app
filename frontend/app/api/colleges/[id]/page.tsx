@@ -16,23 +16,27 @@ export default async function CollegeDetails({
   const currentDate = new Date().toISOString().slice(0, 10);
 
   return (
-    <div className="grid grid-flow-col grid-rows-3 gap-4">
-      <div className="row-span-2 ...">
+    <div className="grid grid-cols-3 gap-5 mx-10 my-10">
+      <div>
         <img
           src={`/campus${picId}.jpg`}
           className="max-w-sm rounded-lg shadow-2xl "
         />
       </div>
-      <div className="row-span-3 col-span-1 ... ">
+      <div className="mx-10">
         <h1 className="text-5xl font-bold">{college.name}</h1>
         <p className="pt-6">{college.address}</p>
-        <p className="py-2">{college.tuition}</p>
+        <p className="py-2">${college.tuition} / semester</p>
         <p className="py-2">{college.type}</p>
-        <p className="py-2">{college.address}</p>
-        <p className="py-2">{college.address}</p>
-        <p className="py-2">{college.address}</p>
+        <p className="py-2">Est: {college.established}</p>
+        <p className="py-2">Endowment: ${college.endowment}</p>
+        <p className="py-2">Academic Staff: {college.academicStaff}</p>
+        <p className="py-2">Undergrad: {college.undergrad}</p>
+        <p className="py-2">Postgrad: {college.postgrad}</p>
+        <p className="py-2">Size: {college.campusSize} acres</p>
+        <p className="py-2">Division: {college.division}</p>
       </div>
-      <div className="row-span-3 col-span-1 ... flex justify-center items-center">
+      <div>
         <div className="grid grid-flow-col grid-rows-2 gap-4 mt-20">
           <div>
             {currentDate > college.applicationDeadline ? (
@@ -40,11 +44,7 @@ export default async function CollegeDetails({
                 <div className="card bg-error text-neutral-content w-96">
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">App. Deadline</h2>
-                    <p>We are using cookies for no reason.</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Accept</button>
-                      <button className="btn btn-ghost">Deny</button>
-                    </div>
+                    <p>{college.applicationDeadline}</p>
                   </div>
                 </div>
               </div>
@@ -53,11 +53,7 @@ export default async function CollegeDetails({
                 <div className="card bg-success text-neutral-content w-96">
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">App. Deadline</h2>
-                    <p>We are using cookies for no reason.</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Accept</button>
-                      <button className="btn btn-ghost">Deny</button>
-                    </div>
+                    <p>{college.applicationDeadline}</p>
                   </div>
                 </div>
               </div>
