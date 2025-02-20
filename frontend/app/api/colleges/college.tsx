@@ -36,13 +36,11 @@ export default function College({ college }: { college: College }) {
             <p>${college.tuition} / semester</p>
             {currentDate >
             new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
-              <div className="bg-error rounded">
-                <p>
-                  <strong>
-                    Deadline: {college.applicationDeadline.toString()}
-                  </strong>
-                </p>
-              </div>
+              <p className="text-red-500 text-lg">
+                <strong>
+                  Deadline: {college.applicationDeadline.toString()}
+                </strong>
+              </p>
             ) : (
               <p>
                 <strong>Deadline:</strong>{" "}
