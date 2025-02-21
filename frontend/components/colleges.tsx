@@ -1,6 +1,6 @@
 "use client";
 import { use } from "react";
-import CollegeComponent from "./collegeCard";
+import CollegeComponent from "./CollegeCard";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 
 export default function Colleges({
