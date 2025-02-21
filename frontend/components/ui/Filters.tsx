@@ -1,4 +1,4 @@
-export default function filters() {
+export default function Filters() {
   return (
     <div className="form-control py-20">
       <h3 className="text-center pb-8 text-lg font-black underline underline-offset-2">

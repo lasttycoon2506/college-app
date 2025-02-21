@@ -4,7 +4,7 @@ import { getRandomInt } from "@/helpers/randomIntGen";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function College({ college }: { college: College }) {
+export default function CollegeCard({ college }: { college: College }) {
   const [randomInt, setRandomInt] = useState(0);
   const currentDate = new Date().toISOString().slice(0, 10);
 
