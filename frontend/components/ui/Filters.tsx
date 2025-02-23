@@ -1,5 +1,7 @@
+"use client";
+
 export default function Filters() {
-  function handleClick(event: React.MouseEvent) {}
+  function handleClick(checkBox: any) {}
   function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
     return true;
   }
@@ -21,7 +23,7 @@ export default function Filters() {
             name="tuition"
             value="0-10000"
             defaultChecked={checkHandler("tuition", "0-10000")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">$0 - $10,000 </span>
         </label>
@@ -33,7 +35,7 @@ export default function Filters() {
             name="tuition"
             value="10000-20000"
             defaultChecked={checkHandler("tuition", "10000-20000")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">$10,000 - $20,000 </span>
         </label>
@@ -45,7 +47,7 @@ export default function Filters() {
             name="tuition"
             value="20000+"
             defaultChecked={checkHandler("tuition", "20000+")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">$20,000+ </span>
         </label>
@@ -62,7 +64,7 @@ export default function Filters() {
             name="type"
             value="public"
             defaultChecked={checkHandler("type", "public")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">Public </span>
         </label>
@@ -74,7 +76,7 @@ export default function Filters() {
             name="type"
             value="private"
             defaultChecked={checkHandler("type", "private")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">Private </span>
         </label>
@@ -91,7 +93,7 @@ export default function Filters() {
             name="undergrad"
             value="0-10000"
             defaultChecked={checkHandler("undergrad", "0-10000")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">0 - 10,000 </span>
         </label>
@@ -103,7 +105,7 @@ export default function Filters() {
             name="undergrad"
             value="10000-25000"
             defaultChecked={checkHandler("undergrad", "10000-25000")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">10,000 - 25,000 </span>
         </label>
@@ -115,7 +117,7 @@ export default function Filters() {
             name="undergrad"
             value="25000+"
             defaultChecked={checkHandler("undergrad", "25000+")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">25,000+ </span>
         </label>
@@ -132,7 +134,7 @@ export default function Filters() {
             name="deadline"
             value="open"
             defaultChecked={checkHandler("deadline", "open")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">Open </span>
         </label>
@@ -144,7 +146,7 @@ export default function Filters() {
             name="deadline"
             value="closed"
             defaultChecked={checkHandler("deadline", "closed")}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e.target)}
           />
           <span className="label-text ps-1">Closed </span>
         </label>
