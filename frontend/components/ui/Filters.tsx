@@ -1,9 +1,16 @@
 "use client";
 
 export default function Filters() {
-  function handleClick(checkBox: any) {
+  function handleClick(checkBox: HTMLInputElement) {
     if (window) {
       const queryParams = new URLSearchParams(window.location.search);
+
+      const checkboxes = document.getElementsByName(checkBox.name);
+      checkboxes.forEach((item) => {
+        const inputItem = item as HTMLInputElement;
+        if (inputItem.checked)
+          queryParams.append(checkBox.name, checkBox.value);
+      });
       console.log(queryParams);
     }
   }
