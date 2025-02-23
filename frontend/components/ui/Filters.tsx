@@ -4,30 +4,19 @@ import { useRouter } from "next/navigation";
 
 export default function Filters() {
   const router = useRouter();
-  let queryParams: URLSearchParams;
-  if (window) {
-    queryParams = new URLSearchParams(window.location.search);
-  }
+  let queryParams = new URLSearchParams(window.location.search);
 
-  function handleClick(checkBox: any) {
-    const checkboxes = document.getElementsByName(checkBox.name);
-
-    checkboxes.forEach((item) => {
-      const inputItem = item as HTMLInputElement;
-
-      if (inputItem.checked) {
-        if (queryParams.has(checkBox.name)) {
-          queryParams.set(checkBox.name, checkBox.value);
-        } else {
-          queryParams.append(checkBox.name, checkBox.value);
-        }
-      } else if (!inputItem.checked) {
-        queryParams.delete(checkBox.name, checkBox.value);
+  function handleClick(checkBox: HTMLInputElement) {
+    if (checkBox.checked) {
+      if (queryParams.has(checkBox.name)) {
+        queryParams.set(checkBox.name, checkBox.value);
+      } else {
+        queryParams.append(checkBox.name, checkBox.value);
       }
-
-      router.replace(`?${queryParams.toString()}`);
-    });
-    console.log(queryParams);
+    } else if (!checkBox.checked) {
+      queryParams.delete(checkBox.name);
+    }
+    router.replace(`?${queryParams.toString()}`);
   }
 
   function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
@@ -51,7 +40,7 @@ export default function Filters() {
             name="tuition"
             value="0-10000"
             defaultChecked={checkHandler("tuition", "0-10000")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">$0 - $10,000 </span>
         </label>
@@ -63,7 +52,7 @@ export default function Filters() {
             name="tuition"
             value="10000-20000"
             defaultChecked={checkHandler("tuition", "10000-20000")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">$10,000 - $20,000 </span>
         </label>
@@ -75,7 +64,7 @@ export default function Filters() {
             name="tuition"
             value="20000+"
             defaultChecked={checkHandler("tuition", "20000+")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">$20,000+ </span>
         </label>
@@ -92,7 +81,7 @@ export default function Filters() {
             name="type"
             value="public"
             defaultChecked={checkHandler("type", "public")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">Public </span>
         </label>
@@ -104,7 +93,7 @@ export default function Filters() {
             name="type"
             value="private"
             defaultChecked={checkHandler("type", "private")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">Private </span>
         </label>
@@ -121,7 +110,7 @@ export default function Filters() {
             name="undergrad"
             value="0-10000"
             defaultChecked={checkHandler("undergrad", "0-10000")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">0 - 10,000 </span>
         </label>
@@ -133,7 +122,7 @@ export default function Filters() {
             name="undergrad"
             value="10000-25000"
             defaultChecked={checkHandler("undergrad", "10000-25000")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">10,000 - 25,000 </span>
         </label>
@@ -145,7 +134,7 @@ export default function Filters() {
             name="undergrad"
             value="25000+"
             defaultChecked={checkHandler("undergrad", "25000+")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">25,000+ </span>
         </label>
@@ -162,7 +151,7 @@ export default function Filters() {
             name="deadline"
             value="open"
             defaultChecked={checkHandler("deadline", "open")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">Open </span>
         </label>
@@ -174,7 +163,7 @@ export default function Filters() {
             name="deadline"
             value="closed"
             defaultChecked={checkHandler("deadline", "closed")}
-            onClick={(e) => handleClick(e.target)}
+            onClick={(e) => handleClick(e.target as HTMLInputElement)}
           />
           <span className="label-text ps-1">Closed </span>
         </label>
