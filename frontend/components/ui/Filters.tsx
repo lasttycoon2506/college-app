@@ -1,9 +1,14 @@
 "use client";
 
 export default function Filters() {
-  function handleClick(checkBox: any) {}
+  function handleClick(checkBox: any) {
+    if (window) {
+      const queryParams = new URLSearchParams(window.location.search);
+      console.log(queryParams);
+    }
+  }
   function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
-    return true;
+    return false;
   }
 
   return (
