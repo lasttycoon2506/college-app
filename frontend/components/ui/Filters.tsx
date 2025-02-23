@@ -4,22 +4,32 @@ import { useRouter } from "next/navigation";
 
 export default function Filters() {
   const router = useRouter();
+  let queryParams: URLSearchParams;
+  if (window) {
+    queryParams = new URLSearchParams(window.location.search);
+  }
 
   function handleClick(checkBox: any) {
-    if (window) {
-      const queryParams = new URLSearchParams(window.location.search);
+    const checkboxes = document.getElementsByName(checkBox.name);
 
-      const checkboxes = document.getElementsByName(checkBox.name);
-      checkboxes.forEach((item) => {
-        const inputItem = item as HTMLInputElement;
-        if (inputItem.checked)
+    checkboxes.forEach((item) => {
+      const inputItem = item as HTMLInputElement;
+
+      if (inputItem.checked) {
+        if (queryParams.has(checkBox.name)) {
+          queryParams.set(checkBox.name, checkBox.value);
+        } else {
           queryParams.append(checkBox.name, checkBox.value);
-        if (router) {
-          router.replace(`?${queryParams.toString()}`);
         }
-      });
-    }
+      } else if (!inputItem.checked) {
+        queryParams.delete(checkBox.name, checkBox.value);
+      }
+
+      router.replace(`?${queryParams.toString()}`);
+    });
+    console.log(queryParams);
   }
+
   function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
     return false;
   }
