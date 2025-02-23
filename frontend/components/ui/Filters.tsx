@@ -1,7 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function Filters() {
-  function handleClick(checkBox: HTMLInputElement) {
+  const router = useRouter();
+
+  function handleClick(checkBox: any) {
     if (window) {
       const queryParams = new URLSearchParams(window.location.search);
 
@@ -10,8 +14,10 @@ export default function Filters() {
         const inputItem = item as HTMLInputElement;
         if (inputItem.checked)
           queryParams.append(checkBox.name, checkBox.value);
+        if (router) {
+          router.replace(`?${queryParams.toString()}`);
+        }
       });
-      console.log(queryParams);
     }
   }
   function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
