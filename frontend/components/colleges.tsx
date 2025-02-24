@@ -27,7 +27,6 @@ export default function Colleges({
       });
       return isValid;
     });
-    console.log(newFilteredColleges);
     setFilteredColleges(newFilteredColleges);
   }
 
