@@ -4,7 +4,12 @@ import { College } from "@/models/college";
 import { useState } from "react";
 import CollegeCard from "../CollegeCard";
 
-export default function Filters(colleges: College[], onFilter: Function) {
+type FiltersProps = {
+  colleges: College[];
+  onFilter: (filters: Record<string, string>) => void;
+};
+
+export default function Filters({ colleges, onFilter }: FiltersProps) {
   const [filters, setFilters] = useState({});
 
   function handleFilterChange(filterName: string, filterValue: string) {

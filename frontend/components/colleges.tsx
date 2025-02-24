@@ -22,5 +22,5 @@ export default function Colleges({
     setFilteredColleges(newFilteredColleges);
   }
 
-  return Filters(allColleges, applyFilter);
+  return <Filters colleges={allColleges} onFilter={applyFilter} />;
 }
