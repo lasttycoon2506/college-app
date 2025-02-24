@@ -2,6 +2,7 @@
 
 import { College } from "@/models/college";
 import { useState } from "react";
+import CollegeCard from "../CollegeCard";
 
 export default function Filters(
   { colleges }: { colleges: College[] },
@@ -194,6 +195,11 @@ export default function Filters(
           <span className="label-text ps-1">Closed </span>
         </label>
       </div>
+      <ul>
+        {colleges.map((college) => (
+          <CollegeCard key={college.id} college={college} />
+        ))}
+      </ul>
     </div>
   );
 }
