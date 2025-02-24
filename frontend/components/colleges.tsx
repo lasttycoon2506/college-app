@@ -1,26 +1,33 @@
 "use client";
 import { use, useState } from "react";
 import Filters from "./ui/Filters";
-import { College } from "@/models/college";
+import { PaginatedColleges } from "@/models/paginatedColleges";
 
 export default function Colleges({
   colleges,
 }: {
-  colleges: Promise<College[]>;
+  colleges: Promise<PaginatedColleges>;
 }) {
-  const [filteredColleges, setFilteredColleges] = useState(colleges);
   const allColleges = use(colleges);
 
-  function applyFilter(filters) {
+  const [filteredColleges, setFilteredColleges] = useState(
+    allColleges.colleges
+  );
+
+  function applyFilter(filters: Record<string, string>) {
     const newFilteredColleges = filteredColleges.filter((college) => {
       let isValid = false;
-      if (filters.category) {
-        isValid = college.category === filters.category;
-      }
+      Object.keys(filters).forEach((key) => {
+        console.log(college[key]);
+      });
+      //   console.log(Object.keys(filters));
+      //   if (filters.category) {
+      //     isValid = college.category === filters.category;
+      //   }
       return isValid;
     });
     setFilteredColleges(newFilteredColleges);
   }
 
-  return <Filters colleges={allColleges} onFilter={applyFilter} />;
+  return <Filters colleges={filteredColleges} onFilter={applyFilter} />;
 }

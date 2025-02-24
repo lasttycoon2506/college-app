@@ -12,4 +12,5 @@ export type College = {
   campusSize: number;
   division: string;
   applicationDeadline: Date;
+  [key: string]: any;
 };
