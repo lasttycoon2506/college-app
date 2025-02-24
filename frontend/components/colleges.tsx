@@ -1,6 +1,6 @@
 "use client";
 import { use } from "react";
-import CollegeComponent from "./CollegeCard";
+import CollegeCard from "./CollegeCard";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 
 export default function Colleges({
@@ -13,7 +13,7 @@ export default function Colleges({
   return (
     <ul>
       {allColleges.colleges.map((college) => (
-        <CollegeComponent key={college.id} college={college} />
+        <CollegeCard key={college.id} college={college} />
       ))}
     </ul>
   );
