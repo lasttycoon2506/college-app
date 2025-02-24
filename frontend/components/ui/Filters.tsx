@@ -86,7 +86,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             className="checkbox checkbox-warning checkbox-xs"
             id="box4"
             name="type"
-            value="public"
+            value="Public"
             onClick={(e) =>
               handleFilterChange("type", (e.target as HTMLInputElement).value)
             }
@@ -99,7 +99,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             className="checkbox checkbox-info checkbox-xs"
             id="box5"
             name="type"
-            value="private"
+            value="Private"
             onClick={(e) =>
               handleFilterChange("type", (e.target as HTMLInputElement).value)
             }
@@ -170,7 +170,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             className="checkbox checkbox-accent checkbox-xs"
             id="box9"
             name="deadline"
-            value="open"
+            value="Open"
             onClick={(e) =>
               handleFilterChange(
                 "deadline",
@@ -186,7 +186,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             className="checkbox checkbox-error checkbox-xs"
             id="box10"
             name="deadline"
-            value="closed"
+            value="Closed"
             onClick={(e) =>
               handleFilterChange(
                 "deadline",

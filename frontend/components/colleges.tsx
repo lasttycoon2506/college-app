@@ -18,7 +18,14 @@ export default function Colleges({
     const newFilteredColleges = filteredColleges.filter((college) => {
       let isValid = false;
       Object.keys(filters).forEach((key) => {
-        console.log(college[key]);
+        if (
+          college[key] ===
+          Object.values(filters[key]).toString().replaceAll(",", "")
+        ) {
+          console.log("works");
+        }
+
+        // if (college[key] === Object.values)
       });
       //   console.log(Object.keys(filters));
       //   if (filters.category) {
