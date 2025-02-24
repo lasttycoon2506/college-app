@@ -47,8 +47,12 @@ export default function Filters(
             id="box2"
             name="tuition"
             value="10000-20000"
-            defaultChecked={checkHandler("tuition", "10000-20000")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "tuition",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">$10,000 - $20,000 </span>
         </label>
@@ -59,8 +63,12 @@ export default function Filters(
             id="box3"
             name="tuition"
             value="20000+"
-            defaultChecked={checkHandler("tuition", "20000+")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "tuition",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">$20,000+ </span>
         </label>
@@ -76,8 +84,9 @@ export default function Filters(
             id="box4"
             name="type"
             value="public"
-            defaultChecked={checkHandler("type", "public")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange("type", (e.target as HTMLInputElement).value)
+            }
           />
           <span className="label-text ps-1">Public </span>
         </label>
@@ -88,8 +97,9 @@ export default function Filters(
             id="box5"
             name="type"
             value="private"
-            defaultChecked={checkHandler("type", "private")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange("type", (e.target as HTMLInputElement).value)
+            }
           />
           <span className="label-text ps-1">Private </span>
         </label>
@@ -105,8 +115,12 @@ export default function Filters(
             id="box6"
             name="undergrad"
             value="0-10000"
-            defaultChecked={checkHandler("undergrad", "0-10000")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "undergrad",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">0 - 10,000 </span>
         </label>
@@ -117,8 +131,12 @@ export default function Filters(
             id="box7"
             name="undergrad"
             value="10000-25000"
-            defaultChecked={checkHandler("undergrad", "10000-25000")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "undergrad",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">10,000 - 25,000 </span>
         </label>
@@ -129,8 +147,12 @@ export default function Filters(
             id="box8"
             name="undergrad"
             value="25000+"
-            defaultChecked={checkHandler("undergrad", "25000+")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "undergrad",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">25,000+ </span>
         </label>
@@ -146,8 +168,12 @@ export default function Filters(
             id="box9"
             name="deadline"
             value="open"
-            defaultChecked={checkHandler("deadline", "open")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "deadline",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">Open </span>
         </label>
@@ -158,8 +184,12 @@ export default function Filters(
             id="box10"
             name="deadline"
             value="closed"
-            defaultChecked={checkHandler("deadline", "closed")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "deadline",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">Closed </span>
         </label>
