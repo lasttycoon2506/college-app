@@ -1,26 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { College } from "@/models/college";
+import { useState } from "react";
 
-export default function Filters() {
-  const router = useRouter();
-  let queryParams = new URLSearchParams(window.location.search);
+export default function Filters(
+  { colleges }: { colleges: College[] },
+  onFilter: Function
+) {
+  const [filters, setFilters] = useState({});
 
-  function handleClick(checkBox: HTMLInputElement) {
-    if (checkBox.checked) {
-      if (queryParams.has(checkBox.name)) {
-        queryParams.set(checkBox.name, checkBox.value);
-      } else {
-        queryParams.append(checkBox.name, checkBox.value);
-      }
-    } else if (!checkBox.checked) {
-      queryParams.delete(checkBox.name);
-    }
-    router.replace(`?${queryParams.toString()}`);
-  }
-
-  function checkHandler(checkBoxName: string, checkBoxValue: string): boolean {
-    return false;
+  function handleFilterChange(filterName: string, filterValue: string) {
+    const newFilters = { ...filters, [filterName]: filterValue };
+    setFilters(newFilters);
+    onFilter(newFilters);
   }
 
   return (
@@ -39,8 +31,12 @@ export default function Filters() {
             id="box1"
             name="tuition"
             value="0-10000"
-            defaultChecked={checkHandler("tuition", "0-10000")}
-            onClick={(e) => handleClick(e.target as HTMLInputElement)}
+            onClick={(e) =>
+              handleFilterChange(
+                "tuition",
+                (e.target as HTMLInputElement).value
+              )
+            }
           />
           <span className="label-text ps-1">$0 - $10,000 </span>
         </label>
