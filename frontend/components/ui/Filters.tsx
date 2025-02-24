@@ -11,11 +11,19 @@ type FiltersProps = {
 
 export default function Filters({ colleges, onFilter }: FiltersProps) {
   const [filters, setFilters] = useState({});
+  const [isChecked, setIsChecked] = useState(false);
 
-  function handleFilterChange(filterName: string, filterValue: string) {
-    const newFilters = { ...filters, [filterName]: filterValue };
-    setFilters(newFilters);
-    onFilter(newFilters);
+  function handleFilterChange(
+    isChecked: boolean,
+    filterName: string,
+    filterValue: string
+  ) {
+    setIsChecked(isChecked);
+    if (isChecked) {
+      const newFilters = { ...filters, [filterName]: filterValue };
+      setFilters(newFilters);
+      onFilter(newFilters);
+    }
   }
 
   return (
@@ -36,10 +44,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box1"
                 name="tuition"
                 value="0-10000"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "tuition",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -52,10 +62,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box2"
                 name="tuition"
                 value="10000-20000"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "tuition",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -68,10 +80,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box3"
                 name="tuition"
                 value="20000+"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "tuition",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -89,11 +103,9 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box4"
                 name="type"
                 value="Public"
-                onClick={(e) =>
-                  handleFilterChange(
-                    "type",
-                    (e.target as HTMLInputElement).value
-                  )
+                checked={isChecked}
+                onChange={(e) =>
+                  handleFilterChange(e.target.checked, "type", e.target.value)
                 }
               />
               <span className="label-text ps-1">Public </span>
@@ -105,11 +117,9 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box5"
                 name="type"
                 value="Private"
-                onClick={(e) =>
-                  handleFilterChange(
-                    "type",
-                    (e.target as HTMLInputElement).value
-                  )
+                checked={isChecked}
+                onChange={(e) =>
+                  handleFilterChange(e.target.checked, "type", e.target.value)
                 }
               />
               <span className="label-text ps-1">Private </span>
@@ -126,10 +136,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box6"
                 name="undergrad"
                 value="0-10000"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "undergrad",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -142,10 +154,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box7"
                 name="undergrad"
                 value="10000-25000"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "undergrad",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -158,10 +172,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box8"
                 name="undergrad"
                 value="25000+"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "undergrad",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -179,10 +195,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box9"
                 name="deadline"
                 value="Open"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "deadline",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />
@@ -195,10 +213,12 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 id="box10"
                 name="deadline"
                 value="Closed"
-                onClick={(e) =>
+                checked={isChecked}
+                onChange={(e) =>
                   handleFilterChange(
+                    e.target.checked,
                     "deadline",
-                    (e.target as HTMLInputElement).value
+                    e.target.value
                   )
                 }
               />

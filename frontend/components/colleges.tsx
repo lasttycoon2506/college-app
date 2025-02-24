@@ -15,7 +15,6 @@ export default function Colleges({
   );
 
   function applyFilter(filters: Record<string, string>) {
-    console.log(filters);
     const newFilteredColleges = filteredColleges.filter((college) => {
       let isValid = false;
       isValid = Object.keys(filters).some((key) => {
