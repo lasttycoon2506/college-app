@@ -1,20 +1,26 @@
 "use client";
-import { use } from "react";
-import CollegeCard from "./CollegeCard";
-import { PaginatedColleges } from "@/models/paginatedColleges";
+import { use, useState } from "react";
+import Filters from "./ui/Filters";
+import { College } from "@/models/college";
 
 export default function Colleges({
   colleges,
 }: {
-  colleges: Promise<PaginatedColleges>;
+  colleges: Promise<College[]>;
 }) {
+  const [filteredColleges, setFilteredColleges] = useState(colleges);
   const allColleges = use(colleges);
 
-  return (
-    <ul>
-      {allColleges.colleges.map((college) => (
-        <CollegeCard key={college.id} college={college} />
-      ))}
-    </ul>
-  );
+  function applyFilter(filters) {
+    const newFilteredColleges = filteredColleges.filter((college) => {
+      let isValid = false;
+      if (filters.category) {
+        isValid = college.category === filters.category;
+      }
+      return isValid;
+    });
+    setFilteredColleges(newFilteredColleges);
+  }
+
+  return Filters(allColleges, applyFilter);
 }
