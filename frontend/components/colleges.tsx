@@ -17,22 +17,17 @@ export default function Colleges({
   function applyFilter(filters: Record<string, string>) {
     const newFilteredColleges = filteredColleges.filter((college) => {
       let isValid = false;
-      Object.keys(filters).forEach((key) => {
+      isValid = Object.keys(filters).some((key) => {
         if (
           college[key] ===
           Object.values(filters[key]).toString().replaceAll(",", "")
         ) {
-          console.log("works");
-        }
-
-        // if (college[key] === Object.values)
+          return true;
+        } else return false;
       });
-      //   console.log(Object.keys(filters));
-      //   if (filters.category) {
-      //     isValid = college.category === filters.category;
-      //   }
       return isValid;
     });
+    console.log(newFilteredColleges);
     setFilteredColleges(newFilteredColleges);
   }
 
