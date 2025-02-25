@@ -34,7 +34,7 @@ export default function CollegeCard({ college }: { college: College }) {
               </strong>
             </h2>
             <p>{college.address}</p>
-            <p>${college.tuition} / semester</p>
+            <p>${college.tuition.valueOf().toLocaleString()} / semester</p>
             <p>{college.type}</p>
             {currentDate >
             new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
