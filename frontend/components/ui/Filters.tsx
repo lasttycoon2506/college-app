@@ -60,8 +60,8 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             <h1 className="text-center text-lg font-black pb-3">Filters:</h1>
           </div>
           <div className="border-b border-blue-900 py-3 mr-3 ...">
-            {filterOptions.map((filterOption) => (
-              <>
+            {filterOptions.map((filterOption, index) => (
+              <div key={index}>
                 {filterOption === "0-10000" ? (
                   <h4 className="font-semibold">
                     <em>Tuition</em>
@@ -83,7 +83,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 )}
                 <label
                   className="label cursor-pointer py-0 justify-start"
-                  key={filterOption}
+                  key={index}
                 >
                   <input
                     type="checkbox"
@@ -94,7 +94,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                   />
                   <span className="label-text ps-1">{filterOption}</span>
                 </label>
-              </>
+              </div>
             ))}
           </div>
         </div>
