@@ -33,7 +33,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
       filterCategory = "tuition";
     } else if (filterOptions.slice(3, 5).includes(filterValue)) {
       filterCategory = "type";
-    } else if (filterOptions.slice(6, 9).includes(filterValue)) {
+    } else if (filterOptions.slice(5, 8).includes(filterValue)) {
       filterCategory = "undergrad";
     } else {
       filterCategory = "deadline";
