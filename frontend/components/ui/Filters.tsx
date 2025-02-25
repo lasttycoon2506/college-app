@@ -17,32 +17,34 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     "20000+",
     "Public",
     "Private",
-    "0-10000",
-    "10000-25000",
+    "0-10001",
+    "10001-25000",
     "25000+",
     "Open",
     "Closed",
   ];
-  const filterNames: string[] = ["tuition", "type", "undergrad", "deadline"];
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
-    const checkboxValue: string = event.target.value;
+    const filterValue: string = event.target.value;
     const isChecked: boolean = event.target.checked;
-    let filterCategory;
+    let filterCategory: string;
 
-    if (filterOptions.slice(0, 3).includes(checkboxValue)) {
+    if (filterOptions.slice(0, 3).includes(filterValue)) {
       filterCategory = "tuition";
-    } else if (filterOptions.slice(3, 5).includes(checkboxValue)) {
+    } else if (filterOptions.slice(3, 5).includes(filterValue)) {
       filterCategory = "type";
-    } else if (filterOptions.slice(6, 9).includes(checkboxValue)) {
+    } else if (filterOptions.slice(6, 9).includes(filterValue)) {
       filterCategory = "undergrad";
     } else {
       filterCategory = "deadline";
     }
 
-    const newFilters = { ...filters, [filterName]: filterValue };
-    setFilters(newFilters);
-    onFilter(newFilters);
+    if (isChecked) {
+      const newFilters = { ...filters, [filterCategory]: filterValue };
+      setFilters(newFilters);
+      onFilter(newFilters);
+    } else {
+    }
   }
 
   function isChecked(value: string): boolean {
@@ -61,7 +63,10 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
               <em>Tuition</em>
             </h4>
             {filterOptions.map((filterOption) => (
-              <label className="label cursor-pointer py-0 justify-start">
+              <label
+                className="label cursor-pointer py-0 justify-start"
+                key={filterOption}
+              >
                 <input
                   type="checkbox"
                   className="checkbox checkbox-primary checkbox-xs"
