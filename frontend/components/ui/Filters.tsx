@@ -12,14 +12,14 @@ type FiltersProps = {
 export default function Filters({ colleges, onFilter }: FiltersProps) {
   const [filters, setFilters] = useState<Record<string, string>>({});
   const filterOptions: string[] = [
-    "0-10000",
-    "10000-20000",
-    "20000+",
+    "$0 - $10,000",
+    "$10,000 - $20,000",
+    "$20,000+",
     "Public",
     "Private",
-    "0-10001",
-    "10001-25000",
-    "25000+",
+    "0 - 10,001",
+    "10,001 - 25,000",
+    "25,000+",
     "Open",
     "Closed",
   ];
@@ -65,7 +65,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
           <div className="border-b border-blue-900 py-3 mr-3 ...">
             {filterOptions.map((filterOption, index) => (
               <div key={index}>
-                {filterOption === "0-10000" ? (
+                {filterOption === "$0 - $10,000" ? (
                   <h4 className="font-semibold">
                     <em>Tuition</em>
                   </h4>
@@ -73,7 +73,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                   <h4 className="font-semibold pt-3">
                     <em>Type</em>
                   </h4>
-                ) : filterOption === "0-10001" ? (
+                ) : filterOption === "0 - 10,001" ? (
                   <h4 className="font-semibold pt-3">
                     <em>Undergrad</em>
                   </h4>
