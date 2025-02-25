@@ -10,7 +10,7 @@ type FiltersProps = {
 };
 
 export default function Filters({ colleges, onFilter }: FiltersProps) {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<Record<string, string>>({});
   const filterOptions: string[] = [
     "0-10000",
     "10000-20000",
@@ -45,6 +45,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
       setFilters(newFilters);
       onFilter(newFilters);
     } else {
+      filters[filterCategory];
     }
   }
 
