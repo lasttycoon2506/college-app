@@ -23,7 +23,6 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     "Open",
     "Closed",
   ];
-  const count = 1;
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
     const filterValue: string = event.target.value;
@@ -45,7 +44,10 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
       setFilters(newFilters);
       onFilter(newFilters);
     } else {
-      filters[filterCategory];
+      const newFilters = { ...filters };
+      delete newFilters[filterCategory];
+      setFilters(newFilters);
+      onFilter(newFilters);
     }
   }
 

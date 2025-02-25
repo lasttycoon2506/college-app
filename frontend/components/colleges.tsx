@@ -15,19 +15,23 @@ export default function Colleges({
   );
 
   function applyFilter(filters: Record<string, string>) {
-    const newFilteredColleges = filteredColleges.filter((college) => {
-      let isValid = false;
-      isValid = Object.keys(filters).some((key) => {
-        if (
-          college[key] ===
-          Object.values(filters[key]).toString().replaceAll(",", "")
-        ) {
-          return true;
-        } else return false;
+    if (Object.keys(filters).length === 0) {
+      setFilteredColleges(allColleges.colleges);
+    } else {
+      const newFilteredColleges = filteredColleges.filter((college) => {
+        let isValid = false;
+        isValid = Object.keys(filters).some((key) => {
+          if (
+            college[key] ===
+            Object.values(filters[key]).toString().replaceAll(",", "")
+          ) {
+            return true;
+          } else return false;
+        });
+        return isValid;
       });
-      return isValid;
-    });
-    setFilteredColleges(newFilteredColleges);
+      setFilteredColleges(newFilteredColleges);
+    }
   }
 
   return <Filters colleges={filteredColleges} onFilter={applyFilter} />;
