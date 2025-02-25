@@ -63,19 +63,19 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             {filterOptions.map((filterOption) => (
               <>
                 {filterOption === "0-10000" ? (
-                  <h4 className="font-semibold pb-2">
+                  <h4 className="font-semibold">
                     <em>Tuition</em>
                   </h4>
                 ) : filterOption === "Public" ? (
-                  <h4 className="font-semibold pb-2">
+                  <h4 className="font-semibold pt-3">
                     <em>Type</em>
                   </h4>
                 ) : filterOption === "0-10001" ? (
-                  <h4 className="font-semibold pb-2">
+                  <h4 className="font-semibold pt-3">
                     <em>Undergrad</em>
                   </h4>
                 ) : filterOption === "Open" ? (
-                  <h4 className="font-semibold pb-2">
+                  <h4 className="font-semibold pt-3">
                     <em>Deadline</em>
                   </h4>
                 ) : (
