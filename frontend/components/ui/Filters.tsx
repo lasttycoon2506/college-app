@@ -23,6 +23,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     "Open",
     "Closed",
   ];
+  const count = 1;
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
     const filterValue: string = event.target.value;
@@ -59,23 +60,41 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             <h1 className="text-center text-lg font-black pb-3">Filters:</h1>
           </div>
           <div className="border-b border-blue-900 py-3 mr-3 ...">
-            <h4 className="font-semibold pb-2">
-              <em>Tuition</em>
-            </h4>
             {filterOptions.map((filterOption) => (
-              <label
-                className="label cursor-pointer py-0 justify-start"
-                key={filterOption}
-              >
-                <input
-                  type="checkbox"
-                  className="checkbox checkbox-primary checkbox-xs"
-                  checked={isChecked(filterOption)}
-                  value={filterOption}
-                  onChange={(e) => handleFilterChange(e)}
-                />
-                <span className="label-text ps-1">{filterOption}</span>
-              </label>
+              <>
+                {filterOption === "0-10000" ? (
+                  <h4 className="font-semibold pb-2">
+                    <em>Tuition</em>
+                  </h4>
+                ) : filterOption === "Public" ? (
+                  <h4 className="font-semibold pb-2">
+                    <em>Type</em>
+                  </h4>
+                ) : filterOption === "0-10001" ? (
+                  <h4 className="font-semibold pb-2">
+                    <em>Undergrad</em>
+                  </h4>
+                ) : filterOption === "Open" ? (
+                  <h4 className="font-semibold pb-2">
+                    <em>Deadline</em>
+                  </h4>
+                ) : (
+                  <></>
+                )}
+                <label
+                  className="label cursor-pointer py-0 justify-start"
+                  key={filterOption}
+                >
+                  <input
+                    type="checkbox"
+                    className="checkbox checkbox-primary checkbox-xs"
+                    checked={isChecked(filterOption)}
+                    value={filterOption}
+                    onChange={(e) => handleFilterChange(e)}
+                  />
+                  <span className="label-text ps-1">{filterOption}</span>
+                </label>
+              </>
             ))}
           </div>
         </div>
