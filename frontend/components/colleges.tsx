@@ -9,12 +9,13 @@ export default function Colleges({
   colleges: Promise<PaginatedColleges>;
 }) {
   const allColleges = use(colleges);
+  const currentDate: Date = new Date();
 
   const [filteredColleges, setFilteredColleges] = useState(
     allColleges.colleges
   );
 
-  function applyFilter(filters: Record<string, string>) {
+  function applyFilter(filters: Record<string, string>): void {
     if (Object.keys(filters).length === 0) {
       setFilteredColleges(allColleges.colleges);
     } else {
@@ -25,7 +26,6 @@ export default function Colleges({
             .toString()
             .replaceAll(",", "")
             .replaceAll("$", "");
-
           if (college[key] === filterValue) {
             return true;
           } else if (
@@ -38,6 +38,16 @@ export default function Colleges({
             typeof college[key] === "number"
           ) {
             return true;
+          } else if (filterValue === "Open") {
+            if (currentDate < new Date(college[key])) {
+              return true;
+            }
+            return false;
+          } else if (filterValue === "Closed") {
+            if (currentDate > new Date(college[key])) {
+              return true;
+            }
+            return false;
           } else {
             return false;
           }

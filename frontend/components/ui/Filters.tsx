@@ -36,7 +36,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     } else if (filterOptions.slice(5, 8).includes(filterValue)) {
       filterCategory = "undergrad";
     } else {
-      filterCategory = "deadline";
+      filterCategory = "applicationDeadline";
     }
 
     if (isChecked) {
