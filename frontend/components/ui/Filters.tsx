@@ -31,6 +31,10 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     onFilter(newFilters);
   }
 
+  function isChecked(value: string): boolean {
+    return Object.values(filters).includes(value);
+  }
+
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-start-1">
@@ -47,7 +51,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                 <input
                   type="checkbox"
                   className="checkbox checkbox-primary checkbox-xs"
-                  checked
+                  checked={isChecked(filterOption)}
                   value={filterOption}
                   onChange={(e) =>
                     handleFilterChange(e.target.checked, e.target.value)
