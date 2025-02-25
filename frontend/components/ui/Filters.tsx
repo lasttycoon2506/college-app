@@ -1,7 +1,7 @@
 "use client";
 
 import { College } from "@/models/college";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import CollegeCard from "../CollegeCard";
 
 type FiltersProps = {
@@ -11,7 +11,7 @@ type FiltersProps = {
 
 export default function Filters({ colleges, onFilter }: FiltersProps) {
   const [filters, setFilters] = useState({});
-  const filterOptions = [
+  const filterOptions: string[] = [
     "0-10000",
     "10000-20000",
     "20000+",
@@ -23,9 +23,23 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     "Open",
     "Closed",
   ];
-  const filterNames = ["tuition", "type", "undergrad", "deadline"];
+  const filterNames: string[] = ["tuition", "type", "undergrad", "deadline"];
 
-  function handleFilterChange(filterName: string, filterValue: string) {
+  function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
+    const checkboxValue: string = event.target.value;
+    const isChecked: boolean = event.target.checked;
+    let filterCategory;
+
+    if (filterOptions.slice(0, 3).includes(checkboxValue)) {
+      filterCategory = "tuition";
+    } else if (filterOptions.slice(3, 5).includes(checkboxValue)) {
+      filterCategory = "type";
+    } else if (filterOptions.slice(6, 9).includes(checkboxValue)) {
+      filterCategory = "undergrad";
+    } else {
+      filterCategory = "deadline";
+    }
+
     const newFilters = { ...filters, [filterName]: filterValue };
     setFilters(newFilters);
     onFilter(newFilters);
@@ -53,11 +67,9 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                   className="checkbox checkbox-primary checkbox-xs"
                   checked={isChecked(filterOption)}
                   value={filterOption}
-                  onChange={(e) =>
-                    handleFilterChange(e.target.checked, e.target.value)
-                  }
+                  onChange={(e) => handleFilterChange(e)}
                 />
-                <span className="label-text ps-1">$0 - $10,000 </span>
+                <span className="label-text ps-1">{filterOption}</span>
               </label>
             ))}
           </div>
