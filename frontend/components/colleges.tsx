@@ -26,13 +26,12 @@ export default function Colleges({
             .replaceAll(",", "");
           if (college[key] === filterValue) {
             return true;
-          }
-          //   else if (
-          //     college[key] <=
-          //     Object.values(filters[key]).toString().replaceAll(",", "")
-          //   ) {
-          //   }
-          else return false;
+          } else if (
+            filterValue.split("-")[0] <= college[key] &&
+            college[key] <= filterValue.split("-")[1]
+          ) {
+            return true;
+          } else return false;
         });
         return isValid;
       });
