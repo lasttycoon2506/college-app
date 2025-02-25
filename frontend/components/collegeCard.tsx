@@ -1,27 +1,20 @@
 import Image from "next/image";
 import type { College } from "@/models/college";
-import { getRandomInt } from "@/helpers/randomIntGen";
-import { useEffect, useState } from "react";
+
 import Link from "next/link";
 
 export default function CollegeCard({ college }: { college: College }) {
-  const [randomInt, setRandomInt] = useState(0);
   const currentDate = new Date().toISOString().slice(0, 10);
-
-  useEffect(() => {
-    const randomInt = getRandomInt(5);
-    setRandomInt(randomInt);
-  }, []);
 
   return (
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">
       <figure>
         <Image
           className="dark:invert mr-6 rounded-lg"
-          src={`/campus${randomInt}.jpg`}
+          src={`/campus${college.id}.jpg`}
           alt="clg campus"
-          width={200}
-          height={200}
+          width={250}
+          height={250}
           priority={true}
         />
       </figure>
@@ -54,7 +47,7 @@ export default function CollegeCard({ college }: { college: College }) {
           <div>
             <div className="grid grid-rows-2 gap-4">
               <div className="flex justify-center items-center">
-                <Link href={`/api/colleges/${college.id}?picId=${randomInt}`}>
+                <Link href={`/api/colleges/${college.id}?picId=${college.id}`}>
                   <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
                     Info
                   </button>
