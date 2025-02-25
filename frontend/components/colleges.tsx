@@ -15,7 +15,6 @@ export default function Colleges({
   );
 
   function applyFilter(filters: Record<string, string>) {
-    console.log(filters);
     if (Object.keys(filters).length === 0) {
       setFilteredColleges(allColleges.colleges);
     } else {
@@ -26,7 +25,7 @@ export default function Colleges({
             .toString()
             .replaceAll(",", "")
             .replaceAll("$", "");
-          console.log(filterValue);
+
           if (college[key] === filterValue) {
             return true;
           } else if (
@@ -34,9 +33,14 @@ export default function Colleges({
             college[key] <= filterValue.split("-")[1]
           ) {
             return true;
-          } else if (filterValue.replace("+", "") < college[key]) {
+          } else if (
+            filterValue.replace("+", "") < college[key] &&
+            typeof college[key] === "number"
+          ) {
             return true;
-          } else return false;
+          } else {
+            return false;
+          }
         });
         return isValid;
       });
