@@ -18,15 +18,21 @@ export default function Colleges({
     if (Object.keys(filters).length === 0) {
       setFilteredColleges(allColleges.colleges);
     } else {
-      const newFilteredColleges = filteredColleges.filter((college) => {
+      const newFilteredColleges = allColleges.colleges.filter((college) => {
         let isValid = false;
         isValid = Object.keys(filters).some((key) => {
-          if (
-            college[key] ===
-            Object.values(filters[key]).toString().replaceAll(",", "")
-          ) {
+          const filterValue = Object.values(filters[key])
+            .toString()
+            .replaceAll(",", "");
+          if (college[key] === filterValue) {
             return true;
-          } else return false;
+          }
+          //   else if (
+          //     college[key] <=
+          //     Object.values(filters[key]).toString().replaceAll(",", "")
+          //   ) {
+          //   }
+          else return false;
         });
         return isValid;
       });
