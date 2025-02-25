@@ -23,13 +23,17 @@ export default function Colleges({
         isValid = Object.keys(filters).some((key) => {
           const filterValue = Object.values(filters[key])
             .toString()
-            .replaceAll(",", "");
+            .replaceAll(",", "")
+            .replaceAll("$", "");
+          console.log(filterValue);
           if (college[key] === filterValue) {
             return true;
           } else if (
             filterValue.split("-")[0] <= college[key] &&
             college[key] <= filterValue.split("-")[1]
           ) {
+            return true;
+          } else if (filterValue.replace("+", "") < college[key]) {
             return true;
           } else return false;
         });
