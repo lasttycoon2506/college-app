@@ -15,6 +15,7 @@ export default function Colleges({
   );
 
   function applyFilter(filters: Record<string, string>) {
+    console.log(filters);
     if (Object.keys(filters).length === 0) {
       setFilteredColleges(allColleges.colleges);
     } else {

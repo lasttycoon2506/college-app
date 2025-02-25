@@ -17,8 +17,8 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
     "$20,000+",
     "Public",
     "Private",
-    "0 - 10,001",
-    "10,001 - 25,000",
+    "0 - 10,000",
+    "10,000 - 25,000",
     "25,000+",
     "Open",
     "Closed",
@@ -73,9 +73,9 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
                   <h4 className="font-semibold pt-3">
                     <em>Type</em>
                   </h4>
-                ) : filterOption === "0 - 10,001" ? (
+                ) : filterOption === "0 - 10,000" ? (
                   <h4 className="font-semibold pt-3">
-                    <em>Undergrad</em>
+                    <em>Undergrad Size</em>
                   </h4>
                 ) : filterOption === "Open" ? (
                   <h4 className="font-semibold pt-3">

@@ -36,6 +36,7 @@ export default function CollegeCard({ college }: { college: College }) {
             <p>{college.address}</p>
             <p>${college.tuition.valueOf().toLocaleString()} / semester</p>
             <p>{college.type}</p>
+            <p>{college.undergrad.valueOf().toLocaleString()} undergrads.</p>
             {currentDate >
             new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
               <p className="text-red-500 text-lg">
