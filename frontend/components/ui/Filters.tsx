@@ -1,10 +1,7 @@
 "use client";
-
 import { College } from "@/models/college";
 import { ChangeEvent, useState } from "react";
-import CollegeCard from "../CollegeCard";
-import Pagination from "./pagination";
-import Items from "../Items";
+import PaginatedItems from "./pagination";
 
 type FiltersProps = {
   colleges: College[];
@@ -105,9 +102,8 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
         </div>
       </div>
       <div className="col-span-3 col-start-2 ...">
-        <Items currentItems={colleges} />
         <div className="flex justify-center items-center">
-          <Pagination />
+          <PaginatedItems itemsPerPage={5} colleges={colleges} />
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import { use, useState } from "react";
 import Filters from "./ui/Filters";
 import { PaginatedColleges } from "@/models/paginatedColleges";
