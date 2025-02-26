@@ -5,11 +5,11 @@ import Colleges from "./Colleges";
 export default function AllColleges() {
   const colleges = getColleges();
 
-  function handlePgNumber(pgNumber: number) {}
+  function handlePgNumber(pgNumber: number): void {}
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Colleges colleges={colleges} onData={handlePgNumber} />
+      <Colleges colleges={colleges} />
     </Suspense>
   );
 }

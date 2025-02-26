@@ -2,6 +2,7 @@
 import { use, useState } from "react";
 import Filters from "./ui/Filters";
 import { PaginatedColleges } from "@/models/paginatedColleges";
+import Items from "./Items";
 
 export default function Colleges({
   colleges,
@@ -59,5 +60,6 @@ export default function Colleges({
     }
   }
 
-  return <Filters colleges={filteredColleges} onFilter={applyFilter} />;
+  return <Items currentItems={allColleges.colleges} />;
+  //   <Filters colleges={filteredColleges} onFilter={applyFilter} />;
 }
