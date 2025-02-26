@@ -9,7 +9,7 @@ export default function Colleges({
   colleges,
 }: {
   colleges: Promise<PaginatedColleges>;
-}) {
+}): React.ReactNode {
   const allColleges = use(colleges);
   const currentDate: Date = new Date();
   const [currentPg, setCurrentPg] = useState(0);

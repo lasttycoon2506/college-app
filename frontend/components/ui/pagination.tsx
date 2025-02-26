@@ -1,6 +1,4 @@
-import { JSX } from "react";
-
-export default function Pagination(): JSX.Element {
+export default function Pagination(): React.ReactNode {
   return (
     <div className="join">
       <input

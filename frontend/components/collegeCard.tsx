@@ -3,7 +3,11 @@ import type { College } from "@/models/college";
 
 import Link from "next/link";
 
-export default function CollegeCard({ college }: { college: College }) {
+export default function CollegeCard({
+  college,
+}: {
+  college: College;
+}): React.ReactNode {
   const currentDate = new Date().toISOString().slice(0, 10);
 
   return (

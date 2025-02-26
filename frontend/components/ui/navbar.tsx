@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Navbar() {
+export default function Navbar(): React.ReactNode {
   return (
     <div className="navbar bg-base-100 bg-primary">
       <Image
