@@ -4,6 +4,7 @@ import { College } from "@/models/college";
 import { ChangeEvent, useState } from "react";
 import CollegeCard from "../CollegeCard";
 import Pagination from "./pagination";
+import Items from "../Items";
 
 type FiltersProps = {
   colleges: College[];
@@ -104,11 +105,7 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
         </div>
       </div>
       <div className="col-span-3 col-start-2 ...">
-        <ul>
-          {colleges.map((college) => (
-            <CollegeCard key={college.id} college={college} />
-          ))}
-        </ul>
+        <Items currentItems={colleges} />
         <div className="flex justify-center items-center">
           <Pagination />
         </div>
