@@ -10,6 +10,7 @@ export default function Colleges({
 }) {
   const allColleges = use(colleges);
   const currentDate: Date = new Date();
+  const [currentPg, setCurrentPg] = useState(0);
 
   const [filteredColleges, setFilteredColleges] = useState(
     allColleges.colleges
