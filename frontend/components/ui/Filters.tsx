@@ -100,9 +100,6 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
           </div>
         </div>
       </div>
-      <div className="col-span-3 col-start-2 ...">
-        <div className="flex justify-center items-center"></div>
-      </div>
     </div>
   );
 }

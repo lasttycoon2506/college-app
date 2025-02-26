@@ -3,6 +3,7 @@ import { use, useState } from "react";
 import Filters from "./ui/Filters";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 import Items from "./Items";
+import Pagination from "./ui/Pagination";
 
 export default function Colleges({
   colleges,
@@ -60,6 +61,18 @@ export default function Colleges({
     }
   }
 
-  return <Items currentItems={allColleges.colleges} />;
-  //   <Filters colleges={filteredColleges} onFilter={applyFilter} />;
+  return (
+    <div className="grid grid-cols-4 gap-4">
+      <div className="col-start-1">
+        <Filters colleges={allColleges.colleges} onFilter={applyFilter} />
+      </div>
+      <div className="col-span-3 col-start-2 ...">
+        <Items currentItems={allColleges.colleges} />
+        <div className="flex justify-center items-center">
+          <Pagination />
+        </div>
+      </div>
+      /
+    </div>
+  );
 }
