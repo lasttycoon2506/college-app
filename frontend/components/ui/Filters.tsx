@@ -3,6 +3,7 @@
 import { College } from "@/models/college";
 import { ChangeEvent, useState } from "react";
 import CollegeCard from "../CollegeCard";
+import Pagination from "./pagination";
 
 type FiltersProps = {
   colleges: College[];
@@ -108,6 +109,9 @@ export default function Filters({ colleges, onFilter }: FiltersProps) {
             <CollegeCard key={college.id} college={college} />
           ))}
         </ul>
+        <div className="flex justify-center items-center">
+          <Pagination />
+        </div>
       </div>
     </div>
   );
