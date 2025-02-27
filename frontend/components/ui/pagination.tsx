@@ -1,4 +1,5 @@
 import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Pagination(): React.ReactNode {
   const searchParams = useSearchParams();
@@ -11,9 +12,10 @@ export default function Pagination(): React.ReactNode {
     return `${pathName}?${params.toString()}`;
   }
 
-  function handleOnChange() {
-    console.log();
-  }
+  useEffect(() => {
+    createPageUrl(currentPg);
+  }, []);
+
   return (
     <div className="join">
       <input
@@ -28,7 +30,6 @@ export default function Pagination(): React.ReactNode {
         type="radio"
         name="options"
         aria-label="2"
-        onChange={handleOnChange}
       />
       <input
         className="join-item btn btn-square"
