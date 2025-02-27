@@ -10,8 +10,7 @@ async function getPaginatedColleges(
   max_undergrad: string
 ): Promise<PaginatedColleges> {
   const res = await fetch(
-    `http://localhost:8000/api/colleges/?page=${pg}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}
-`
+    `http://localhost:8000/api/colleges/?page=${pg}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}`
   );
   return res.json();
 }
@@ -28,7 +27,6 @@ export default async function GetCollegesForPg({
   if (undergrad) {
     [min_undergrad, max_undergrad] = undergrad.replaceAll(",", "").split("-");
   }
-
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
     Number(page),
     collegeType,
