@@ -1,5 +1,5 @@
 async function getCollegeDetails(id: number) {
-  const res = await fetch(`http://localhost:8000/api/colleges/${id}`);
+  const res = await fetch(`http://localhost:8000/api/college/${id}`);
   return res.json();
 }
 

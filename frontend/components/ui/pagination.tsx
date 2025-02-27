@@ -1,4 +1,7 @@
 export default function Pagination(): React.ReactNode {
+  function handleOnChange() {
+    console.log();
+  }
   return (
     <div className="join">
       <input
@@ -13,6 +16,7 @@ export default function Pagination(): React.ReactNode {
         type="radio"
         name="options"
         aria-label="2"
+        onChange={handleOnChange}
       />
       <input
         className="join-item btn btn-square"
