@@ -1,4 +1,5 @@
 import CollegeCard from "@/components/CollegeCard";
+import Pagination from "@/components/ui/Pagination";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 
 async function getPaginatedColleges(pg: number): Promise<PaginatedColleges> {
@@ -25,7 +26,13 @@ export default async function GetCollegesForPg({
           <CollegeCard key={college.id} college={college} />
         ))}
       </ul>
-      {totalColleges > pgSize && <div>chacha</div>}
+      {totalColleges > pgSize && (
+        <Pagination
+          currentPg={Number(page)}
+          pgSize={pgSize}
+          totalColleges={totalColleges}
+        />
+      )}
     </div>
   );
 }
