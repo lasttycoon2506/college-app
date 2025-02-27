@@ -1,4 +1,3 @@
-// app/posts/[id]/page.js
 async function getPg(pg: number) {
   const res = await fetch(`http://localhost:8000/api/colleges/?page=${pg}`);
   console.log(res.json());

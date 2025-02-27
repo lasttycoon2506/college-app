@@ -8,7 +8,7 @@ export default async function CollegeDetailsPg({
   searchParams,
 }: {
   params: { id: number };
-  searchParams: any;
+  searchParams: { picId: number };
 }) {
   const { id } = await params;
   const { picId } = await searchParams;
