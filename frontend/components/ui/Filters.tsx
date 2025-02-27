@@ -23,16 +23,13 @@ export default function Filters() {
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
     const params = new URLSearchParams(searchParams);
     const filterValue: string = event.target.value;
-    params.set("type", filterValue);
-    replace(`${pathname}?${params.toString()}`);
-
     const isChecked: boolean = event.target.checked;
     let filterCategory: string;
 
     if (filterOptions.slice(0, 3).includes(filterValue)) {
       filterCategory = "tuition";
     } else if (filterOptions.slice(3, 5).includes(filterValue)) {
-      filterCategory = "type";
+      filterCategory = "collegeType";
     } else if (filterOptions.slice(5, 8).includes(filterValue)) {
       filterCategory = "undergrad";
     } else {
@@ -42,12 +39,14 @@ export default function Filters() {
     if (isChecked) {
       const newFilters = { ...filters, [filterCategory]: filterValue };
       setFilters(newFilters);
-      //   onFilter(newFilters);
+      params.set(filterCategory, filterValue);
+      replace(`${pathname}?${params.toString()}`);
     } else {
       const newFilters = { ...filters };
       delete newFilters[filterCategory];
       setFilters(newFilters);
-      //   onFilter(newFilters);
+      params.delete(filterCategory);
+      replace(`${pathname}?${params.toString()}`);
     }
   }
 

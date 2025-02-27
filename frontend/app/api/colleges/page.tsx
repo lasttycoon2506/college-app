@@ -3,19 +3,25 @@ import Filters from "@/components/ui/Filters";
 import Pagination from "@/components/ui/Pagination";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 
-async function getPaginatedColleges(pg: number): Promise<PaginatedColleges> {
-  const res = await fetch(`http://localhost:8000/api/colleges/?page=${pg}`);
+async function getPaginatedColleges(
+  pg: number,
+  collegeType: string
+): Promise<PaginatedColleges> {
+  const res = await fetch(
+    `http://localhost:8000/api/colleges/?page=${pg}&type=${collegeType}`
+  );
   return res.json();
 }
 
 export default async function GetCollegesForPg({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: { page: string; collegeType: string };
 }): Promise<React.ReactNode> {
-  const { page = "1" } = await searchParams;
+  const { page = "1", collegeType } = await searchParams;
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
-    Number(page)
+    Number(page),
+    collegeType
   );
   const totalColleges: number = paginatedColleges.count;
   const pgSize: number = 5;
