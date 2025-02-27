@@ -15,31 +15,26 @@ export default function Pagination({
 
   return (
     <section className="container mx-auto flex justify-center items-center my-8">
-      {currentPg > 1 ? (
+      {currentPg > 1 && (
         <Link
           className="mr-2 px-2 py-1 border border-gray-300 rounded"
-          href={`/colleges?page=${currentPg - 1}`}
+          href={`/api/colleges?page=${currentPg - 1}`}
         >
           Previous
         </Link>
-      ) : (
-        <></>
       )}
 
       <span className="mx-2">
-        {" "}
         Page {currentPg} of {totalPgs}
       </span>
 
-      {currentPg < totalPgs ? (
+      {currentPg < totalPgs && (
         <Link
           className="ml-2 px-2 py-1 border border-gray-300 rounded"
-          href={`/colleges?page=${currentPg + 1}`}
+          href={`/api/colleges?page=${currentPg + 1}`}
         >
           Next
         </Link>
-      ) : (
-        <></>
       )}
     </section>
   );
