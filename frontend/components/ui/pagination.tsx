@@ -1,15 +1,17 @@
-import { usePathname, useSearchParams } from "next/navigation";
+"use client";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Pagination(): React.ReactNode {
   const searchParams = useSearchParams();
-  const pathName = usePathname();
-  const currentPg = Number(searchParams.get("page")) || 1;
+  const currentPath = usePathname();
+  const router = useRouter();
+  const currentPg = 1;
 
-  function createPageUrl(pg: number): string {
+  function createPageUrl(pg: number) {
     const params = new URLSearchParams(searchParams);
     params.set("page", pg.toString());
-    return `${pathName}?${params.toString()}`;
+    router.push(`api/colleges/${currentPg.toString()}`);
   }
 
   useEffect(() => {

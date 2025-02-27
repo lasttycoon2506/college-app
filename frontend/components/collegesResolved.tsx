@@ -8,8 +8,9 @@ export default function AllColleges(): React.ReactNode {
   function handlePgNumber(pgNumber: number): void {}
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Colleges colleges={colleges} />
-    </Suspense>
+    // <Suspense fallback={<div>Loading...</div>}>
+    //   <Colleges colleges={colleges} />
+    // </Suspense>
+    <div></div>
   );
 }

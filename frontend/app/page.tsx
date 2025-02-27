@@ -1,9 +1,11 @@
-import AllColleges from "@/components/CollegesResolved";
+import CollegesListLink from "@/components/CollegesListLink";
+import Register from "@/components/Register";
 
 export default function HomePage() {
   return (
     <>
-      <AllColleges />
+      <Register />
+      <CollegesListLink />
     </>
   );
 }
