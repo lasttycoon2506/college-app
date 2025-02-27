@@ -15,12 +15,17 @@ export default async function GetCollegesForPg({
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
     Number(page)
   );
+  const totalColleges: number = paginatedColleges.count;
+  const pgSize: number = 5;
 
   return (
-    <ul>
-      {paginatedColleges.colleges.map((college: any) => (
-        <CollegeCard key={college.id} college={college} />
-      ))}
-    </ul>
+    <div>
+      <ul>
+        {paginatedColleges.colleges.map((college: any) => (
+          <CollegeCard key={college.id} college={college} />
+        ))}
+      </ul>
+      {totalColleges > pgSize && <div>chacha</div>}
+    </div>
   );
 }

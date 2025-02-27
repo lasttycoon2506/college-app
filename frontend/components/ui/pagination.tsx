@@ -1,23 +1,14 @@
 "use client";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
-export default function Pagination(): React.ReactNode {
-  const searchParams = useSearchParams();
-  const currentPath = usePathname();
-  const router = useRouter();
-  const currentPg = 1;
-
-  function createPageUrl(pg: number) {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", pg.toString());
-    router.push(`api/colleges/${currentPg.toString()}`);
-  }
-
-  useEffect(() => {
-    createPageUrl(currentPg);
-  }, []);
-
+export default function Pagination({
+  currentPg,
+  pgSize,
+  totalColleges,
+}: {
+  currentPg: number;
+  pgSize: number;
+  totalColleges: number;
+}): React.ReactNode {
   return (
     <div className="join">
       <input
@@ -32,18 +23,6 @@ export default function Pagination(): React.ReactNode {
         type="radio"
         name="options"
         aria-label="2"
-      />
-      <input
-        className="join-item btn btn-square"
-        type="radio"
-        name="options"
-        aria-label="3"
-      />
-      <input
-        className="join-item btn btn-square"
-        type="radio"
-        name="options"
-        aria-label="4"
       />
     </div>
   );
