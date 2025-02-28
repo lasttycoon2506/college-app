@@ -12,9 +12,8 @@ from datetime import date
 
 @api_view(['GET'])
 def getAllColleges(request):
-    collegesFiltered = CollegesFilter(request.GET, queryset=College.objects.all().order_by('id'))
+    collegesFiltered = CollegesFilter(request.GET, queryset=College.objects.all().order_by('name'))
     count = collegesFiltered.qs.count()
-
     resultsPerPg = 5
     paginator = PageNumberPagination()
     paginator.page_size = resultsPerPg
