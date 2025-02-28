@@ -40,12 +40,12 @@ export default async function GetCollegesForPg({
     applicationDeadline,
   } = await searchParams;
   const pgSize: number = 5;
-  let min_tuition = "";
-  let max_tuition = "";
-  let min_undergrad = "";
-  let max_undergrad = "";
-  let deadline_open = "";
-  let deadline_closed = "";
+  let min_tuition: string = "";
+  let max_tuition: string = "";
+  let min_undergrad: string = "";
+  let max_undergrad: string = "";
+  let deadline_open: string = "";
+  let deadline_closed: string = "";
 
   if (tuition) {
     [min_tuition, max_tuition] = tuition

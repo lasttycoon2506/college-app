@@ -1,3 +1,5 @@
+import { College } from "@/models/college";
+
 async function getCollegeDetails(id: number) {
   const res = await fetch(`http://localhost:8000/api/college/${id}`);
   return res.json();
@@ -9,10 +11,10 @@ export default async function CollegeDetailsPg({
 }: {
   params: { id: number };
   searchParams: { picId: number };
-}) {
+}): Promise<React.ReactNode> {
   const { id } = await params;
   const { picId } = await searchParams;
-  const college = await getCollegeDetails(id);
+  const college: College = await getCollegeDetails(id);
   const currentDate = new Date().toISOString().slice(0, 10);
 
   return (
@@ -60,13 +62,18 @@ export default async function CollegeDetailsPg({
         </p>
       </div>
       <div>
-        {currentDate > college.applicationDeadline ? (
+        {currentDate >
+        new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
           <div className="grid grid-rows-2 gap-4 mt-20">
             <div>
               <div className="card bg-error text-neutral-content w-96">
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">App. Deadline</h2>
-                  <p>{college.applicationDeadline}</p>
+                  <p>
+                    {new Date(college.applicationDeadline)
+                      .toISOString()
+                      .slice(0, 10)}
+                  </p>
                 </div>
               </div>
             </div>
@@ -77,7 +84,11 @@ export default async function CollegeDetailsPg({
               <div className="card bg-info text-neutral-content w-96">
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">App. Deadline</h2>
-                  <p>{college.applicationDeadline}</p>
+                  <p>
+                    {new Date(college.applicationDeadline)
+                      .toISOString()
+                      .slice(0, 10)}
+                  </p>
                 </div>
               </div>
             </div>
