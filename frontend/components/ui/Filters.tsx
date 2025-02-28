@@ -1,8 +1,13 @@
 "use client";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  ReadonlyURLSearchParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
-export default function Filters() {
+export default function Filters(): React.ReactNode {
   const [filters, setFilters] = useState<Record<string, string>>({});
   const filterOptions: string[] = [
     "$0 - $10,000",
@@ -16,12 +21,12 @@ export default function Filters() {
     "Open",
     "Closed",
   ];
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const searchParams: ReadonlyURLSearchParams = useSearchParams();
+  const pathname: string = usePathname();
   const { replace } = useRouter();
 
-  function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
-    const params = new URLSearchParams(searchParams);
+  function handleFilterChange(event: ChangeEvent<HTMLInputElement>): void {
+    const params: URLSearchParams = new URLSearchParams(searchParams);
     const filterValue: string = event.target.value;
     const isChecked: boolean = event.target.checked;
     let filterCategory: string;

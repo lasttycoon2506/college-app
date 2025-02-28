@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function CollegesListBtn() {
+export default function CollegesListBtn(): React.ReactNode {
   return (
     <div>
       <Link href="/api/colleges">

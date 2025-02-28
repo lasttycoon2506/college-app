@@ -8,7 +8,7 @@ export default function CollegeCard({
 }: {
   college: College;
 }): React.ReactNode {
-  const currentDate = new Date().toISOString().slice(0, 10);
+  const currentDate: string = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">

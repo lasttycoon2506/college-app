@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 
 export default function Pagination({
@@ -11,7 +10,7 @@ export default function Pagination({
   pgSize: number;
   totalColleges: number;
 }): React.ReactNode {
-  const totalPgs = Math.ceil(totalColleges / pgSize);
+  const totalPgs: number = Math.ceil(totalColleges / pgSize);
 
   return (
     <section className="container mx-auto flex justify-center items-center my-8">

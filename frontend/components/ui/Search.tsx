@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function Search() {
+export default function Search(): React.ReactNode {
   const [keyword, setKeyword] = useState("");
 
   function handleInputChange() {}
