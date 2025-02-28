@@ -9,10 +9,12 @@ async function getPaginatedColleges(
   max_tuition: string,
   collegeType: string,
   min_undergrad: string,
-  max_undergrad: string
+  max_undergrad: string,
+  deadline_open: string,
+  deadline_closed: string
 ): Promise<PaginatedColleges> {
   const res = await fetch(
-    `http://localhost:8000/api/colleges/?page=${pg}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}`
+    `http://localhost:8000/api/colleges/?page=${pg}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
   );
   return res.json();
 }
@@ -43,6 +45,7 @@ export default async function GetCollegesForPg({
   let max_undergrad = "";
   let deadline_open = "";
   let deadline_closed = "";
+
   if (tuition) {
     [min_tuition, max_tuition] = tuition
       .replaceAll(",", "")
@@ -54,16 +57,19 @@ export default async function GetCollegesForPg({
   }
   if (applicationDeadline) {
     applicationDeadline === "Open"
-      ? (deadline_open = today.toDateString())
-      : (deadline_closed = today.toDateString());
+      ? (deadline_open = today.toLocaleDateString())
+      : (deadline_closed = today.toLocaleDateString());
   }
+
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
     Number(page),
     min_tuition,
     max_tuition,
     collegeType,
     min_undergrad,
-    max_undergrad
+    max_undergrad,
+    deadline_open,
+    deadline_closed
   );
   const totalColleges: number = paginatedColleges.count;
 
