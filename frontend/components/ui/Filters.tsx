@@ -60,7 +60,7 @@ export default function Filters(): React.ReactNode {
   }
 
   return (
-    <div className="form-control ps-3">
+    <div className="ps-3">
       <div className="border-b border-blue-900 mr-3">
         <h1 className="text-center text-lg font-black pb-2">Filter</h1>
       </div>

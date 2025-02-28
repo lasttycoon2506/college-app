@@ -6,6 +6,7 @@ import { PaginatedColleges } from "@/models/paginatedColleges";
 
 async function getPaginatedColleges(
   pg: number,
+  keyword: string,
   min_tuition: string,
   max_tuition: string,
   collegeType: string,
@@ -15,7 +16,7 @@ async function getPaginatedColleges(
   deadline_closed: string
 ): Promise<PaginatedColleges> {
   const res = await fetch(
-    `http://localhost:8000/api/colleges/?page=${pg}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
+    `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
   );
   return res.json();
 }
@@ -25,6 +26,7 @@ export default async function GetCollegesForPg({
 }: {
   searchParams: {
     page: string;
+    keyword: string;
     tuition: string;
     collegeType: string;
     undergrad: string;
@@ -32,13 +34,15 @@ export default async function GetCollegesForPg({
   };
 }): Promise<React.ReactNode> {
   const today: Date = new Date();
-  const {
+  let {
     page = "1",
+    keyword,
     tuition,
     collegeType,
     undergrad,
     applicationDeadline,
   } = await searchParams;
+
   const pgSize: number = 5;
   let min_tuition: string = "";
   let max_tuition: string = "";
@@ -47,6 +51,9 @@ export default async function GetCollegesForPg({
   let deadline_open: string = "";
   let deadline_closed: string = "";
 
+  if (!keyword) {
+    keyword = "";
+  }
   if (tuition) {
     [min_tuition, max_tuition] = tuition
       .replaceAll(",", "")
@@ -61,9 +68,10 @@ export default async function GetCollegesForPg({
       ? (deadline_open = today.toLocaleDateString())
       : (deadline_closed = today.toLocaleDateString());
   }
-
+  console.log(keyword);
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
     Number(page),
+    keyword,
     min_tuition,
     max_tuition,
     collegeType,
