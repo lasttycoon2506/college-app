@@ -8,7 +8,6 @@ import {
 import { useState } from "react";
 
 export default function Search() {
-  const [keyword, setKeyword] = useState("");
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
   const { replace } = useRouter();
@@ -16,9 +15,8 @@ export default function Search() {
   function handleInputChange(value: string): void {
     const params: URLSearchParams = new URLSearchParams(searchParams);
 
-    if (value) {
-      params.set("keyword", value);
-    }
+    value ? params.set("keyword", value) : params.delete("keyword");
+
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -30,13 +28,13 @@ export default function Search() {
       <input
         type="text"
         placeholder="Keyword"
-        className="input input-bordered w-20 md:w-auto my-3 mx-5"
+        className="input input-bordered w-20 md:w-auto my-3 mx-5 focus:outline-red-500"
         onChange={(e) => handleInputChange(e.target.value)}
       />
       <input
         type="text"
         placeholder="Location"
-        className="input input-bordered w-20 md:w-auto mb-2 mx-5"
+        className="input input-bordered w-20 md:w-auto mb-2 mx-5 focus:outline-red-500"
       />
     </div>
   );
