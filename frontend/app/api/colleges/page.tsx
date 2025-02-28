@@ -1,6 +1,7 @@
 import CollegeCard from "@/components/CollegeCard";
 import Filters from "@/components/ui/Filters";
 import Pagination from "@/components/ui/Pagination";
+import Search from "@/components/ui/Search";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 
 async function getPaginatedColleges(
@@ -76,6 +77,7 @@ export default async function GetCollegesForPg({
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-start-1 ...">
+        <Search />
         <Filters />
       </div>
       <div className="col-span-3 col-start-2 ...">

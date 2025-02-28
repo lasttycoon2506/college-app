@@ -55,7 +55,7 @@ export default function Filters() {
   }
 
   return (
-    <div className="form-control pt-5 ps-3">
+    <div className="form-control ps-3">
       <div className="border-b border-blue-900 mr-3">
         <h1 className="text-center text-lg font-black pb-3">Filters:</h1>
       </div>
