@@ -5,17 +5,18 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
-export default function Search() {
+export default function Search(): React.ReactNode {
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
   const { replace } = useRouter();
 
-  function handleInputChange(keyword?: string, location?: string): void {
+  const handleSearch = useDebouncedCallback((keyword: string): void => {
     const params: URLSearchParams = new URLSearchParams(searchParams);
     keyword ? params.set("keyword", keyword) : params.delete("keyword");
     replace(`${pathname}?${params.toString()}`);
-  }
+  }, 500);
 
   return (
     <div className="py-5 px-2">
@@ -27,7 +28,7 @@ export default function Search() {
         placeholder="Keyword"
         className="input input-bordered w-20 md:w-auto mt-3 mx-5 focus:outline-red-500"
         defaultValue={searchParams.get("keyword")?.toString()}
-        onChange={(e) => handleInputChange(e.target.value, "")}
+        onChange={(e) => handleSearch(e.target.value)}
       />
     </div>
   );
