@@ -8,7 +8,10 @@ class CollegesFilter(filters.FilterSet):
     max_undergrad = filters.NumberFilter(field_name="undergrad" or 1000000, lookup_expr="lte")
     name = filters.CharFilter(field_name="name", lookup_expr="icontains")
     address = filters.CharFilter(field_name="address", lookup_expr="icontains")
+    deadline_open = filters.DateFilter(field_name="applicationDeadline", lookup_expr="gte")
+    deadline_closed = filters.DateFilter(field_name="applicationDeadline", lookup_expr="lte")
+
 
     class Meta:
         model = College
-        fields = ("type", "division","min_tuition", "max_tuition", "min_undergrad", "max_undergrad", "name", "address")
+        fields = ("type", "division","min_tuition", "max_tuition", "min_undergrad", "max_undergrad", "name", "address", "deadline_open", "deadline_closed")
