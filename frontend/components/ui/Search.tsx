@@ -1,4 +1,11 @@
+"use client";
+import { useState } from "react";
+
 export default function Search() {
+  const [keyword, setKeyword] = useState("");
+
+  function handleInputChange() {}
+
   return (
     <div className="form-control py-5 px-2">
       <div className="border-b border-blue-900">
@@ -8,6 +15,7 @@ export default function Search() {
         type="text"
         placeholder="Keyword"
         className="input input-bordered w-20 md:w-auto my-3 mx-5"
+        onChange={(e) => handleInputChange()}
       />
       <input
         type="text"
