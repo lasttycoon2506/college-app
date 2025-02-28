@@ -25,14 +25,24 @@ export default async function GetCollegesForPg({
     tuition: string;
     collegeType: string;
     undergrad: string;
+    applicationDeadline: string;
   };
 }): Promise<React.ReactNode> {
-  const { page = "1", tuition, collegeType, undergrad } = await searchParams;
+  const today: Date = new Date();
+  const {
+    page = "1",
+    tuition,
+    collegeType,
+    undergrad,
+    applicationDeadline,
+  } = await searchParams;
   const pgSize: number = 5;
   let min_tuition = "";
   let max_tuition = "";
   let min_undergrad = "";
   let max_undergrad = "";
+  let deadline_open = "";
+  let deadline_closed = "";
   if (tuition) {
     [min_tuition, max_tuition] = tuition
       .replaceAll(",", "")
@@ -41,6 +51,11 @@ export default async function GetCollegesForPg({
   }
   if (undergrad) {
     [min_undergrad, max_undergrad] = undergrad.replaceAll(",", "").split("-");
+  }
+  if (applicationDeadline) {
+    applicationDeadline === "Open"
+      ? (deadline_open = today.toDateString())
+      : (deadline_closed = today.toDateString());
   }
   const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
     Number(page),
