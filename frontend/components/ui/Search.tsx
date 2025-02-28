@@ -5,18 +5,16 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useState } from "react";
 
 export default function Search() {
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
   const { replace } = useRouter();
 
-  function handleInputChange(value: string): void {
+  function handleInputChange(keyword?: string, location?: string): void {
     const params: URLSearchParams = new URLSearchParams(searchParams);
-
-    value ? params.set("keyword", value) : params.delete("keyword");
-
+    keyword ? params.set("keyword", keyword) : params.delete("keyword");
+    location ? params.set("location", location) : params.delete("location");
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -29,12 +27,13 @@ export default function Search() {
         type="text"
         placeholder="Keyword"
         className="input input-bordered w-20 md:w-auto my-3 mx-5 focus:outline-red-500"
-        onChange={(e) => handleInputChange(e.target.value)}
+        onChange={(e) => handleInputChange(e.target.value, "")}
       />
       <input
         type="text"
         placeholder="Location"
         className="input input-bordered w-20 md:w-auto mb-2 mx-5 focus:outline-red-500"
+        onChange={(e) => handleInputChange("", e.target.value)}
       />
     </div>
   );
