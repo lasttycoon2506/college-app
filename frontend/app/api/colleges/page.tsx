@@ -12,7 +12,7 @@ async function getPaginatedColleges(
   max_undergrad: string
 ): Promise<PaginatedColleges> {
   const res = await fetch(
-    `http://localhost:8000/api/colleges/?page=${pg}&min_tuition=${min_tuition}&max_tuition${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}`
+    `http://localhost:8000/api/colleges/?page=${pg}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}`
   );
   return res.json();
 }
