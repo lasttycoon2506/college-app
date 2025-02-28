@@ -57,7 +57,7 @@ export default function Filters() {
   return (
     <div className="form-control ps-3">
       <div className="border-b border-blue-900 mr-3">
-        <h1 className="text-center text-lg font-black pb-3">Filters:</h1>
+        <h1 className="text-center text-lg font-black pb-2">Filter</h1>
       </div>
       <div className="border-b border-blue-900 py-3 mr-3 ...">
         {filterOptions.map((filterOption, index) => (
