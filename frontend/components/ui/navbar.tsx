@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Login from "../login";
+import Login from "../Login";
 
 export default function Navbar(): React.ReactNode {
   return (

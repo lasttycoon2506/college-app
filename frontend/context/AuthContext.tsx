@@ -6,6 +6,7 @@ type AuthContextType = {
   user: any;
   isAuthenticated: boolean;
   error: string;
+  login: any;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -13,15 +14,16 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
   error: "",
+  login: null,
 });
 
-export default function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  async function Login({
+  async function login({
     username,
     password,
   }: {
@@ -36,12 +38,18 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         },
         body: JSON.stringify({ username, password }),
       });
-    } catch (error) {}
+    } catch (error: any) {
+      setError(error);
+    }
   }
 
   return (
-    <AuthContext.Provider value={{ loading, user, isAuthenticated, error }}>
+    <AuthContext.Provider
+      value={{ loading, user, isAuthenticated, error, login }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
+
+export default AuthContext;

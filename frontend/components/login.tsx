@@ -1,11 +1,18 @@
 "use client";
-import { FormEvent, useState } from "react";
+import AuthContext from "@/context/AuthContext";
+import { FormEvent, useContext, useState } from "react";
 
 export default function Login(): React.ReactNode {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {}
+  const { loading, user, isAuthenticated, error, login } =
+    useContext(AuthContext);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    login({ username, password });
+    console.log(error);
+  }
 
   return (
     <form className="form" onSubmit={handleSubmit}>
