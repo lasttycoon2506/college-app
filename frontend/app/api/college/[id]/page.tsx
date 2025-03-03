@@ -5,7 +5,7 @@ async function getCollegeDetails(id: number): Promise<College> {
   return res.json();
 }
 
-export default async function CollegeDetailsPg({
+export default async function GET({
   params,
   searchParams,
 }: {

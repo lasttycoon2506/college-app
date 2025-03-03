@@ -12,7 +12,8 @@ async function getLoginToken(username: string, password: string) {
   return res.json();
 }
 
-export default async function Login(request: Request) {
+export async function POST(request: Request) {
+  console.log("yay");
   const { username, password } = await request.json();
 
   const res = await getLoginToken(username, password);

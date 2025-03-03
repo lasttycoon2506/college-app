@@ -21,7 +21,7 @@ async function getPaginatedColleges(
   return res.json();
 }
 
-export default async function GetCollegesForPg({
+export default async function GET({
   searchParams,
 }: {
   searchParams: {

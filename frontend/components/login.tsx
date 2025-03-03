@@ -10,8 +10,8 @@ export default function Login(): React.ReactNode {
     useContext(AuthContext);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     login({ username, password });
-    console.log(error);
   }
 
   return (
