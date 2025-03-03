@@ -1,22 +1,25 @@
+"use client";
 import { FormEvent, useState } from "react";
 
 export default function Login(): React.ReactNode {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  function handleSubmit(event: FormEvent<HTMLDivElement>) {
-    console.log(username);
-    console.log(password);
-  }
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {}
 
   return (
-    <div className="flex gap-2">
-      <div className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="flex gap-2">
         <div className="inputBox">
           <input
             type="email"
             placeholder="Username"
             className="input input-bordered md:w-auto"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            required
           />
         </div>
         <div className="inputBox">
@@ -24,7 +27,9 @@ export default function Login(): React.ReactNode {
             type="password"
             placeholder="Password"
             className="input input-bordered md:w-auto"
-            pattern=""
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div>
@@ -36,6 +41,6 @@ export default function Login(): React.ReactNode {
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
