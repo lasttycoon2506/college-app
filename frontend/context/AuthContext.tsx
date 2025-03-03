@@ -21,6 +21,24 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  async function Login({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) {
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+    } catch (error) {}
+  }
+
   return (
     <AuthContext.Provider value={{ loading, user, isAuthenticated, error }}>
       {children}

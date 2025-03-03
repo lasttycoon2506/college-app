@@ -1,6 +1,6 @@
 import { College } from "@/models/college";
 
-async function getCollegeDetails(id: number) {
+async function getCollegeDetails(id: number): Promise<College> {
   const res = await fetch(`http://localhost:8000/api/college/${id}`);
   return res.json();
 }
