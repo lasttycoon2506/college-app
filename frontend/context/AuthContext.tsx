@@ -1,7 +1,14 @@
 "use client";
 import { createContext, ReactNode, useState } from "react";
 
-const AuthContext = createContext({
+type AuthContextType = {
+  loading: boolean;
+  user: any;
+  isAuthenticated: boolean;
+  error: string;
+};
+
+const AuthContext = createContext<AuthContextType>({
   loading: true,
   user: null,
   isAuthenticated: false,
