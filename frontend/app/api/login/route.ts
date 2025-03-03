@@ -18,14 +18,12 @@ async function getLoginToken(
     },
     body: JSON.stringify({ username, password }),
   });
-
   return res.json();
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { username, password }: { username: string; password: string } =
     await req.json();
-
   const token: TokenType = await getLoginToken(username, password);
 
   if (token.error) {
@@ -41,6 +39,5 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     sameSite: "strict",
     path: "/",
   });
-
   return NextResponse.json({ message: "Login successful" }, { status: 200 });
 }

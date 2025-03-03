@@ -39,10 +39,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
         body: JSON.stringify({ username, password }),
       });
-      console.log(res);
-      //   if (!res.) {
-      //     setError(res.error)
-      //   }
+
+      if (!res.ok) {
+        const error = await res.json();
+        setError(error);
+        return;
+      }
+      setIsAuthenticated(true);
     } catch (error: any) {
       setError(error);
     }
