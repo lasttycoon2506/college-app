@@ -17,8 +17,8 @@ export default function CollegeCard({
           className="dark:invert mr-6 rounded-lg"
           src={`/campus${college.id}.jpg`}
           alt="clg campus"
-          width={250}
-          height={250}
+          width={300}
+          height={400}
           priority={true}
         />
       </figure>

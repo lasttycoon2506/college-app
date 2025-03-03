@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar(): React.ReactNode {
   return (
@@ -12,7 +13,9 @@ export default function Navbar(): React.ReactNode {
         priority={true}
       />
       <div className="flex-1">
-        <a className="btn btn-ghost text-2xl font-bold">EZ Apply</a>
+        <Link href="/">
+          <button className="btn btn-ghost text-2xl font-bold">EZ Apply</button>
+        </Link>
       </div>
       <div className="flex gap-2">
         <div className="form-control">
