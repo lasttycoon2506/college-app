@@ -18,9 +18,7 @@ export default function Navbar(): React.ReactNode {
           <button className="btn btn-ghost text-2xl font-bold">EZ Apply</button>
         </Link>
       </div>
-      <div className="flex gap-2">
-        <Login />
-      </div>
+      <Login />
       <div className="dropdown dropdown-end">
         <div
           tabIndex={0}
