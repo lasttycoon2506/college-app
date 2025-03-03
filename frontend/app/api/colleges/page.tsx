@@ -15,7 +15,7 @@ async function getPaginatedColleges(
   deadline_open: string,
   deadline_closed: string
 ): Promise<PaginatedColleges> {
-  const res = await fetch(
+  const res: Response = await fetch(
     `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
   );
   return res.json();

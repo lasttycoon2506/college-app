@@ -1,8 +1,17 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-async function getLoginToken(username: string, password: string) {
-  const res = await fetch(`http://localhost:8000/api/token/`, {
+type TokenType = {
+  refresh: string;
+  access: string;
+  error?: string;
+};
+
+async function getLoginToken(
+  username: string,
+  password: string
+): Promise<TokenType> {
+  const res: Response = await fetch(`http://localhost:8000/api/token/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,10 +22,10 @@ async function getLoginToken(username: string, password: string) {
   return res.json();
 }
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
   const reqParsed = await req.json();
   const { username, password } = reqParsed;
-  const token = await getLoginToken(username, password);
+  const token: TokenType = await getLoginToken(username, password);
 
   if (token.error) {
     return NextResponse.json(
@@ -25,13 +34,12 @@ export async function POST(req: Request) {
     );
   }
 
-  if (token) {
-    (await cookies()).set("authToken", token, {
-      httpOnly: true, // Recommended for security
-      secure: process.env.NODE_ENV === "production", // Recommended for production
-      sameSite: "strict", // Recommended for security
-      path: "/", // Adjust as needed
-    });
-    return NextResponse.json({ message: "Login successful" }, { status: 200 });
-  }
+  (await cookies()).set("authToken", token.access, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+  });
+
+  return NextResponse.json({ message: "Login successful" }, { status: 200 });
 }
