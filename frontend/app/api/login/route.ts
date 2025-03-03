@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 async function getLoginToken(username: string, password: string) {
   const res = await fetch(`http://localhost:8000/api/token/`, {
@@ -12,18 +13,25 @@ async function getLoginToken(username: string, password: string) {
   return res.json();
 }
 
-export async function POST(request: Request) {
-  console.log("yay");
-  const { username, password } = await request.json();
+export async function POST(req: Request) {
+  const reqParsed = await req.json();
+  const { username, password } = reqParsed;
+  const token = await getLoginToken(username, password);
 
-  const res = await getLoginToken(username, password);
+  if (token.error) {
+    return NextResponse.json(
+      { message: "Invalid credentials" },
+      { status: 401 }
+    );
+  }
 
-  if (res) {
-    (await cookies()).set("authToken", res, {
+  if (token) {
+    (await cookies()).set("authToken", token, {
       httpOnly: true, // Recommended for security
       secure: process.env.NODE_ENV === "production", // Recommended for production
       sameSite: "strict", // Recommended for security
       path: "/", // Adjust as needed
     });
+    return NextResponse.json({ message: "Login successful" }, { status: 200 });
   }
 }
