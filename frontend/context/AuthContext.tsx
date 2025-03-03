@@ -1,8 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  loading: true,
+  user: null,
+  isAuthenticated: false,
+  error: "",
+});
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
