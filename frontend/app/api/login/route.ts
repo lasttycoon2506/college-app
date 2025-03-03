@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type TokenType = {
   refresh: string;
@@ -22,9 +22,10 @@ async function getLoginToken(
   return res.json();
 }
 
-export async function POST(req: Request): Promise<NextResponse> {
-  const reqParsed = await req.json();
-  const { username, password } = reqParsed;
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const { username, password }: { username: string; password: string } =
+    await req.json();
+
   const token: TokenType = await getLoginToken(username, password);
 
   if (token.error) {

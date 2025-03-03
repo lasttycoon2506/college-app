@@ -1,4 +1,5 @@
 "use client";
+import { NextResponse } from "next/server";
 import { createContext, ReactNode, useState } from "react";
 
 type AuthContextType = {
@@ -31,13 +32,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password: string;
   }) {
     try {
-      const res = await fetch("/api/login", {
+      const res: Response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
+      console.log(res);
+      //   if (!res.) {
+      //     setError(res.error)
+      //   }
     } catch (error: any) {
       setError(error);
     }
