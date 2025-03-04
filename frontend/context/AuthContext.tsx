@@ -1,5 +1,4 @@
 "use client";
-import { NextResponse } from "next/server";
 import { createContext, ReactNode, useState } from "react";
 
 type AuthContextType = {
@@ -46,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       setIsAuthenticated(true);
+      setError("");
     } catch (error: any) {
       setError(error);
     }
