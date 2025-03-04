@@ -13,6 +13,7 @@ export default function Login(): React.ReactNode {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({ username, password });
+    console.log(user);
   }
 
   useEffect(() => {

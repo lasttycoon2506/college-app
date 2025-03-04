@@ -18,15 +18,15 @@ const AuthContext = createContext<AuthContextType>({
   login: null,
 });
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({
+  children,
+}: {
+  children: ReactNode;
+}): React.ReactNode {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-
-  useEffect(() => {
-    if (!user) getUser();
-  }, [user]);
 
   async function login({
     username,
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }: {
     username: string;
     password: string;
-  }) {
+  }): Promise<void> {
     try {
       const res: Response = await fetch("/api/login", {
         method: "POST",
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function getUser() {
+  async function getUser(): Promise<void> {
     try {
       const res: Response = await fetch("/api/user");
       const data = await res.json();
