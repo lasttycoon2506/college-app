@@ -45,24 +45,18 @@ export default function Navbar(): React.ReactNode {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <a className="justify-between">Profile</a>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <Link href="/">
+              <Link href="/">
+                <li>
                   <button
                     className="text-red-500"
                     onClickCapture={handleLogout}
                   >
                     Logout
                   </button>
-                </Link>
-              </li>
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
