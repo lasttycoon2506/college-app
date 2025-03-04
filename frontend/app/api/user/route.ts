@@ -1,40 +1,28 @@
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-type TokenType = {
-  refresh: string;
-  access: string;
-  error?: string;
-};
-
-async function getUser(username: string, password: string): Promise<TokenType> {
-  const res: Response = await fetch(`http://localhost:8000/api/token/`, {
-    method: "POST",
+async function getUser(token: string) {
+  const res: Response = await fetch(`http://localhost:8000/api/currentUser/`, {
+    method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ username, password }),
   });
   return res.json();
 }
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   const cookieStore = await cookies();
-  const cookie = cookieStore.get("access");
-  console.log(cookie);
+  const cookie = cookieStore.get("authToken");
+  if (!cookie) {
+    return NextResponse.json(
+      { message: "No auth token found" },
+      { status: 401 }
+    );
+  }
 
-  //   if (token.error) {
-  //     return NextResponse.json(
-  //       { message: "Invalid credentials" },
-  //       { status: 401 }
-  //     );
-  //   }
+  const user = await getUser(cookie.value);
+  console.log(user);
 
-  //   (await cookies()).set("authToken", token.access, {
-  //     httpOnly: true,
-  //     secure: process.env.NODE_ENV === "production",
-  //     sameSite: "strict",
-  //     path: "/",
-  //   });
   return NextResponse.json({ message: "Login successful" }, { status: 200 });
 }
