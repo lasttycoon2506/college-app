@@ -1,6 +1,7 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
 import { FormEvent, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Login(): React.ReactNode {
   const [username, setUsername] = useState<string>("");
@@ -12,11 +13,11 @@ export default function Login(): React.ReactNode {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({ username, password });
-    console.log(error);
-    console.log(isAuthenticated);
   }
 
-  useEffect(() => {}, [loading, user, isAuthenticated, error]);
+  useEffect(() => {
+    if (error) toast.error(error);
+  }, [loading, user, isAuthenticated, error]);
 
   return (
     <form className="form" onSubmit={handleSubmit}>

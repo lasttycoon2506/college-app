@@ -41,7 +41,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!res.ok) {
         const error = await res.json();
-        setError(error);
+        setError(error.message);
+        return;
+      }
+      setIsAuthenticated(true);
+      setError("");
+    } catch (error: any) {
+      setError(error);
+    }
+  }
+
+  async function getUser({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) {
+    try {
+      const res: Response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        setError(error.message);
         return;
       }
       setIsAuthenticated(true);
