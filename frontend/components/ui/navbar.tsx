@@ -6,8 +6,11 @@ import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 
 export default function Navbar(): React.ReactNode {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
+  function handleLogout() {
+    logout();
+  }
   return (
     <div className="navbar bg-base-100 bg-primary">
       <Image
@@ -49,8 +52,10 @@ export default function Navbar(): React.ReactNode {
               <a>Settings</a>
             </li>
             <li>
-              <Link href="/api/logout">
-                <button>Logout</button>
+              <Link href="/">
+                <button className="text-red-500" onClickCapture={handleLogout}>
+                  Logout
+                </button>
               </Link>
             </li>
           </ul>

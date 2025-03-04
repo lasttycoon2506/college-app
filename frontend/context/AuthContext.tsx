@@ -88,7 +88,7 @@ export function AuthProvider({
 
   async function logout(): Promise<void> {
     try {
-      const res: Response = await fetch("/api/logout");
+      const res: Response = await fetch("/api/logout", { method: "DELETE" });
 
       if (!res.ok) {
         const error = await res.json();

@@ -1,9 +1,18 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export default async function GET() {
-  const result = (await cookies()).delete("cookieName");
-
-  console.log(result);
-  return NextResponse.json({ message: "Cookie cleared" });
+export async function DELETE() {
+  try {
+    (await cookies()).delete("authToken");
+    return NextResponse.json(
+      { message: "Cookie deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting cookie:", error);
+    return NextResponse.json(
+      { message: "Failed to delete cookie" },
+      { status: 500 }
+    );
+  }
 }

@@ -17,16 +17,10 @@ async function getUser(token: string): Promise<User> {
 export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const cookie: RequestCookie | undefined = cookieStore.get("authToken");
-  if (!cookie) {
-    return NextResponse.json(
-      { message: "No auth token found" },
-      { status: 401 }
-    );
-  }
 
   let user: User;
   try {
-    user = await getUser(cookie.value);
+    user = await getUser(cookie!.value);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message },
