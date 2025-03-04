@@ -77,7 +77,7 @@ export function AuthProvider({
       }
 
       const data = await res.json();
-      const loadedUser: User = data.body;
+      const loadedUser: User = data.body.user;
       setIsAuthenticated(true);
       setUser(loadedUser);
       setError("");
