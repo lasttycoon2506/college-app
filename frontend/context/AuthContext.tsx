@@ -1,7 +1,6 @@
 "use client";
 import { User } from "@/models/user";
 import { useRouter } from "next/navigation";
-import { Router } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type AuthContextType = {
@@ -9,7 +8,8 @@ type AuthContextType = {
   user: any;
   isAuthenticated: boolean;
   error: string;
-  login: any;
+  login: (credentials: { username: string; password: string }) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -17,7 +17,8 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
   error: "",
-  login: null,
+  login: async () => Promise.resolve(),
+  logout: async () => Promise.resolve(),
 });
 
 export function AuthProvider({
@@ -85,9 +86,27 @@ export function AuthProvider({
     }
   }
 
+  async function logout(): Promise<void> {
+    try {
+      const res: Response = await fetch("/api/logout");
+
+      if (!res.ok) {
+        const error = await res.json();
+        setError(error.message);
+        return;
+      }
+
+      setIsAuthenticated(false);
+      setUser(null);
+      setError("");
+    } catch (error: any) {
+      setError(error);
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ loading, user, isAuthenticated, error, login }}
+      value={{ loading, user, isAuthenticated, error, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -49,7 +49,7 @@ export default function Navbar(): React.ReactNode {
               <a>Settings</a>
             </li>
             <li>
-              <Link href="/api/colleges">
+              <Link href="/api/logout">
                 <button>Logout</button>
               </Link>
             </li>
