@@ -68,6 +68,7 @@ export function AuthProvider({
   async function getUser(): Promise<void> {
     try {
       const res: Response = await fetch("/api/user");
+
       if (!res.ok) {
         const error = await res.json();
         setError(error.message);
@@ -75,12 +76,9 @@ export function AuthProvider({
       }
 
       const data = await res.json();
-      const users: User = data.body;
-
+      const loadedUser: User = data.body;
       setIsAuthenticated(true);
-      setUser(users);
-      console.log(user);
-
+      setUser(loadedUser);
       setError("");
     } catch (error: any) {
       setError(error);

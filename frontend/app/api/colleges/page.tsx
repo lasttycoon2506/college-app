@@ -22,21 +22,18 @@ async function getPaginatedColleges(
   return res.json();
 }
 
-export default async function GET(
-  {
-    searchParams,
-  }: {
-    searchParams: {
-      page: string;
-      keyword: string;
-      tuition: string;
-      collegeType: string;
-      undergrad: string;
-      applicationDeadline: string;
-    };
-  },
-  res: NextResponse
-): Promise<React.ReactNode | NextResponse> {
+export default async function GET({
+  searchParams,
+}: {
+  searchParams: {
+    page: string;
+    keyword: string;
+    tuition: string;
+    collegeType: string;
+    undergrad: string;
+    applicationDeadline: string;
+  };
+}): Promise<React.ReactNode | NextResponse> {
   const today: Date = new Date();
   const {
     page = "1",

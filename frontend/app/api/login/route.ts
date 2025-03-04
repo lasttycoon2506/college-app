@@ -21,10 +21,7 @@ async function getLoginToken(
   return res.json();
 }
 
-export async function POST(
-  req: NextRequest,
-  res: NextResponse
-): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const { username, password }: { username: string; password: string } =
     await req.json();
   let token: TokenType;

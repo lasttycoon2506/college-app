@@ -6,16 +6,13 @@ async function getCollegeDetails(id: number): Promise<College> {
   return res.json();
 }
 
-export default async function GET(
-  {
-    params,
-    searchParams,
-  }: {
-    params: { id: number };
-    searchParams: { picId: number };
-  },
-  res: NextResponse
-): Promise<React.ReactNode | NextResponse> {
+export default async function GET({
+  params,
+  searchParams,
+}: {
+  params: { id: number };
+  searchParams: { picId: number };
+}): Promise<React.ReactNode | NextResponse> {
   const { id } = await params;
   const { picId } = await searchParams;
   let college: College;
