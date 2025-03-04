@@ -24,7 +24,15 @@ export async function GET(): Promise<NextResponse> {
     );
   }
 
-  const user = await getUser(cookie.value);
+  let user: User;
+  try {
+    user = await getUser(cookie.value);
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: error.message },
+      { status: error.status }
+    );
+  }
 
   return NextResponse.json({ body: { user } }, { status: 200 });
 }

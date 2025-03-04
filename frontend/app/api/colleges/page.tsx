@@ -3,6 +3,7 @@ import Filters from "@/components/ui/Filters";
 import Pagination from "@/components/ui/Pagination";
 import Search from "@/components/ui/Search";
 import { PaginatedColleges } from "@/models/paginatedColleges";
+import { NextResponse } from "next/server";
 
 async function getPaginatedColleges(
   pg: number,
@@ -21,18 +22,21 @@ async function getPaginatedColleges(
   return res.json();
 }
 
-export default async function GET({
-  searchParams,
-}: {
-  searchParams: {
-    page: string;
-    keyword: string;
-    tuition: string;
-    collegeType: string;
-    undergrad: string;
-    applicationDeadline: string;
-  };
-}): Promise<React.ReactNode> {
+export default async function GET(
+  {
+    searchParams,
+  }: {
+    searchParams: {
+      page: string;
+      keyword: string;
+      tuition: string;
+      collegeType: string;
+      undergrad: string;
+      applicationDeadline: string;
+    };
+  },
+  res: NextResponse
+): Promise<React.ReactNode | NextResponse> {
   const today: Date = new Date();
   const {
     page = "1",
@@ -50,6 +54,7 @@ export default async function GET({
   let max_undergrad: string = "";
   let deadline_open: string = "";
   let deadline_closed: string = "";
+  let paginatedColleges: PaginatedColleges;
 
   if (tuition) {
     [min_tuition, max_tuition] = tuition
@@ -65,18 +70,26 @@ export default async function GET({
       ? (deadline_open = today.toLocaleDateString())
       : (deadline_closed = today.toLocaleDateString());
   }
-  const paginatedColleges: PaginatedColleges = await getPaginatedColleges(
-    Number(page),
-    keyword,
-    min_tuition,
-    max_tuition,
-    collegeType,
-    min_undergrad,
-    max_undergrad,
-    deadline_open,
-    deadline_closed
-  );
-  const totalColleges: number = paginatedColleges.count;
+  try {
+    paginatedColleges = await getPaginatedColleges(
+      Number(page),
+      keyword,
+      min_tuition,
+      max_tuition,
+      collegeType,
+      min_undergrad,
+      max_undergrad,
+      deadline_open,
+      deadline_closed
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status }
+    );
+  }
+
+  const totalColleges: number = paginatedColleges!.count;
 
   return (
     <div className="grid grid-cols-4 gap-4">
@@ -86,7 +99,7 @@ export default async function GET({
       </div>
       <div className="col-span-3 col-start-2 ...">
         <ul>
-          {paginatedColleges.colleges.map((college: any) => (
+          {paginatedColleges!.colleges.map((college: any) => (
             <CollegeCard key={college.id} college={college} />
           ))}
         </ul>

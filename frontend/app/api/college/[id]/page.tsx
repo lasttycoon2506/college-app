@@ -1,20 +1,32 @@
 import { College } from "@/models/college";
+import { NextResponse } from "next/server";
 
 async function getCollegeDetails(id: number): Promise<College> {
   const res: Response = await fetch(`http://localhost:8000/api/college/${id}`);
   return res.json();
 }
 
-export default async function GET({
-  params,
-  searchParams,
-}: {
-  params: { id: number };
-  searchParams: { picId: number };
-}): Promise<React.ReactNode> {
+export default async function GET(
+  {
+    params,
+    searchParams,
+  }: {
+    params: { id: number };
+    searchParams: { picId: number };
+  },
+  res: NextResponse
+): Promise<React.ReactNode | NextResponse> {
   const { id } = await params;
   const { picId } = await searchParams;
-  const college: College = await getCollegeDetails(id);
+  let college: College;
+  try {
+    college = await getCollegeDetails(id);
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status }
+    );
+  }
   const currentDate = new Date().toISOString().slice(0, 10);
 
   return (
@@ -27,50 +39,50 @@ export default async function GET({
       </div>
       <div className="bg-neutral-content rounded-lg mt-7">
         <div className="bg-primary-content rounded-lg py-5">
-          <h1 className="text-5xl font-bold text-center">{college.name}</h1>
+          <h1 className="text-5xl font-bold text-center">{college!.name}</h1>
         </div>
-        <p className="pt-2 text-center">{college.address}</p>
+        <p className="pt-2 text-center">{college!.address}</p>
         <p className="py-2 text-center">
           <strong>$</strong>
-          {college.tuition} / semester
+          {college!.tuition} / semester
         </p>
-        <p className="py-2 text-center">{college.type}</p>
+        <p className="py-2 text-center">{college!.type}</p>
         <p className="py-2 text-center">
-          <strong>Est:</strong> {college.established}
+          <strong>Est:</strong> {college!.established}
         </p>
         <p className="py-2 text-center">
           <strong>Endowment: $</strong>
-          {college.endowment}
+          {college!.endowment}
         </p>
         <p className="py-2 text-center">
-          <strong>Academic Staff: </strong> {college.academicStaff}
+          <strong>Academic Staff: </strong> {college!.academicStaff}
         </p>
         <p className="py-2 text-center">
           <strong>Undergrad: </strong>
-          {college.undergrad}
+          {college!.undergrad}
         </p>
         <p className="py-2 text-center">
           <strong>Postgrad: </strong>
-          {college.postgrad}
+          {college!.postgrad}
         </p>
         <p className="py-2 text-center">
           <strong>Size: </strong>
-          {college.campusSize} acres
+          {college!.campusSize} acres
         </p>
         <p className="py-2 text-center">
-          <strong>Division:</strong> {college.division}
+          <strong>Division:</strong> {college!.division}
         </p>
       </div>
       <div>
         {currentDate >
-        new Date(college.applicationDeadline).toISOString().slice(0, 10) ? (
+        new Date(college!.applicationDeadline).toISOString().slice(0, 10) ? (
           <div className="grid grid-rows-2 gap-4 mt-20">
             <div>
               <div className="card bg-error text-neutral-content w-96">
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">App. Deadline</h2>
                   <p>
-                    {new Date(college.applicationDeadline)
+                    {new Date(college!.applicationDeadline)
                       .toISOString()
                       .slice(0, 10)}
                   </p>
@@ -85,7 +97,7 @@ export default async function GET({
                 <div className="card-body items-center text-center">
                   <h2 className="card-title">App. Deadline</h2>
                   <p>
-                    {new Date(college.applicationDeadline)
+                    {new Date(college!.applicationDeadline)
                       .toISOString()
                       .slice(0, 10)}
                   </p>
