@@ -5,11 +5,11 @@ from rest_framework import serializers
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("firstName", "lastName", "email", "password")
+        fields = ("first_name", "last_name", "email", "password")
 
         extra_kwargs = {
-            "firstName": {"required": True, "allow_blank": False},
-            "lastName": {"required": True, "allow_blank": False},
+            "first_name": {"required": True, "allow_blank": False},
+            "last_name": {"required": True, "allow_blank": False},
             "email": {"required": True, "allow_blank": False},
             "password": {"required": True, "allow_blank": False, "min_length": 8}
         }
@@ -22,4 +22,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("firstName", "lastName", "email", "username", "essay", "sat", "gpa")
+        fields = ("first_name", "last_name", "email", "username", "essay", "sat", "gpa")

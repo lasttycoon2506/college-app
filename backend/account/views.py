@@ -22,8 +22,8 @@ def register(request):
 
     if user.is_valid():
         if not User.objects.filter(username = data["email"]).exists():
-            user = User.objects.create(firstName = data["firstName"],
-                                          lastName = data["lastName"],
+            user = User.objects.create(first_name = data["first_name"],
+                                          last_name = data["last_name"],
                                           username = data["email"],
                                           email = data["email"],
                                           password = make_password(data["password"])
@@ -41,8 +41,8 @@ def editUser(request):
     user = request.user
     data = request.data
 
-    user.firstName = data["firstName"]
-    user.lastName = data["lastName"]
+    user.first_name = data["first_name"]
+    user.last_name = data["last_name"]
     user.email = data["email"]
 
     if data["password"] is not None:
