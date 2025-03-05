@@ -1,11 +1,9 @@
 "use client";
-
 import AuthContext from "@/context/AuthContext";
 import { useContext } from "react";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  console.log(user);
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
@@ -22,15 +20,18 @@ export default function Profile() {
                   alt="User"
                 /> */}
               </div>
-
-              <h2 className="text-2xl mb-4">
-                <span className="font-bold block">
-                  Name: {user!.firstName}{" "}
-                </span>{" "}
-              </h2>
-              <h2 className="text-2xl">
-                <span className="font-bold block">Email: {user!.email}</span>{" "}
-              </h2>
+              {user && (
+                <>
+                  <h2 className="text-2xl mb-4">
+                    <span className="font-bold block">
+                      Name: {user.firstName}{" "}
+                    </span>{" "}
+                  </h2>
+                  <h2 className="text-2xl">
+                    <span className="font-bold block">Email: {user.email}</span>{" "}
+                  </h2>
+                </>
+              )}
             </div>
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
