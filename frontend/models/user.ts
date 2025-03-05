@@ -18,7 +18,7 @@ export type User = {
   gpa: number;
 };
 
-function mapBackendToFrontend(userBackend: UserBackend): User {
+export function mapBackendToFrontend(userBackend: UserBackend): User {
   return {
     firstName: userBackend.first_name,
     lastName: userBackend.last_name,

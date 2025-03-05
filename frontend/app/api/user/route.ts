@@ -1,10 +1,10 @@
-import { User } from "@/models/user";
+import { mapBackendToFrontend, User, UserBackend } from "@/models/user";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-async function getUser(token: string): Promise<User> {
+async function getUser(token: string): Promise<UserBackend> {
   const res: Response = await fetch(`http://localhost:8000/api/currentUser/`, {
     method: "GET",
     headers: {
@@ -18,15 +18,16 @@ export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const cookie: RequestCookie | undefined = cookieStore.get("authToken");
 
-  let user: User;
+  let userBackend: UserBackend;
   try {
-    user = await getUser(cookie!.value);
+    userBackend = await getUser(cookie!.value);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message },
       { status: error.status }
     );
   }
+  const user: User = mapBackendToFrontend(userBackend);
 
   return NextResponse.json({ body: { user } }, { status: 200 });
 }
