@@ -29,7 +29,7 @@ export default function Navbar(): React.ReactNode {
       {!user && <Login />}
       {user && (
         <div>
-          <a>{user.email}</a>
+          <a className="text-gray-50 font-bold">{user.email}</a>
           <div className="dropdown dropdown-end pl-2">
             <div
               tabIndex={0}
@@ -45,9 +45,9 @@ export default function Navbar(): React.ReactNode {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {" "}
-              <Link href="/">
+              <Link href="api/profile">
                 <li>
-                  <button onClickCapture={handleLogout}>Profile</button>
+                  <button>Profile</button>
                 </li>
               </Link>
               <Link href="/">
