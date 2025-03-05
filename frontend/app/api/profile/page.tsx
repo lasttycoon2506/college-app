@@ -1,10 +1,11 @@
 "use client";
 
 import AuthContext from "@/context/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
