@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type AuthContextType = {
-  loading: boolean;
   user: any;
   isAuthenticated: boolean;
   error: string;
@@ -13,7 +12,6 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType>({
-  loading: true,
   user: null,
   isAuthenticated: false,
   error: "",
@@ -26,7 +24,6 @@ export function AuthProvider({
 }: {
   children: ReactNode;
 }): React.ReactNode {
-  const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -106,7 +103,7 @@ export function AuthProvider({
 
   return (
     <AuthContext.Provider
-      value={{ loading, user, isAuthenticated, error, login, logout }}
+      value={{ user, isAuthenticated, error, login, logout }}
     >
       {children}
     </AuthContext.Provider>

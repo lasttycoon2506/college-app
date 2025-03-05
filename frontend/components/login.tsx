@@ -7,8 +7,7 @@ export default function Login(): React.ReactNode {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { loading, user, isAuthenticated, error, login } =
-    useContext(AuthContext);
+  const { user, isAuthenticated, error, login } = useContext(AuthContext);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -17,7 +16,7 @@ export default function Login(): React.ReactNode {
 
   useEffect(() => {
     if (error) toast.error(error);
-  }, [loading, user, isAuthenticated, error]);
+  }, [user, isAuthenticated, error]);
 
   return (
     <form className="form" onSubmit={handleSubmit}>
