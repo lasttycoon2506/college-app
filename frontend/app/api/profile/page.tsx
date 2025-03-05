@@ -11,24 +11,31 @@ export default function Profile() {
           <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/4 mx-20 mt-10">
-              <div className="mb-4">
-                {/* <Image
-                  className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
-                  src={sessionUser.user.image || profileDefault}
-                  width={200}
-                  height={200}
-                  alt="User"
-                /> */}
-              </div>
               {user && (
                 <>
                   <h2 className="text-2xl mb-4">
                     <span className="font-bold block">
-                      Name: {user.firstName}{" "}
-                    </span>{" "}
+                      First Name: {user.firstName}
+                    </span>
+                  </h2>
+                  <h2 className="text-2xl mb-4">
+                    <span className="font-bold block">
+                      Last Name: {user.lastName}
+                    </span>
+                  </h2>
+                  <h2 className="text-2xl mb-4">
+                    <span className="font-bold block">
+                      Username: {user.username}
+                    </span>
                   </h2>
                   <h2 className="text-2xl">
-                    <span className="font-bold block">Email: {user.email}</span>{" "}
+                    <span className="font-bold block">SAT: {user.sat}</span>{" "}
+                  </h2>
+                  <h2 className="text-2xl">
+                    <span className="font-bold block">GPA: {user.gpa}</span>{" "}
+                  </h2>
+                  <h2 className="text-2xl">
+                    <span className="font-bold block">Essay: {user.essay}</span>{" "}
                   </h2>
                 </>
               )}

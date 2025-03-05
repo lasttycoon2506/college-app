@@ -28,9 +28,7 @@ export function AuthProvider({
   const [error, setError] = useState<string>("");
   const { replace } = useRouter();
   const [user, setUser] = useState<User | null>(() => {
-    const storedValue = localStorage.getItem("user")
-      ? localStorage.getItem("user")
-      : null;
+    const storedValue = localStorage.getItem("user");
     return storedValue ? JSON.parse(storedValue) : "";
   });
 
