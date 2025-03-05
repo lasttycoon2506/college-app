@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type AuthContextType = {
-  user: any;
+  user: User | null;
   isAuthenticated: boolean;
   error: string;
   login: (credentials: { username: string; password: string }) => Promise<void>;
@@ -24,11 +24,21 @@ export function AuthProvider({
 }: {
   children: ReactNode;
 }): React.ReactNode {
-  const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const { replace } = useRouter();
+  const [user, setUser] = useState<User | null>(() => {
+    const storedValue = localStorage.getItem("user")
+      ? localStorage.getItem("user")
+      : null;
+    return storedValue ? JSON.parse(storedValue) : "";
+  });
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
   useEffect(() => {
     if (!user) getUser();
   }, [user]);
