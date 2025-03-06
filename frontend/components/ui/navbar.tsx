@@ -4,9 +4,16 @@ import Link from "next/link";
 import Login from "../Login";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar(): React.ReactNode {
   const { user, logout } = useContext(AuthContext);
+  const pathname: string = usePathname();
+  const { replace } = useRouter();
+
+  function handleProfile() {
+    replace("/api/profile");
+  }
 
   function handleLogout() {
     logout();
@@ -44,11 +51,9 @@ export default function Navbar(): React.ReactNode {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-              <Link href="api/profile">
-                <li>
-                  <button>Profile</button>
-                </li>
-              </Link>
+              <li>
+                <button onClickCapture={handleProfile}>Profile</button>
+              </li>
               <Link href="/">
                 <li>
                   <button
