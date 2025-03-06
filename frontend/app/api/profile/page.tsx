@@ -8,7 +8,8 @@ export default function GET() {
   async function fetchData() {
     const res = await fetch("/api/userApplications");
     const json = await res.json();
-    console.log(json.body);
+    const x = json.body.userApplications;
+    console.log(typeof x[0].dateApplied);
   }
 
   useEffect(() => {

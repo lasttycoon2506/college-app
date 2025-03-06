@@ -3,7 +3,7 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-async function fetchData(token: string) {
+async function getUserApplications(token: string) {
   const response = await fetch(
     "http://localhost:8000/api/currentUser/applications",
     {
@@ -25,7 +25,7 @@ export async function GET() {
   const token: RequestCookie | undefined = cookieStore.get("authToken");
   let userApplications;
   try {
-    userApplications = await fetchData(token!.value);
+    userApplications = await getUserApplications(token!.value);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message },
