@@ -1,9 +1,29 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(`http://localhost:8000/api/colleges/`); // Replace with your actual API endpoint
+        console.log(response);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const json = await response.json();
+        // setData(json);
+        // setIsLoading(false);
+      } catch (error) {
+        // console.error("Fetching error:", error);
+        // setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
