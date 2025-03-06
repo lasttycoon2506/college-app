@@ -1,27 +1,44 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
+
 import { useContext, useEffect } from "react";
 
-export default function Profile() {
+async function fetchData() {
+  // const response = await fetch(`http://localhost:8000/api/currentUser/`, {
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  // });
+  // if (!response.ok) {
+  //   throw new Error(`HTTP error! status: ${response.status}`);
+  // }
+  // const json = await response.json();
+  // console.log(json);
+  // setData(json);
+  // setIsLoading(false);
+}
+
+export default function GET() {
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`http://localhost:8000/api/colleges/`); // Replace with your actual API endpoint
-        console.log(response);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const json = await response.json();
-        // setData(json);
-        // setIsLoading(false);
-      } catch (error) {
-        // console.error("Fetching error:", error);
-        // setIsLoading(false);
-      }
-    }
+  async function getToken() {
+    const cookies = document.cookie;
+    const cookieArray = cookies.split(";");
+    const myCookie = cookieArray.find((row) => row.startsWith("authToken"));
+    return myCookie;
+  }
 
+  console.log(getToken);
+  //   try {
+  //     userBackend = await getUser(cookie!.value);
+  //   } catch (error: any) {
+  //     return NextResponse.json(
+  //       { message: error.message },
+  //       { status: error.status }
+  //     );
+  //   }
+
+  useEffect(() => {
     fetchData();
   }, []);
   return (
