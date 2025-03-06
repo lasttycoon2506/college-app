@@ -1,17 +1,21 @@
 "use client";
+import UserApplicationCard from "@/components/UserApplicationCard";
 import AuthContext from "@/context/AuthContext";
 import { UserApplication } from "@/models/userApplications";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function GET() {
+  const [userApplications, setUserApplications] = useState<UserApplication[]>(
+    []
+  );
   const { user } = useContext(AuthContext);
 
-  async function getUserApplications() {
+  async function getUserApplications(): Promise<void> {
     try {
       const res: Response = await fetch("/api/userApplications");
       const resAsJson = await res.json();
-      const userApplications: UserApplication[] =
-        resAsJson.body.userApplications;
+      const userApps: UserApplication[] = resAsJson.body.userApplications;
+      setUserApplications(userApps);
     } catch (error) {
       console.log(error);
     }
@@ -58,9 +62,8 @@ export default function GET() {
               )}
             </div>
             <div className="md:w-3/4 md:pl-4">
-              <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
-
-              {/* <ProfileProperties properties={properties} /> */}
+              <h2 className="text-xl font-semibold mb-4">Your Applications</h2>
+              <UserApplicationCard />
             </div>
           </div>
         </div>
