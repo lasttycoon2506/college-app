@@ -1,9 +1,10 @@
+import { UserApplication } from "@/models/userApplications";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-async function getUserApplications(token: string) {
+async function getUserApplications(token: string): Promise<UserApplication[]> {
   const response = await fetch(
     "http://localhost:8000/api/currentUser/applications",
     {
@@ -16,14 +17,14 @@ async function getUserApplications(token: string) {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  const json = await response.json();
-  return json;
+  return response.json();
 }
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-  let userApplications;
+  let userApplications: UserApplication[];
+
   try {
     userApplications = await getUserApplications(token!.value);
   } catch (error: any) {
