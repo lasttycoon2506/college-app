@@ -1,7 +1,7 @@
 "use client";
 import UserApplicationCard from "@/components/UserApplicationCard";
 import AuthContext from "@/context/AuthContext";
-import { UserApplication } from "@/models/userApplications";
+import { UserApplication } from "@/models/userApplication";
 import { useContext, useEffect, useState } from "react";
 
 export default function GET() {
@@ -63,7 +63,18 @@ export default function GET() {
             </div>
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Applications</h2>
-              <UserApplicationCard />
+              <ul>
+                {userApplications.map(
+                  (userApplication: UserApplication, index) => (
+                    <div key={index}>
+                      <UserApplicationCard
+                        key={userApplication.id}
+                        userApplication={userApplication}
+                      />
+                    </div>
+                  )
+                )}
+              </ul>
             </div>
           </div>
         </div>

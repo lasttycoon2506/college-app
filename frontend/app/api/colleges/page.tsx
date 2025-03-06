@@ -2,6 +2,7 @@ import CollegeCard from "@/components/CollegeCard";
 import Filters from "@/components/ui/Filters";
 import Pagination from "@/components/ui/Pagination";
 import Search from "@/components/ui/Search";
+import { College } from "@/models/college";
 import { PaginatedColleges } from "@/models/paginatedColleges";
 import { NextResponse } from "next/server";
 
@@ -99,7 +100,7 @@ export default async function GET({
       </div>
       <div className="col-span-3 col-start-2 ...">
         <ul>
-          {paginatedColleges!.colleges.map((college: any) => (
+          {paginatedColleges!.colleges.map((college: College) => (
             <CollegeCard key={college.id} college={college} />
           ))}
         </ul>
