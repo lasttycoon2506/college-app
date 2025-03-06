@@ -4,12 +4,15 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 async function fetchData(token: string) {
-  const response = await fetch(`http://localhost:8000/api/currentUser/`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    "http://localhost:8000/api/currentUser/applications",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -20,7 +23,6 @@ async function fetchData(token: string) {
 export async function GET() {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-
   let userApplications;
   try {
     userApplications = await fetchData(token!.value);
@@ -30,4 +32,5 @@ export async function GET() {
       { status: error.status }
     );
   }
+  return NextResponse.json({ body: { userApplications } }, { status: 200 });
 }

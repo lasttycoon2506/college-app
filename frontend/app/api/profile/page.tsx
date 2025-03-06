@@ -1,33 +1,20 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
-
 import { useContext, useEffect } from "react";
 
 export default function GET() {
   const { user } = useContext(AuthContext);
 
-  async function getToken() {
-    const cookies = document.cookie;
-    console.log(cookies);
-    const cookieArray = cookies.split(";");
-    const myCookie = cookieArray.find((row) => row.startsWith("authToken"));
-    // console.log(myCookie);
-    return myCookie;
+  async function fetchData() {
+    const res = await fetch("/api/userApplications");
+    const json = await res.json();
+    console.log(json.body);
   }
-
-  getToken();
-  //   try {
-  //     userBackend = await getUser(cookie!.value);
-  //   } catch (error: any) {
-  //     return NextResponse.json(
-  //       { message: error.message },
-  //       { status: error.status }
-  //     );
-  //   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
