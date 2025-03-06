@@ -4,11 +4,10 @@ import Link from "next/link";
 import Login from "../Login";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Navbar(): React.ReactNode {
   const { user, logout } = useContext(AuthContext);
-  const pathname: string = usePathname();
   const { replace } = useRouter();
 
   function handleProfile() {
