@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 
 async function getCollegeDetails(id: number): Promise<College> {
   const res: Response = await fetch(`http://localhost:8000/api/college/${id}`);
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
   return res.json();
 }
 

@@ -1,36 +1,33 @@
-import { mapBackendToFrontend, User, UserBackend } from "@/models/user";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-async function getUser(token: string): Promise<UserBackend> {
-  const res: Response = await fetch(`http://localhost:8000/api/currentUser/`, {
+async function fetchData(token: string) {
+  const response = await fetch(`http://localhost:8000/api/currentUser/`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
-  return res.json();
+  const json = await response.json();
+  return json;
 }
 
-export async function GET(): Promise<NextResponse> {
+export async function GET() {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
 
-  let userBackend: UserBackend;
+  let userApplications;
   try {
-    userBackend = await getUser(token!.value);
+    userApplications = await fetchData(token!.value);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message },
       { status: error.status }
     );
   }
-  const user: User = mapBackendToFrontend(userBackend);
-
-  return NextResponse.json({ body: { user } }, { status: 200 });
 }

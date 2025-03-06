@@ -3,32 +3,19 @@ import AuthContext from "@/context/AuthContext";
 
 import { useContext, useEffect } from "react";
 
-async function fetchData() {
-  // const response = await fetch(`http://localhost:8000/api/currentUser/`, {
-  //   method: "GET",
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  // });
-  // if (!response.ok) {
-  //   throw new Error(`HTTP error! status: ${response.status}`);
-  // }
-  // const json = await response.json();
-  // console.log(json);
-  // setData(json);
-  // setIsLoading(false);
-}
-
 export default function GET() {
   const { user } = useContext(AuthContext);
 
   async function getToken() {
     const cookies = document.cookie;
+    console.log(cookies);
     const cookieArray = cookies.split(";");
     const myCookie = cookieArray.find((row) => row.startsWith("authToken"));
+    // console.log(myCookie);
     return myCookie;
   }
 
-  console.log(getToken);
+  getToken();
   //   try {
   //     userBackend = await getUser(cookie!.value);
   //   } catch (error: any) {

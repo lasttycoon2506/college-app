@@ -18,6 +18,9 @@ async function getLoginToken(
     },
     body: JSON.stringify({ username, password }),
   });
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
   return res.json();
 }
 
