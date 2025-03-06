@@ -23,8 +23,8 @@ async function getUserApplications(token: string): Promise<UserApplication[]> {
 export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-  let userApplications: UserApplication[];
 
+  let userApplications: UserApplication[];
   try {
     userApplications = await getUserApplications(token!.value);
   } catch (error: any) {

@@ -1,19 +1,24 @@
 "use client";
 import AuthContext from "@/context/AuthContext";
+import { UserApplication } from "@/models/userApplications";
 import { useContext, useEffect } from "react";
 
 export default function GET() {
   const { user } = useContext(AuthContext);
 
-  async function fetchData() {
-    const res = await fetch("/api/userApplications");
-    const json = await res.json();
-    const x = json.body.userApplications;
-    console.log(typeof x[0].dateApplied);
+  async function getUserApplications() {
+    try {
+      const res: Response = await fetch("/api/userApplications");
+      const resAsJson = await res.json();
+      const userApplications: UserApplication[] =
+        resAsJson.body.userApplications;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
-    fetchData();
+    getUserApplications();
   }, []);
 
   return (
