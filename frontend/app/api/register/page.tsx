@@ -1,4 +1,5 @@
 "use client";
+import { register } from "module";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -53,6 +54,20 @@ export default function POST(): React.ReactNode {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = e.target;
+
+    if (name === "firstName" && value) {
+      setFirstNameError(false);
+    }
+    if (name === "lastName" && value) {
+      setLastNameError(false);
+    }
+    if (name === "email" && value) {
+      setEmailError(false);
+    }
+    if (name === "password" && value) {
+      setPasswordError(false);
+    }
+
     setUserData({
       ...userData,
       [name]: value,
@@ -60,6 +75,8 @@ export default function POST(): React.ReactNode {
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+
     if (!userData.firstName) {
       setFirstNameError(true);
     }
@@ -72,8 +89,13 @@ export default function POST(): React.ReactNode {
     if (!userData.password) {
       setPasswordError(true);
     }
-    e.preventDefault();
-    Register();
+    if (
+      userData.firstName &&
+      userData.lastName &&
+      userData.email &&
+      userData.password
+    )
+      Register();
   }
 
   return (
