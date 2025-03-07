@@ -18,6 +18,10 @@ export default function POST(): React.ReactNode {
     password: "",
   });
   const router = useRouter();
+  const [firstNameError, setFirstNameError] = useState<boolean>(false);
+  const [lastNameError, setLastNameError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
   async function Register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
@@ -56,6 +60,18 @@ export default function POST(): React.ReactNode {
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    if (!userData.firstName) {
+      setFirstNameError(true);
+    }
+    if (!userData.lastName) {
+      setLastNameError(true);
+    }
+    if (!userData.email) {
+      setEmailError(true);
+    }
+    if (!userData.password) {
+      setPasswordError(true);
+    }
     e.preventDefault();
     Register();
   }
@@ -71,16 +87,16 @@ export default function POST(): React.ReactNode {
                   First Name
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   type="text"
                   placeholder="Jane"
                   name="firstName"
                   value={userData.firstName}
                   onChange={handleChange}
                 />
-                <p className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </p>
+                {firstNameError && (
+                  <p className="text-red-500 text-xs italic">Missing!</p>
+                )}
               </div>
               <div className="w-full md:w-1/2 px-5">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -94,6 +110,9 @@ export default function POST(): React.ReactNode {
                   value={userData.lastName}
                   onChange={handleChange}
                 />
+                {lastNameError && (
+                  <p className="text-red-500 text-xs italic">Missing!</p>
+                )}
               </div>
             </div>
             <div className="flex flex-wrap mx-3 mb-6">
@@ -109,6 +128,9 @@ export default function POST(): React.ReactNode {
                   value={userData.email}
                   onChange={handleChange}
                 />
+                {emailError && (
+                  <p className="text-red-500 text-xs italic">Missing!</p>
+                )}
               </div>
               <div className="w-full md:w-1/2 px-5 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -122,6 +144,9 @@ export default function POST(): React.ReactNode {
                   value={userData.password}
                   onChange={handleChange}
                 />
+                {passwordError && (
+                  <p className="text-red-500 text-xs italic">Missing!</p>
+                )}
                 <p className="text-gray-600 text-xs italic">
                   Must be at least 8 characters long!
                 </p>
