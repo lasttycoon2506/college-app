@@ -36,7 +36,9 @@ export default function POST(): React.ReactNode {
       });
       if (!res.ok) {
         const error = await res.json();
-        toast.error(error.error);
+        if (error.error["password"])
+          toast.error("Password must be at least 8 characters!");
+        else toast.error(error.error);
       } else {
         router.push("/api/colleges");
       }
