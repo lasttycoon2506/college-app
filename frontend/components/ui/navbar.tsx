@@ -2,15 +2,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import Login from "../Login";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 export default function Navbar(): React.ReactNode {
   const { user, logout } = useContext(AuthContext);
   const { replace } = useRouter();
+  const navRef = useRef<HTMLButtonElement>(null);
 
   function handleProfile() {
+    if (navRef.current) {
+      navRef.current.blur();
+    }
     replace("/api/profile");
   }
 
@@ -51,7 +55,9 @@ export default function Navbar(): React.ReactNode {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <button onClickCapture={handleProfile}>Profile</button>
+                <button ref={navRef} onClickCapture={handleProfile}>
+                  Profile
+                </button>
               </li>
               <Link href="/">
                 <li>
