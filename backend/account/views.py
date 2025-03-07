@@ -30,7 +30,7 @@ def register(request):
                                         )
             return Response(status=status.HTTP_201_CREATED)
         else:
-            return Response({"error": "email already registered"}, status=status.HTTP_200_OK)
+            return Response({"error": "email already registered"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(user.errors)
 
