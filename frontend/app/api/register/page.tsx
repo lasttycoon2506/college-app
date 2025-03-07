@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -9,15 +10,16 @@ type UserData = {
   password: string;
 };
 
-export default function Register() {
+export default function POST(): React.ReactNode {
   const [userData, setUserData] = useState<UserData>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
+  const router = useRouter();
 
-  async function getUserApplications(): Promise<void> {
+  async function Register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
     try {
       const res: Response = await fetch(`http://localhost:8000/api/register/`, {
@@ -35,26 +37,26 @@ export default function Register() {
       if (!res.ok) {
         const error = await res.json();
         toast.error(error.error);
+      } else {
+        router.push("/api/colleges");
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = e.target;
-
     setUserData({
       ...userData,
       [name]: value,
     });
-  };
+  }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    // Add form submission logic here
-    getUserApplications();
-  };
+    Register();
+  }
 
   return (
     <div className="bg-blue-50">

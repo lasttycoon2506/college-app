@@ -4,7 +4,7 @@ import AuthContext from "@/context/AuthContext";
 import { UserApplication } from "@/models/userApplication";
 import { useContext, useEffect, useState } from "react";
 
-export default function GET() {
+export default function GET(): React.ReactNode {
   const [userApplications, setUserApplications] = useState<UserApplication[]>(
     []
   );

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function DELETE() {
+export async function DELETE(): Promise<NextResponse> {
   try {
     (await cookies()).delete("authToken");
     return NextResponse.json(
