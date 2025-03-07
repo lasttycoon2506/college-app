@@ -32,7 +32,7 @@ def register(request):
         else:
             return Response({"error": "email already registered"}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response(user.errors)
+        return Response({"error": user.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
