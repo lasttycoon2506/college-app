@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 type UserData = {
   firstName: string;
@@ -31,10 +32,10 @@ export default function Register() {
           password,
         }),
       });
-
-      //   const resAsJson = await res.json();
-      //   const userApps: UserApplication[] = resAsJson.body.userApplications;
-      //   setUserApplications(userApps);
+      if (!res.ok) {
+        const error = await res.json();
+        toast.error(error.error);
+      }
     } catch (error) {
       console.log(error);
     }
