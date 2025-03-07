@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-type FormData = {
+type UserData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -9,17 +9,37 @@ type FormData = {
 };
 
 export default function Register() {
-  const [formData, setFormData] = useState<FormData>({
+  const [userData, setUserData] = useState<UserData>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
 
+  async function getUserApplications(): Promise<void> {
+    const { firstName, lastName, email, password } = userData;
+    try {
+      const res: Response = await fetch(`http://localhost:8000/api/register/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
+      console.log(res);
+      //   const resAsJson = await res.json();
+      //   const userApps: UserApplication[] = resAsJson.body.userApplications;
+      //   setUserApplications(userApps);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+
+    setUserData({
+      ...userData,
       [name]: value,
     });
   };
@@ -27,7 +47,7 @@ export default function Register() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add form submission logic here
-    console.log("works");
+    getUserApplications();
   };
 
   return (
@@ -37,18 +57,15 @@ export default function Register() {
           <form className="w-full px-20" onSubmit={handleSubmit}>
             <div className="flex flex-wrap mx-3 mt-5 mb-6">
               <div className="w-full md:w-1/2 px-5 mb-6 md:mb-0">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
-                >
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   First Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
                   type="text"
                   placeholder="Jane"
-                  value={formData.firstName}
+                  name="firstName"
+                  value={userData.firstName}
                   onChange={handleChange}
                 />
                 <p className="text-red-500 text-xs italic">
@@ -56,19 +73,16 @@ export default function Register() {
                 </p>
               </div>
               <div className="w-full md:w-1/2 px-5">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-last-name"
-                >
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Last Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-last-name"
                   type="text"
                   placeholder="Doe"
-                  value={formData.lastName}
-                  onChange={(e) => handleChange(e)}
+                  name="lastName"
+                  value={userData.lastName}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -81,25 +95,26 @@ export default function Register() {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="email"
                   placeholder="jane@gmail.com"
-                  value={formData.email}
-                  onChange={(e) => handleChange(e)}
+                  name="email"
+                  value={userData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="w-full md:w-1/2 px-5 mb-6 md:mb-0">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Password
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-password"
                   type="password"
                   placeholder="******************"
-                  value={formData.password}
-                  onChange={(e) => handleChange(e)}
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
                 />
+                <p className="text-gray-600 text-xs italic">
+                  Must be at least 8 characters long!
+                </p>
               </div>
             </div>
             <div className="flex items-center justify-center pt-10">
