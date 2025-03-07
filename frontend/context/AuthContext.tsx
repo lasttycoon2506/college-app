@@ -56,7 +56,6 @@ export function AuthProvider({
         },
         body: JSON.stringify({ username, password }),
       });
-
       if (!res.ok) {
         const error = await res.json();
         setError(error.message);
