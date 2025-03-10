@@ -13,9 +13,9 @@ export default function GET(): React.ReactNode {
   const [gpa, setGpa] = useState(user?.gpa);
   const [essay, setEssay] = useState(user?.essay);
   const [isNotDirty, setIsNotDirty] = useState(true);
-  const [isSatError, setIsSatError] = useState(false);
-  const [isGpaError, setIsGpaError] = useState(false);
-  const [isEssayError, setIsEssayError] = useState(false);
+  const [satError, setSatError] = useState(false);
+  const [gpaError, setGpaError] = useState(false);
+  const [essayError, setEssayError] = useState(false);
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -29,18 +29,27 @@ export default function GET(): React.ReactNode {
   }
 
   function handleChange(e: any) {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
 
-    if (name === "sat") {
+    if (name === "sat" && value) {
       if (/^\d*$/.test(value)) {
         setSat(value);
-        setIsSatError(false);
+        setSatError(false);
       } else {
-        setIsSatError(true);
+        setSatError(true);
       }
-      setSat(value);
     }
-    if (name === "gpa") setGpa(value);
+
+    if (name === "gpa" && value) {
+      if (/^\d.\d{2}$/.test(value)) {
+        setGpa(value);
+        setGpaError(false);
+      } else {
+        setGpa(e.target.value);
+        setGpaError(true);
+      }
+    }
+
     if (name === "essay") setEssay(value);
   }
 
@@ -91,7 +100,7 @@ export default function GET(): React.ReactNode {
                           name="sat"
                           onChange={handleChange}
                         />
-                        {isSatError && (
+                        {satError && (
                           <p className="text-red-500 text-xs italic">
                             Integers only!
                           </p>
@@ -102,11 +111,16 @@ export default function GET(): React.ReactNode {
                       <span className="font-bold">GPA:</span>
                       <div className="text-red-500">
                         <input
-                          type="text"
+                          type="number"
                           value={gpa}
                           name="gpa"
                           onChange={handleChange}
                         />
+                        {gpaError && (
+                          <p className="text-red-500 text-xs italic">
+                            Valid GPAs Only! (ex 3.54)
+                          </p>
+                        )}
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
