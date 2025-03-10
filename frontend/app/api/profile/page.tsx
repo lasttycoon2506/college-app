@@ -13,13 +13,9 @@ export default function GET(): React.ReactNode {
   const [gpa, setGpa] = useState(user?.gpa);
   const [essay, setEssay] = useState(user?.essay);
   const [isNotDirty, setIsNotDirty] = useState(true);
-
-  function handleChange(e: any) {
-    const { name, value } = e.target;
-    if (name === "sat") setSat(value);
-    if (name === "gpa") setGpa(value);
-    if (name === "essay") setEssay(value);
-  }
+  const [isSatError, setIsSatError] = useState(false);
+  const [isGpaError, setIsGpaError] = useState(false);
+  const [isEssayError, setIsEssayError] = useState(false);
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -30,6 +26,22 @@ export default function GET(): React.ReactNode {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function handleChange(e: any) {
+    const { name, value } = e.target;
+
+    if (name === "sat") {
+      if (/^\d*$/.test(value)) {
+        setSat(value);
+        setIsSatError(false);
+      } else {
+        setIsSatError(true);
+      }
+      setSat(value);
+    }
+    if (name === "gpa") setGpa(value);
+    if (name === "essay") setEssay(value);
   }
 
   useEffect(() => {
@@ -74,11 +86,16 @@ export default function GET(): React.ReactNode {
                       <span className="font-bold">SAT:</span>
                       <div className="text-red-500">
                         <input
-                          type="text"
+                          type="number"
                           value={sat}
                           name="sat"
                           onChange={handleChange}
                         />
+                        {isSatError && (
+                          <p className="text-red-500 text-xs italic">
+                            Integers only!
+                          </p>
+                        )}
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
