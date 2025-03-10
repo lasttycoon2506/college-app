@@ -9,6 +9,20 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
+  const [text, setText] = useState("cha cha");
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleDoubleClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
+  };
+
+  const handleChange = (e: any) => {
+    setText(e.target.value);
+  };
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -33,7 +47,7 @@ export default function GET(): React.ReactNode {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/4 mx-20 mt-10">
               {user && (
-                <>
+                <div>
                   <h2 className="text-xl mb-4 ">
                     <span className="font-bold">First Name:</span>
                     <div className="text-red-500">{user.firstName}</div>
@@ -58,9 +72,21 @@ export default function GET(): React.ReactNode {
                     <span className="font-bold">Essay:</span>
                     <div className="text-red-500">{user.essay}</div>
                   </h2>
-                </>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={text}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      autoFocus
+                    />
+                  ) : (
+                    <span onDoubleClick={handleDoubleClick}>{text}</span>
+                  )}
+                </div>
               )}
             </div>
+
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Applications</h2>
               <ul>
