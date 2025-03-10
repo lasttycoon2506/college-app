@@ -12,25 +12,7 @@ export default function GET(): React.ReactNode {
   const [sat, setSat] = useState(user?.sat);
   const [gpa, setGpa] = useState(user?.gpa);
   const [essay, setEssay] = useState(user?.essay);
-
-  const [editSat, setEditSat] = useState(false);
-  const [editGpa, setEditGpa] = useState(false);
-  const [editEssay, setEditEssay] = useState(false);
-
-  function handleDoubleClick(e: any) {
-    const { name, value } = e.target;
-    console.log(e);
-    if (name === "sat") setEditSat(true);
-    if (name === "gpa") setEditGpa(true);
-    if (name === "essay") setEditEssay(true);
-  }
-
-  function handleBlur(e: any) {
-    const { name } = e.target;
-    if (name === "sat") setEditSat(false);
-    if (name === "gpa") setEditGpa(false);
-    if (name === "essay") setEditEssay(false);
-  }
+  const [isNotDirty, setIsNotDirty] = useState(true);
 
   function handleChange(e: any) {
     const { name, value } = e.target;
@@ -52,9 +34,17 @@ export default function GET(): React.ReactNode {
 
   useEffect(() => {
     getUserApplications();
-  }, []);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    if (
+      sat?.toString() !== user?.sat.toString() ||
+      gpa?.toString() !== user?.gpa.toString() ||
+      essay?.toString() !== user?.essay.toString()
+    ) {
+      setIsNotDirty(false);
+    } else setIsNotDirty(true);
+  }, [sat, gpa, essay, user?.sat, user?.gpa, user?.essay]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     throw new Error("Function not implemented.");
   }
 
@@ -79,46 +69,47 @@ export default function GET(): React.ReactNode {
                     <span className="font-bold"> Username:</span>
                     <div className="text-red-500">{user.username}</div>
                   </h2>
-                  <form onSubmit={handleSubmit}></form>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold">SAT:</span>
-                    <div className="text-red-500">
-                      <input
-                        type="text"
-                        value={sat}
-                        name="sat"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                  </h2>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold">GPA:</span>
-                    <div className="text-red-500">
-                      <input
-                        type="text"
-                        value={gpa}
-                        name="gpa"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                  </h2>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold">Essay:</span>
-                    <div className="text-red-500">
-                      <input
-                        type="text"
-                        value={essay}
-                        name="essay"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </div>
-                  </h2>
-                  <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
-                    Save
-                  </button>
+                  <form onSubmit={handleSubmit}>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">SAT:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={sat}
+                          name="sat"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </h2>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">GPA:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={gpa}
+                          name="gpa"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </h2>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">Essay:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={essay}
+                          name="essay"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </h2>
+                    <button
+                      disabled={isNotDirty}
+                      className="btn btn-wide bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                    >
+                      Save
+                    </button>
+                  </form>
                 </div>
               )}
             </div>
