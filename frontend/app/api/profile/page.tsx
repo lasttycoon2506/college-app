@@ -9,13 +9,13 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-  const [sat, setSat] = useState(user?.sat);
-  const [gpa, setGpa] = useState(user?.gpa);
-  const [essay, setEssay] = useState(user?.essay);
-  const [isNotDirty, setIsNotDirty] = useState(true);
-  const [satError, setSatError] = useState(false);
-  const [gpaError, setGpaError] = useState(false);
-  const [essayError, setEssayError] = useState(false);
+  const [sat, setSat] = useState<number>(user?.sat ?? 0);
+  const [gpa, setGpa] = useState<number>(user?.gpa ?? 0);
+  const [essay, setEssay] = useState<string>(user?.essay ?? "");
+  const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
+  const [satError, setSatError] = useState<boolean>(false);
+  const [gpaError, setGpaError] = useState<boolean>(false);
+  const [essayError, setEssayError] = useState<boolean>(false);
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -28,25 +28,25 @@ export default function GET(): React.ReactNode {
     }
   }
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     let { name, value } = e.target;
 
     if (name === "sat" && value) {
       if (/^\d{3,4}$/.test(value)) {
-        setSat(value);
+        setSat(Number(value));
         setSatError(false);
       } else {
-        setSat(e.target.value);
+        setSat(Number(e.target.value));
         setSatError(true);
       }
     }
 
     if (name === "gpa" && value) {
       if (/^\d.\d{2}$/.test(value)) {
-        setGpa(value);
+        setGpa(Number(value));
         setGpaError(false);
       } else {
-        setGpa(e.target.value);
+        setGpa(Number(e.target.value));
         setGpaError(true);
       }
     }
@@ -145,7 +145,6 @@ export default function GET(): React.ReactNode {
                 </div>
               )}
             </div>
-
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Applications</h2>
               <ul>
