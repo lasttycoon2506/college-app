@@ -15,7 +15,7 @@ export default function GET(): React.ReactNode {
   const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
   const [satError, setSatError] = useState<boolean>(false);
   const [gpaError, setGpaError] = useState<boolean>(false);
-  const [essayError, setEssayError] = useState<boolean>(false);
+  const [noEssay, setNoEssay] = useState<boolean>(false);
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -67,7 +67,7 @@ export default function GET(): React.ReactNode {
   }, [sat, gpa, essay, user?.sat, user?.gpa, user?.essay]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    throw new Error("Function not implemented.");
+    event.preventDefault();
   }
 
   return (
@@ -126,15 +126,32 @@ export default function GET(): React.ReactNode {
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">Essay:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="text"
-                          value={essay}
-                          name="essay"
-                          onChange={handleChange}
-                        />
-                      </div>
                     </h2>
+                    <button
+                      className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                      onClickCapture={() =>
+                        (
+                          document.getElementById("essay") as HTMLDialogElement
+                        )?.showModal()
+                      }
+                    >
+                      View
+                    </button>
+                    <dialog id="essay" className="modal">
+                      <div className="modal-box">
+                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <textarea
+                          placeholder="Primary"
+                          className="textarea textarea-primary textarea-xl"
+                        ></textarea>
+                        <div className="modal-action">
+                          <div>
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </dialog>
                     <button
                       disabled={isNotDirty}
                       className="btn btn-wide bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
