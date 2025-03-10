@@ -9,20 +9,35 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-  const [text, setText] = useState("cha cha");
-  const [isEditing, setIsEditing] = useState(false);
+  const [sat, setSat] = useState(user?.sat);
+  const [gpa, setGpa] = useState(user?.gpa);
+  const [essay, setEssay] = useState(user?.essay);
 
-  const handleDoubleClick = () => {
-    setIsEditing(true);
-  };
+  const [editSat, setEditSat] = useState(false);
+  const [editGpa, setEditGpa] = useState(false);
+  const [editEssay, setEditEssay] = useState(false);
 
-  const handleBlur = () => {
-    setIsEditing(false);
-  };
+  function handleDoubleClick(e: any) {
+    const { name, value } = e.target;
+    console.log(e);
+    if (name === "sat") setEditSat(true);
+    if (name === "gpa") setEditGpa(true);
+    if (name === "essay") setEditEssay(true);
+  }
 
-  const handleChange = (e: any) => {
-    setText(e.target.value);
-  };
+  function handleBlur(e: any) {
+    const { name } = e.target;
+    if (name === "sat") setEditSat(false);
+    if (name === "gpa") setEditGpa(false);
+    if (name === "essay") setEditEssay(false);
+  }
+
+  function handleChange(e: any) {
+    const { name, value } = e.target;
+    if (name === "sat") setSat(value);
+    if (name === "gpa") setGpa(value);
+    if (name === "essay") setEssay(value);
+  }
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -38,6 +53,10 @@ export default function GET(): React.ReactNode {
   useEffect(() => {
     getUserApplications();
   }, []);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <section className="bg-blue-50">
@@ -60,29 +79,46 @@ export default function GET(): React.ReactNode {
                     <span className="font-bold"> Username:</span>
                     <div className="text-red-500">{user.username}</div>
                   </h2>
+                  <form onSubmit={handleSubmit}></form>
                   <h2 className="text-xl mb-4 ">
                     <span className="font-bold">SAT:</span>
-                    <div className="text-red-500">{user.sat}</div>
+                    <div className="text-red-500">
+                      <input
+                        type="text"
+                        value={sat}
+                        name="sat"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
                   </h2>
                   <h2 className="text-xl mb-4 ">
                     <span className="font-bold">GPA:</span>
-                    <div className="text-red-500">{user.gpa}</div>
+                    <div className="text-red-500">
+                      <input
+                        type="text"
+                        value={gpa}
+                        name="gpa"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
                   </h2>
                   <h2 className="text-xl mb-4 ">
                     <span className="font-bold">Essay:</span>
-                    <div className="text-red-500">{user.essay}</div>
+                    <div className="text-red-500">
+                      <input
+                        type="text"
+                        value={essay}
+                        name="essay"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </div>
                   </h2>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      value={text}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      autoFocus
-                    />
-                  ) : (
-                    <span onDoubleClick={handleDoubleClick}>{text}</span>
-                  )}
+                  <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
+                    Save
+                  </button>
                 </div>
               )}
             </div>
