@@ -42,9 +42,12 @@ export default function POST(): React.ReactNode {
         const error = await res.json();
         if (error.error["password"])
           toast.error("Password must be at least 8 characters!");
+        else if (error.error["email"]) toast.error("Enter Valid Email!");
         else toast.error(error.error);
       } else {
-        router.push("/api/colleges");
+        toast.success("Successfully Registered!");
+
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
