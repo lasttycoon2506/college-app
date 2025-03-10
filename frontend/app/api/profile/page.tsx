@@ -32,10 +32,11 @@ export default function GET(): React.ReactNode {
     let { name, value } = e.target;
 
     if (name === "sat" && value) {
-      if (/^\d*$/.test(value)) {
+      if (/^\d{3,4}$/.test(value)) {
         setSat(value);
         setSatError(false);
       } else {
+        setSat(e.target.value);
         setSatError(true);
       }
     }
@@ -102,7 +103,7 @@ export default function GET(): React.ReactNode {
                         />
                         {satError && (
                           <p className="text-red-500 text-xs italic">
-                            Integers only!
+                            Valid SAT's Only!
                           </p>
                         )}
                       </div>
