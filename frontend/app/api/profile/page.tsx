@@ -12,7 +12,7 @@ export default function GET(): React.ReactNode {
   const [firstName, setFirstName] = useState<string>(user!.firstName);
   const [lastName, setLastName] = useState<string>(user!.lastName);
   const [email, setEmail] = useState<string>(user!.email);
-  const [password, setPassword] = useState<string>("Click To Change");
+  const [password, setPassword] = useState<string>("********");
   const [sat, setSat] = useState<number | null>(user?.sat ?? 0);
   const [gpa, setGpa] = useState<number | null>(user?.gpa ?? 0);
   const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
@@ -89,81 +89,90 @@ export default function GET(): React.ReactNode {
                   <form onSubmit={handleSubmit}>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">First Name:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="text"
-                          value={firstName}
-                          name="firstName"
-                          onChange={handleChange}
-                        />
-                        <div className="tooltip" data-tip="hello">
-                          <button className="btn">Hover me</button>
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="text"
+                            value={firstName}
+                            name="firstName"
+                            onChange={handleChange}
+                          />
                         </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">Last Name:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="text"
-                          value={lastName}
-                          name="lastName"
-                          onChange={handleChange}
-                        />
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="text"
+                            value={lastName}
+                            name="lastName"
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold"> Username:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="text"
-                          value={email}
-                          name="email"
-                          onChange={handleChange}
-                        />
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="text"
+                            value={email}
+                            name="email"
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold"> Password:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="text"
-                          value={password}
-                          name="password"
-                          onChange={handleChange}
-                        />
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="text"
+                            value={password}
+                            name="password"
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">SAT:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="number"
-                          value={sat ?? ""}
-                          name="sat"
-                          onChange={handleChange}
-                        />
-                        {satError && (
-                          <p className="text-red-500 text-xs italic">
-                            Valid SAT's Only!
-                          </p>
-                        )}
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="number"
+                            value={sat ?? ""}
+                            name="sat"
+                            onChange={handleChange}
+                          />
+                          {satError && (
+                            <p className="text-red-500 text-xs italic">
+                              Valid SAT's Only!
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">GPA:</span>
-                      <div className="text-red-500">
-                        <input
-                          type="number"
-                          value={gpa ?? ""}
-                          name="gpa"
-                          onChange={handleChange}
-                        />
-                        {gpaError && (
-                          <p className="text-red-500 text-xs italic">
-                            Valid GPAs Only! (ex 3.54)
-                          </p>
-                        )}
+                      <div className="tooltip" data-tip="click to edit">
+                        <div className="text-red-500">
+                          <input
+                            type="number"
+                            value={gpa ?? ""}
+                            name="gpa"
+                            onChange={handleChange}
+                          />
+                          {gpaError && (
+                            <p className="text-red-500 text-xs italic">
+                              Valid GPAs Only! (ex 3.54)
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </h2>
                     <h2 className="text-xl mb-10">
