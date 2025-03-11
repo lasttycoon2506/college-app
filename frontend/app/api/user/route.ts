@@ -31,6 +31,9 @@ export async function GET(): Promise<NextResponse> {
     );
   }
   const user: User = mapBackendToFrontend(userBackend);
+  if (!user.gpa) user.gpa = 0;
+  if (!user.sat) user.sat = 0;
+  if (!user.essay) user.essay = "";
 
   return NextResponse.json({ body: { user } }, { status: 200 });
 }

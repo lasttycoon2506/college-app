@@ -84,9 +84,6 @@ export default function GET(): React.ReactNode {
   useEffect(() => {
     getUserApplications();
 
-    if (!sat || !gpa || !essay) {
-      setIsNotDirty(true);
-    }
     if (
       firstName !== user!.firstName ||
       lastName !== user!.lastName ||
