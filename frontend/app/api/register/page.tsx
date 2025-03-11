@@ -46,7 +46,6 @@ export default function POST(): React.ReactNode {
         else toast.error(error.error);
       } else {
         toast.success("Successfully Registered!");
-
         router.push("/");
       }
     } catch (error) {

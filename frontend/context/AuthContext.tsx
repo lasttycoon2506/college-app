@@ -79,7 +79,6 @@ export function AuthProvider({
         setError(error.message);
         return;
       }
-
       const data = await res.json();
       const loadedUser: User = data.body.user;
       setIsAuthenticated(true);
@@ -93,16 +92,16 @@ export function AuthProvider({
   async function logout(): Promise<void> {
     try {
       const res: Response = await fetch("/api/logout", { method: "DELETE" });
-
-      if (!res.ok) {
+      if (res.ok) {
+        setIsAuthenticated(false);
+        setUser(null);
+        setError("");
+        replace("/");
+      } else {
         const error = await res.json();
         setError(error.message);
         return;
       }
-
-      setIsAuthenticated(false);
-      setUser(null);
-      setError("");
     } catch (error: any) {
       setError(error);
     }

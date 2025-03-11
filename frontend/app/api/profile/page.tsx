@@ -9,10 +9,12 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-  const [firstName, setFirstName] = useState<string>(user!.firstName);
-  const [lastName, setLastName] = useState<string>(user!.lastName);
-  const [email, setEmail] = useState<string>(user!.email);
-  const [password, setPassword] = useState<string>("********");
+  const [firstName, setFirstName] = useState<string | null>(
+    user?.firstName ?? ""
+  );
+  const [lastName, setLastName] = useState<string | null>(user?.lastName ?? "");
+  const [email, setEmail] = useState<string | null>(user?.email ?? "");
+  const [password, setPassword] = useState<string | null>("********");
   const [sat, setSat] = useState<string | null>(user?.sat ?? "");
   const [gpa, setGpa] = useState<string | null>(user?.gpa ?? "");
   const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
@@ -116,7 +118,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={firstName}
+                            value={firstName ?? ""}
                             name="firstName"
                             onChange={handleChange}
                           />
@@ -129,7 +131,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={lastName}
+                            value={lastName ?? ""}
                             name="lastName"
                             onChange={handleChange}
                           />
@@ -142,7 +144,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={email}
+                            value={email ?? ""}
                             name="email"
                             onChange={handleChange}
                           />
@@ -155,7 +157,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={password}
+                            value={password ?? ""}
                             name="password"
                             onChange={handleChange}
                             onClickCapture={resetPw}
