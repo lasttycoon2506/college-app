@@ -47,26 +47,10 @@ def editUser(request):
 
     if data["password"] is not None:
         user.password = make_password(data["password"])
-
-    user.save()
-
-    serializedResults = UserSerializer(user)
-
-    return Response(serializedResults.data)
-
-
-@api_view(["PUT"])
-@permission_classes([IsAuthenticated])
-def uploadInfo(request):
-    user = request.user
-    data = request.data
-
     if not data["essay"]:
         return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
-    
     if not data["sat"]:
         return Response({"error": "missing sat"}, status=status.HTTP_400_BAD_REQUEST)
-    
     if not data["gpa"]:
         return Response({"error": "missing gpa"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -75,5 +59,7 @@ def uploadInfo(request):
     user.userprofile.sat = data["sat"]
 
     user.userprofile.save()
+    user.save()
+
 
     return Response(status=status.HTTP_200_OK)
