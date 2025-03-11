@@ -19,7 +19,7 @@ export default function GET(): React.ReactNode {
   const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
   const [satError, setSatError] = useState<boolean>(false);
   const [gpaError, setGpaError] = useState<boolean>(false);
-  const [noEssay, setNoEssay] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
   async function getUserApplications(): Promise<void> {
     try {
@@ -37,6 +37,25 @@ export default function GET(): React.ReactNode {
   ) {
     let { name, value } = e.target;
 
+    if (name === "firstName" && value) {
+      setFirstName(value);
+    }
+    if (name === "lastName" && value) {
+      setLastName(value);
+    }
+    if (name === "email" && value) {
+      setEmail(value);
+    }
+    if (name === "password" && value) {
+      if (/^.{8}$/.test(value)) {
+        setPassword(value);
+        setPasswordError(false);
+      } else {
+        setPassword(e.target.value);
+        setPasswordError(true);
+      }
+      setPassword(value);
+    }
     if (name === "sat" && value) {
       if (/^\d{3,4}$/.test(value)) {
         setSat(Number(value));
@@ -46,7 +65,6 @@ export default function GET(): React.ReactNode {
         setSatError(true);
       }
     }
-
     if (name === "gpa" && value) {
       if (/^\d.\d{2}$/.test(value)) {
         setGpa(Number(value));
@@ -57,6 +75,10 @@ export default function GET(): React.ReactNode {
       }
     }
     if (name === "essay" && value) setEssay(value);
+  }
+
+  function resetPw() {
+    setPassword("");
   }
 
   useEffect(() => {
@@ -135,7 +157,13 @@ export default function GET(): React.ReactNode {
                             value={password}
                             name="password"
                             onChange={handleChange}
+                            onClickCapture={resetPw}
                           />
+                          {passwordError && (
+                            <p className="text-red-500 text-xs italic">
+                              Must be at least 8 Characters long!
+                            </p>
+                          )}
                         </div>
                       </div>
                     </h2>
