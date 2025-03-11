@@ -130,16 +130,33 @@ export default function GET(): React.ReactNode {
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">Essay:</span>
                     </h2>
-                    <button
-                      className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
-                      onClickCapture={() =>
-                        (
-                          document.getElementById("essay") as HTMLDialogElement
-                        )?.showModal()
-                      }
-                    >
-                      View
-                    </button>
+                    {!essay ? (
+                      <button
+                        className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                        onClickCapture={() =>
+                          (
+                            document.getElementById(
+                              "essay"
+                            ) as HTMLDialogElement
+                          )?.showModal()
+                        }
+                      >
+                        Add
+                      </button>
+                    ) : (
+                      <button
+                        className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                        onClickCapture={() =>
+                          (
+                            document.getElementById(
+                              "essay"
+                            ) as HTMLDialogElement
+                          )?.showModal()
+                        }
+                      >
+                        View
+                      </button>
+                    )}
                   </form>
                   <dialog id="essay" className="modal">
                     <div className="modal-box">
@@ -150,14 +167,9 @@ export default function GET(): React.ReactNode {
                         onChange={handleChange}
                         name="essay"
                       />
-
                       <div className="modal-action">
                         <form>
-                          {noEssay ? (
-                            <button className="btn ">View</button>
-                          ) : (
-                            <button className="btn ">Save</button>
-                          )}
+                          <button className="btn ">Save</button>
                         </form>
                       </div>
                     </div>
