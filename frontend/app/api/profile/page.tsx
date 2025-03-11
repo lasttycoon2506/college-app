@@ -127,36 +127,36 @@ export default function GET(): React.ReactNode {
                         )}
                       </div>
                     </h2>
-                    <h2 className="text-xl mb-4 ">
+                    <h2 className="text-xl mb-10">
                       <span className="font-bold">Essay:</span>
+                      {!essay ? (
+                        <button
+                          className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base ml-4"
+                          onClickCapture={() =>
+                            (
+                              document.getElementById(
+                                "essay"
+                              ) as HTMLDialogElement
+                            )?.showModal()
+                          }
+                        >
+                          Add
+                        </button>
+                      ) : (
+                        <button
+                          className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base ml-4"
+                          onClickCapture={() =>
+                            (
+                              document.getElementById(
+                                "essay"
+                              ) as HTMLDialogElement
+                            )?.showModal()
+                          }
+                        >
+                          View
+                        </button>
+                      )}
                     </h2>
-                    {!essay ? (
-                      <button
-                        className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
-                        onClickCapture={() =>
-                          (
-                            document.getElementById(
-                              "essay"
-                            ) as HTMLDialogElement
-                          )?.showModal()
-                        }
-                      >
-                        Add
-                      </button>
-                    ) : (
-                      <button
-                        className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
-                        onClickCapture={() =>
-                          (
-                            document.getElementById(
-                              "essay"
-                            ) as HTMLDialogElement
-                          )?.showModal()
-                        }
-                      >
-                        View
-                      </button>
-                    )}
                   </form>
                   <dialog id="essay" className="modal">
                     <div className="modal-box">
@@ -176,7 +176,7 @@ export default function GET(): React.ReactNode {
                   </dialog>
                   <button
                     disabled={isNotDirty}
-                    className="btn btn-wide bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                    className="btn btn-wide bg-success enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
                   >
                     Save
                   </button>
