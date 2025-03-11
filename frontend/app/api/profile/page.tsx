@@ -9,9 +9,9 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-  const [sat, setSat] = useState<number>(user?.sat ?? 0);
-  const [gpa, setGpa] = useState<number>(user?.gpa ?? 0);
-  const [essay, setEssay] = useState<string>(user?.essay ?? "");
+  const [sat, setSat] = useState<number | null>(user?.sat ?? 0);
+  const [gpa, setGpa] = useState<number | null>(user?.gpa ?? 0);
+  const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
   const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
   const [satError, setSatError] = useState<boolean>(false);
   const [gpaError, setGpaError] = useState<boolean>(false);
@@ -28,7 +28,9 @@ export default function GET(): React.ReactNode {
     }
   }
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     let { name, value } = e.target;
 
     if (name === "sat" && value) {
@@ -50,14 +52,15 @@ export default function GET(): React.ReactNode {
         setGpaError(true);
       }
     }
-
-    if (name === "essay") setEssay(value);
+    if (name === "essay" && value) setEssay(value);
   }
 
   useEffect(() => {
     getUserApplications();
 
-    if (
+    if (!sat || !gpa || !essay) {
+      setIsNotDirty(true);
+    } else if (
       sat?.toString() !== user?.sat.toString() ||
       gpa?.toString() !== user?.gpa.toString() ||
       essay?.toString() !== user?.essay.toString()
@@ -97,7 +100,7 @@ export default function GET(): React.ReactNode {
                       <div className="text-red-500">
                         <input
                           type="number"
-                          value={sat}
+                          value={sat ?? ""}
                           name="sat"
                           onChange={handleChange}
                         />
@@ -113,7 +116,7 @@ export default function GET(): React.ReactNode {
                       <div className="text-red-500">
                         <input
                           type="number"
-                          value={gpa}
+                          value={gpa ?? ""}
                           name="gpa"
                           onChange={handleChange}
                         />
@@ -143,10 +146,18 @@ export default function GET(): React.ReactNode {
                       <textarea
                         className="textarea w-full max-w-full h-96"
                         placeholder="Your Essay..."
-                      ></textarea>
+                        value={essay ?? ""}
+                        onChange={handleChange}
+                        name="essay"
+                      />
+
                       <div className="modal-action">
                         <form>
-                          <button className="btn">Save</button>
+                          {noEssay ? (
+                            <button className="btn ">View</button>
+                          ) : (
+                            <button className="btn ">Save</button>
+                          )}
                         </form>
                       </div>
                     </div>
