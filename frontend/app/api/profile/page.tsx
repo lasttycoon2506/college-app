@@ -9,6 +9,11 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
+const [firstName, setFirstName] = useState<string>(user!.firstName)
+const [lastName, setLastName] = useState<string>(user!.lastName)
+const [email, setEmail] = useState<string>(user!.email)
+const [firstName, setFirstName] = useState<string>(user.)
+
   const [sat, setSat] = useState<number | null>(user?.sat ?? 0);
   const [gpa, setGpa] = useState<number | null>(user?.gpa ?? 0);
   const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
@@ -82,19 +87,26 @@ export default function GET(): React.ReactNode {
             <div className="md:w-1/4 mx-20 mt-10">
               {user && (
                 <div>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold">First Name:</span>
-                    <div className="text-red-500">{user.firstName}</div>
-                  </h2>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold">Last Name:</span>
-                    <div className="text-red-500">{user.lastName}</div>
-                  </h2>
-                  <h2 className="text-xl mb-4 ">
-                    <span className="font-bold"> Username:</span>
-                    <div className="text-red-500">{user.username}</div>
-                  </h2>
                   <form onSubmit={handleSubmit}>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">First Name:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={}
+                          name="sat"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </h2>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">Last Name:</span>
+                      <div className="text-red-500">{user.lastName}</div>
+                    </h2>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold"> Username:</span>
+                      <div className="text-red-500">{user.username}</div>
+                    </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">SAT:</span>
                       <div className="text-red-500">
