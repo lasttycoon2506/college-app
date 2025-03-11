@@ -83,7 +83,6 @@ export default function GET(): React.ReactNode {
 
   useEffect(() => {
     getUserApplications();
-
     if (
       firstName !== user!.firstName ||
       lastName !== user!.lastName ||
@@ -95,7 +94,7 @@ export default function GET(): React.ReactNode {
     ) {
       setIsNotDirty(false);
     } else setIsNotDirty(true);
-  }, [sat, gpa, essay, user?.sat, user?.gpa, user?.essay]);
+  }, [firstName, lastName, email, password, sat, gpa, essay]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -246,9 +245,20 @@ export default function GET(): React.ReactNode {
                         name="essay"
                       />
                       <div className="modal-action">
-                        <form>
-                          <button className="btn ">Save</button>
-                        </form>
+                        <div>
+                          <button
+                            className="btn"
+                            onClickCapture={() =>
+                              (
+                                document.getElementById(
+                                  "essay"
+                                ) as HTMLDialogElement
+                              )?.close()
+                            }
+                          >
+                            Save
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </dialog>
