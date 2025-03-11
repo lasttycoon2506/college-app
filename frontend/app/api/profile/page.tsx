@@ -86,10 +86,15 @@ export default function GET(): React.ReactNode {
 
     if (!sat || !gpa || !essay) {
       setIsNotDirty(true);
-    } else if (
-      sat?.toString() !== user?.sat.toString() ||
-      gpa?.toString() !== user?.gpa.toString() ||
-      essay?.toString() !== user?.essay.toString()
+    }
+    if (
+      firstName !== user!.firstName ||
+      lastName !== user!.lastName ||
+      email !== user!.email ||
+      password !== "********" ||
+      sat?.toString() !== user!.sat.toString() ||
+      gpa?.toString() !== user!.gpa.toString() ||
+      essay?.toString() !== user!.essay.toString()
     ) {
       setIsNotDirty(false);
     } else setIsNotDirty(true);
