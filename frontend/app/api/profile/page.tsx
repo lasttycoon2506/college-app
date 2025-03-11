@@ -101,6 +101,7 @@ export default function GET(): React.ReactNode {
 
   async function EditUser(): Promise<void> {
     const { firstName, lastName, email, password, sat, gpa, essay } = userData;
+    console.log("trigs");
     try {
       const res: Response = await fetch(
         "http://localhost:8000/api/currentUser/edit/",
@@ -121,6 +122,7 @@ export default function GET(): React.ReactNode {
           }),
         }
       );
+      console.log(res);
       if (!res.ok) {
         const error = await res.json();
         if (error.error["email"]) toast.error("Enter Valid Email!");
@@ -273,40 +275,40 @@ export default function GET(): React.ReactNode {
                         </button>
                       )}
                     </h2>
-                  </form>
-                  <dialog id="essay" className="modal">
-                    <div className="modal-box">
-                      <textarea
-                        className="textarea w-full max-w-full h-96"
-                        placeholder="Your Essay..."
-                        value={userData.essay ?? ""}
-                        onChange={handleChange}
-                        name="essay"
-                      />
-                      <div className="modal-action">
-                        <div>
-                          <button
-                            className="btn"
-                            onClickCapture={() =>
-                              (
-                                document.getElementById(
-                                  "essay"
-                                ) as HTMLDialogElement
-                              )?.close()
-                            }
-                          >
-                            Save
-                          </button>
+                    <dialog id="essay" className="modal">
+                      <div className="modal-box">
+                        <textarea
+                          className="textarea w-full max-w-full h-96"
+                          placeholder="Your Essay..."
+                          value={userData.essay ?? ""}
+                          onChange={handleChange}
+                          name="essay"
+                        />
+                        <div className="modal-action">
+                          <div>
+                            <button
+                              className="btn"
+                              onClickCapture={() =>
+                                (
+                                  document.getElementById(
+                                    "essay"
+                                  ) as HTMLDialogElement
+                                )?.close()
+                              }
+                            >
+                              Save
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </dialog>
-                  <button
-                    disabled={isNotDirty}
-                    className="btn btn-wide bg-success enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
-                  >
-                    Save
-                  </button>
+                    </dialog>
+                    <button
+                      disabled={isNotDirty}
+                      className="btn btn-wide bg-success enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                    >
+                      Save
+                    </button>
+                  </form>
                 </div>
               )}
             </div>
