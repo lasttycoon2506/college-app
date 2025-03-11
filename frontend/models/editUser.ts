@@ -4,7 +4,7 @@ export type EditUser = {
   email: string;
   username: string;
   password: string;
+  sat: string;
+  gpa: string;
   essay: string;
-  sat: number;
-  gpa: number;
 };

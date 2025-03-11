@@ -11,15 +11,16 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-  const [firstName, setFirstName] = useState<string | null>(
-    user?.firstName ?? ""
-  );
-  const [lastName, setLastName] = useState<string | null>(user?.lastName ?? "");
-  const [email, setEmail] = useState<string | null>(user?.email ?? "");
-  const [password, setPassword] = useState<string | null>("********");
-  const [sat, setSat] = useState<string | null>(user?.sat ?? "");
-  const [gpa, setGpa] = useState<string | null>(user?.gpa ?? "");
-  const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
+  const [userData, setUserData] = useState<EditUser>({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    username: user?.username || "",
+    password: "********",
+    sat: user?.sat || "",
+    gpa: user?.gpa || "",
+    essay: user?.essay || "",
+  });
   const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
   const [satError, setSatError] = useState<boolean>(false);
   const [gpaError, setGpaError] = useState<boolean>(false);
@@ -40,77 +41,66 @@ export default function GET(): React.ReactNode {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     let { name, value } = e.target;
-    console.log(name, value);
 
-    if (name === "firstName") {
-      setFirstName(value);
-    }
-    if (name === "lastName") {
-      setLastName(value);
-    }
-    if (name === "email") {
-      setEmail(value);
-    }
     if (name === "password") {
       if (/^.{8}$/.test(value)) {
-        setPassword(value);
         setPasswordError(false);
       } else {
-        setPassword(e.target.value);
+        setUserData({ ...userData, [name]: e.target.value });
         setPasswordError(true);
       }
-      setPassword(value);
     }
     if (name === "sat") {
       if (/^\d{3,4}$/.test(value)) {
-        setSat(value);
         setSatError(false);
       } else {
-        setSat(e.target.value);
+        setUserData({ ...userData, [name]: e.target.value });
         setSatError(true);
       }
     }
     if (name === "gpa") {
       if (/^\d.\d{2}$/.test(value)) {
-        setGpa(value);
         setGpaError(false);
       } else {
-        setGpa(e.target.value);
+        setUserData({ ...userData, [name]: e.target.value });
         setGpaError(true);
       }
     }
-    if (name === "essay") setEssay(value);
+    setUserData({ ...userData, [name]: value });
   }
 
   function resetPw() {
-    setPassword("");
+    setUserData({ ...userData, password: "" });
   }
 
   useEffect(() => {
     getUserApplications();
     if (
-      (firstName !== user!.firstName ||
-        lastName !== user!.lastName ||
-        email !== user!.email ||
-        password !== "********" ||
-        sat?.toString() !== user!.sat.toString() ||
-        gpa?.toString() !== user!.gpa.toString() ||
-        essay?.toString() !== user!.essay.toString()) &&
+      (userData.firstName !== user!.firstName ||
+        userData.lastName !== user!.lastName ||
+        userData.email !== user!.email ||
+        userData.password !== "********" ||
+        userData.sat?.toString() !== user!.sat.toString() ||
+        userData.gpa?.toString() !== user!.gpa.toString() ||
+        userData.essay?.toString() !== user!.essay.toString()) &&
       !passwordError &&
       !gpaError &&
       !satError
     ) {
       setIsNotDirty(false);
     } else setIsNotDirty(true);
-  }, [firstName, lastName, email, password, sat, gpa, essay]);
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    EditUser();
-  }
+  }, [
+    userData.firstName,
+    userData.lastName,
+    userData.email,
+    userData.password,
+    userData.sat,
+    userData.gpa,
+    userData.essay,
+  ]);
 
   async function EditUser(): Promise<void> {
-    const { firstName, lastName, email, password } = 
+    const { firstName, lastName, email, password, sat, gpa, essay } = userData;
     try {
       const res: Response = await fetch(
         "http://localhost:8000/api/currentUser/edit/",
@@ -123,6 +113,7 @@ export default function GET(): React.ReactNode {
             first_name: firstName,
             last_name: lastName,
             email,
+            username: email,
             password,
             sat,
             gpa,
@@ -143,6 +134,11 @@ export default function GET(): React.ReactNode {
     }
   }
 
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    EditUser();
+  }
+
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
@@ -159,7 +155,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={firstName ?? ""}
+                            value={userData.firstName ?? ""}
                             name="firstName"
                             onChange={handleChange}
                           />
@@ -172,7 +168,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={lastName ?? ""}
+                            value={userData.lastName ?? ""}
                             name="lastName"
                             onChange={handleChange}
                           />
@@ -185,7 +181,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="email"
-                            value={email ?? ""}
+                            value={userData.email ?? ""}
                             name="email"
                             onChange={handleChange}
                           />
@@ -198,7 +194,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="text"
-                            value={password ?? ""}
+                            value={userData.password ?? ""}
                             name="password"
                             onChange={handleChange}
                             onClickCapture={resetPw}
@@ -217,7 +213,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="number"
-                            value={sat ?? ""}
+                            value={userData.sat ?? ""}
                             name="sat"
                             onChange={handleChange}
                           />
@@ -235,7 +231,7 @@ export default function GET(): React.ReactNode {
                         <div className="text-red-500">
                           <input
                             type="number"
-                            value={gpa ?? ""}
+                            value={userData.gpa ?? ""}
                             name="gpa"
                             onChange={handleChange}
                           />
@@ -249,7 +245,7 @@ export default function GET(): React.ReactNode {
                     </h2>
                     <h2 className="text-xl mb-10">
                       <span className="font-bold">Essay:</span>
-                      {!essay ? (
+                      {!userData.essay ? (
                         <button
                           className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base ml-4"
                           onClickCapture={() =>
@@ -283,7 +279,7 @@ export default function GET(): React.ReactNode {
                       <textarea
                         className="textarea w-full max-w-full h-96"
                         placeholder="Your Essay..."
-                        value={essay ?? ""}
+                        value={userData.essay ?? ""}
                         onChange={handleChange}
                         name="essay"
                       />
