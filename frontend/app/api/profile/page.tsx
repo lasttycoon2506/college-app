@@ -87,13 +87,16 @@ export default function GET(): React.ReactNode {
   useEffect(() => {
     getUserApplications();
     if (
-      firstName !== user!.firstName ||
-      lastName !== user!.lastName ||
-      email !== user!.email ||
-      password !== "********" ||
-      sat?.toString() !== user!.sat.toString() ||
-      gpa?.toString() !== user!.gpa.toString() ||
-      essay?.toString() !== user!.essay.toString()
+      (firstName !== user!.firstName ||
+        lastName !== user!.lastName ||
+        email !== user!.email ||
+        password !== "********" ||
+        sat?.toString() !== user!.sat.toString() ||
+        gpa?.toString() !== user!.gpa.toString() ||
+        essay?.toString() !== user!.essay.toString()) &&
+      !passwordError &&
+      !gpaError &&
+      !satError
     ) {
       setIsNotDirty(false);
     } else setIsNotDirty(true);
