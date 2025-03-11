@@ -9,11 +9,10 @@ export default function GET(): React.ReactNode {
     []
   );
   const { user } = useContext(AuthContext);
-const [firstName, setFirstName] = useState<string>(user!.firstName)
-const [lastName, setLastName] = useState<string>(user!.lastName)
-const [email, setEmail] = useState<string>(user!.email)
-const [firstName, setFirstName] = useState<string>(user.)
-
+  const [firstName, setFirstName] = useState<string>(user!.firstName);
+  const [lastName, setLastName] = useState<string>(user!.lastName);
+  const [email, setEmail] = useState<string>(user!.email);
+  const [password, setPassword] = useState<string>("Click To Change");
   const [sat, setSat] = useState<number | null>(user?.sat ?? 0);
   const [gpa, setGpa] = useState<number | null>(user?.gpa ?? 0);
   const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
@@ -93,19 +92,47 @@ const [firstName, setFirstName] = useState<string>(user.)
                       <div className="text-red-500">
                         <input
                           type="text"
-                          value={}
-                          name="sat"
+                          value={firstName}
+                          name="firstName"
+                          onChange={handleChange}
+                        />
+                        <div className="tooltip" data-tip="hello">
+                          <button className="btn">Hover me</button>
+                        </div>
+                      </div>
+                    </h2>
+                    <h2 className="text-xl mb-4 ">
+                      <span className="font-bold">Last Name:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={lastName}
+                          name="lastName"
                           onChange={handleChange}
                         />
                       </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
-                      <span className="font-bold">Last Name:</span>
-                      <div className="text-red-500">{user.lastName}</div>
+                      <span className="font-bold"> Username:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={email}
+                          name="email"
+                          onChange={handleChange}
+                        />
+                      </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
-                      <span className="font-bold"> Username:</span>
-                      <div className="text-red-500">{user.username}</div>
+                      <span className="font-bold"> Password:</span>
+                      <div className="text-red-500">
+                        <input
+                          type="text"
+                          value={password}
+                          name="password"
+                          onChange={handleChange}
+                        />
+                      </div>
                     </h2>
                     <h2 className="text-xl mb-4 ">
                       <span className="font-bold">SAT:</span>
