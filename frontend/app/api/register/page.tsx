@@ -26,7 +26,7 @@ export default function POST(): React.ReactNode {
   async function Register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
     try {
-      const res: Response = await fetch(`http://localhost:8000/api/register/`, {
+      const res: Response = await fetch("http://localhost:8000/api/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

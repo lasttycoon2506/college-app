@@ -3,6 +3,8 @@ import UserApplicationCard from "@/components/UserApplicationCard";
 import AuthContext from "@/context/AuthContext";
 import { UserApplication } from "@/models/userApplication";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { EditUser } from "@/models/editUser";
 
 export default function GET(): React.ReactNode {
   const [userApplications, setUserApplications] = useState<UserApplication[]>(
@@ -104,6 +106,41 @@ export default function GET(): React.ReactNode {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
+    EditUser();
+  }
+
+  async function EditUser(): Promise<void> {
+    const { firstName, lastName, email, password } = 
+    try {
+      const res: Response = await fetch(
+        "http://localhost:8000/api/currentUser/edit/",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            password,
+            sat,
+            gpa,
+            essay,
+          }),
+        }
+      );
+      if (!res.ok) {
+        const error = await res.json();
+        if (error.error["email"]) toast.error("Enter Valid Email!");
+        else toast.error(error.error);
+      } else {
+        toast.success("Successfully Edited!");
+        // router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
