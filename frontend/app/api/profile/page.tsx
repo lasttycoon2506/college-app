@@ -38,17 +38,18 @@ export default function GET(): React.ReactNode {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     let { name, value } = e.target;
+    console.log(name, value);
 
-    if (name === "firstName" && value) {
+    if (name === "firstName") {
       setFirstName(value);
     }
-    if (name === "lastName" && value) {
+    if (name === "lastName") {
       setLastName(value);
     }
-    if (name === "email" && value) {
+    if (name === "email") {
       setEmail(value);
     }
-    if (name === "password" && value) {
+    if (name === "password") {
       if (/^.{8}$/.test(value)) {
         setPassword(value);
         setPasswordError(false);
@@ -58,7 +59,7 @@ export default function GET(): React.ReactNode {
       }
       setPassword(value);
     }
-    if (name === "sat" && value) {
+    if (name === "sat") {
       if (/^\d{3,4}$/.test(value)) {
         setSat(value);
         setSatError(false);
@@ -67,7 +68,7 @@ export default function GET(): React.ReactNode {
         setSatError(true);
       }
     }
-    if (name === "gpa" && value) {
+    if (name === "gpa") {
       if (/^\d.\d{2}$/.test(value)) {
         setGpa(value);
         setGpaError(false);
@@ -76,7 +77,7 @@ export default function GET(): React.ReactNode {
         setGpaError(true);
       }
     }
-    if (name === "essay" && value) setEssay(value);
+    if (name === "essay") setEssay(value);
   }
 
   function resetPw() {
@@ -143,7 +144,7 @@ export default function GET(): React.ReactNode {
                       <div className="tooltip" data-tip="click to edit">
                         <div className="text-red-500">
                           <input
-                            type="text"
+                            type="email"
                             value={email ?? ""}
                             name="email"
                             onChange={handleChange}
