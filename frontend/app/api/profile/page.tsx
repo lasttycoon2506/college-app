@@ -137,28 +137,26 @@ export default function GET(): React.ReactNode {
                     >
                       View
                     </button>
-                    <dialog id="essay" className="modal">
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">Hello!</h3>
-                        <textarea
-                          placeholder="Primary"
-                          className="textarea textarea-primary textarea-xl"
-                        ></textarea>
-                        <div className="modal-action">
-                          <div>
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </dialog>
-                    <button
-                      disabled={isNotDirty}
-                      className="btn btn-wide bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
-                    >
-                      Save
-                    </button>
                   </form>
+                  <dialog id="essay" className="modal">
+                    <div className="modal-box">
+                      <textarea
+                        className="textarea w-full max-w-full h-96"
+                        placeholder="Your Essay..."
+                      ></textarea>
+                      <div className="modal-action">
+                        <form>
+                          <button className="btn">Save</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
+                  <button
+                    disabled={isNotDirty}
+                    className="btn btn-wide bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+                  >
+                    Save
+                  </button>
                 </div>
               )}
             </div>
