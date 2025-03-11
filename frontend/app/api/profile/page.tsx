@@ -13,8 +13,8 @@ export default function GET(): React.ReactNode {
   const [lastName, setLastName] = useState<string>(user!.lastName);
   const [email, setEmail] = useState<string>(user!.email);
   const [password, setPassword] = useState<string>("********");
-  const [sat, setSat] = useState<number | null>(user?.sat ?? 0);
-  const [gpa, setGpa] = useState<number | null>(user?.gpa ?? 0);
+  const [sat, setSat] = useState<string | null>(user?.sat ?? "");
+  const [gpa, setGpa] = useState<string | null>(user?.gpa ?? "");
   const [essay, setEssay] = useState<string | null>(user?.essay ?? "");
   const [isNotDirty, setIsNotDirty] = useState<boolean>(true);
   const [satError, setSatError] = useState<boolean>(false);
@@ -58,19 +58,19 @@ export default function GET(): React.ReactNode {
     }
     if (name === "sat" && value) {
       if (/^\d{3,4}$/.test(value)) {
-        setSat(Number(value));
+        setSat(value);
         setSatError(false);
       } else {
-        setSat(Number(e.target.value));
+        setSat(e.target.value);
         setSatError(true);
       }
     }
     if (name === "gpa" && value) {
       if (/^\d.\d{2}$/.test(value)) {
-        setGpa(Number(value));
+        setGpa(value);
         setGpaError(false);
       } else {
-        setGpa(Number(e.target.value));
+        setGpa(e.target.value);
         setGpaError(true);
       }
     }

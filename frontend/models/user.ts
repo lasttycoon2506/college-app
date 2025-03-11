@@ -3,9 +3,9 @@ export type UserBackend = {
   last_name: string;
   email: string;
   username: string;
-  essay: string;
-  sat: number;
-  gpa: number;
+  essay?: string;
+  sat?: number;
+  gpa?: number;
 };
 
 export type User = {
@@ -14,8 +14,8 @@ export type User = {
   email: string;
   username: string;
   essay: string;
-  sat: number;
-  gpa: number;
+  sat: string;
+  gpa: string;
 };
 
 export function mapBackendToFrontend(userBackend: UserBackend): User {
@@ -24,8 +24,8 @@ export function mapBackendToFrontend(userBackend: UserBackend): User {
     lastName: userBackend.last_name,
     email: userBackend.email,
     username: userBackend.username,
-    essay: userBackend.essay,
-    sat: userBackend.sat,
-    gpa: userBackend.gpa,
+    essay: userBackend.essay || "",
+    sat: userBackend.sat ? userBackend.sat.toString() : "",
+    gpa: userBackend.gpa ? userBackend.gpa.toString() : "",
   };
 }
