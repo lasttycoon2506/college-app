@@ -100,29 +100,14 @@ export default function GET(): React.ReactNode {
   ]);
 
   async function EditUser(): Promise<void> {
-    const { firstName, lastName, email, password, sat, gpa, essay } = userData;
-    console.log("trigs");
     try {
-      const res: Response = await fetch(
-        "http://localhost:8000/api/currentUser/edit/",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            username: email,
-            password,
-            sat,
-            gpa,
-            essay,
-          }),
-        }
-      );
-      console.log(res);
+      const res: Response = await fetch("/api/editUser", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
       if (!res.ok) {
         const error = await res.json();
         if (error.error["email"]) toast.error("Enter Valid Email!");
@@ -138,7 +123,9 @@ export default function GET(): React.ReactNode {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    EditUser();
+    if ((event.nativeEvent as SubmitEvent).submitter?.id === "submitEditBtn") {
+      EditUser();
+    }
   }
 
   return (
@@ -303,6 +290,7 @@ export default function GET(): React.ReactNode {
                       </div>
                     </dialog>
                     <button
+                      id="submitEditBtn"
                       disabled={isNotDirty}
                       className="btn btn-wide bg-success enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
                     >

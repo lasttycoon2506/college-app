@@ -1,14 +1,10 @@
 import { EditUser } from "@/models/editUser";
-import { UserApplication } from "@/models/userApplication";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-async function editUser(
-  token: string,
-  userData: EditUser
-): Promise<UserApplication[]> {
+async function editUser(token: string, userData: EditUser): Promise<any> {
   const response = await fetch("http://localhost:8000/api/currentUser/edit/", {
     method: "PUT",
     headers: {
@@ -29,16 +25,16 @@ async function editUser(
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
+
   return response.json();
 }
 
 export async function PUT(req: NextRequest): Promise<NextResponse> {
-  const { userData }: { userData: EditUser } = await req.json();
+  const userData: EditUser = await req.json();
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-
   try {
-    await editUser(token!.value, userData);
+    const x = await editUser(token!.value, userData);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message },
