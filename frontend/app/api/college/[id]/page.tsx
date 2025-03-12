@@ -11,13 +11,10 @@ async function getCollegeDetails(id: number): Promise<College> {
 
 export default async function GET({
   params,
-  searchParams,
 }: {
   params: { id: number };
-  searchParams: { picId: number };
 }): Promise<React.ReactNode | NextResponse> {
   const { id } = await params;
-  const { picId } = await searchParams;
   let college: College;
   try {
     college = await getCollegeDetails(id);
@@ -35,7 +32,7 @@ export default async function GET({
         <div className="card card-side bg-base-100 shadow-lg">
           <div className="flex justify-center items-center">
             <img
-              src={`/campus${picId}.jpg`}
+              src={`/campus${id}.jpg`}
               className="max-w-sm rounded-lg shadow-2xl mt-7 mx-7"
               style={{ height: 300 }}
             />

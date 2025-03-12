@@ -54,7 +54,7 @@ export default function CollegeCard({
           <div>
             <div className="grid grid-rows-2 gap-4">
               <div className="flex justify-center items-center">
-                <Link href={`/api/college/${college.id}?picId=${college.id}`}>
+                <Link href={`/api/college/${college.id}`}>
                   <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
                     Info
                   </button>
@@ -82,9 +82,11 @@ export default function CollegeCard({
                 </div>
               ) : (
                 <div className="flex justify-center items-center">
-                  <button className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base">
-                    Apply
-                  </button>
+                  <Link href={`/api/apply/${college.id}`}>
+                    <button className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base">
+                      Apply
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>
