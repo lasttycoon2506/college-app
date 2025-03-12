@@ -29,11 +29,15 @@ export default function POST(): React.ReactNode {
       !userData.firstName ||
       !userData.lastName ||
       !userData.email ||
-      !userData.password
+      !userData.password ||
+      emailError ||
+      passwordError
     ) {
       setIsNotValidForm(true);
+    } else {
+      setIsNotValidForm(false);
     }
-  }, [userData.firstName]);
+  }, [userData]);
 
   async function Register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
@@ -68,52 +72,38 @@ export default function POST(): React.ReactNode {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = e.target;
 
-    if (name === "firstName" && value) {
-      setFirstNameError(false);
-      setUserData({
-        ...userData,
-        [name]: value,
-      });
-    } else if (name === "firstName") {
-      console.log(value);
-      setUserData({
-        ...userData,
-        [name]: e.target.value,
-      });
-    }
-
-    if (name === "lastName" && value) {
-      setLastNameError(false);
-      setUserData({
-        ...userData,
-        [name]: value,
-      });
-    }
-    if (name === "email" && value) {
-      setEmailError(false);
-      setUserData({
-        ...userData,
-        [name]: value,
-      });
-    }
-    if (name === "password" && value) {
-      if (!/^.{8,30}$/.test(value)) {
-        setUserData({
-          ...userData,
-          [name]: value,
-        });
-        setPasswordError(true);
+    if (name === "firstName") {
+      if (value) {
+        setFirstNameError(false);
       } else {
-        setUserData({
-          ...userData,
-          [name]: e.target.value,
-        });
-        setPasswordError(false);
-        if (userData.firstName && userData.lastName && userData.email) {
-          setIsNotValidForm(false);
-        }
+        setFirstNameError(true);
       }
     }
+    if (name === "lastName") {
+      if (value) {
+        setLastNameError(false);
+      } else {
+        setLastNameError(true);
+      }
+    }
+    if (name === "email") {
+      if (value) {
+        setEmailError(false);
+      } else {
+        setEmailError(true);
+      }
+    }
+    if (name === "password") {
+      if (/^.{8,30}$/.test(value)) {
+        setPasswordError(false);
+      } else {
+        setPasswordError(true);
+      }
+    }
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
