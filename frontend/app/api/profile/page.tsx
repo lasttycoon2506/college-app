@@ -77,41 +77,28 @@ export default function GET(): React.ReactNode {
   ) {
     let { name, value } = e.target;
 
-    if (
-      name === "firstName" ||
-      name === "lastName" ||
-      name === "email" ||
-      name === "essay"
-    ) {
-      setUserData({ ...userData, [name]: value });
-    }
     if (name === "password") {
       if (/^.{8,30}$/.test(value)) {
         setPasswordError(false);
-        setUserData({ ...userData, [name]: value });
       } else {
-        setUserData({ ...userData, [name]: e.target.value });
         setPasswordError(true);
       }
     }
     if (name === "sat") {
       if (/^\d{3,4}$/.test(value)) {
         setSatError(false);
-        setUserData({ ...userData, [name]: value });
       } else {
-        setUserData({ ...userData, [name]: e.target.value });
         setSatError(true);
       }
     }
     if (name === "gpa") {
       if (/^\d.\d{2}$/.test(value)) {
         setGpaError(false);
-        setUserData({ ...userData, [name]: value });
       } else {
-        setUserData({ ...userData, [name]: e.target.value });
         setGpaError(true);
       }
     }
+    setUserData({ ...userData, [name]: value });
   }
 
   function resetPw() {
