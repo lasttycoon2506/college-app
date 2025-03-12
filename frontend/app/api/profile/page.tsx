@@ -10,7 +10,7 @@ export default function GET(): React.ReactNode {
   const [userApplications, setUserApplications] = useState<UserApplication[]>(
     []
   );
-  const { user } = useContext(AuthContext);
+  const { user, getUser } = useContext(AuthContext);
   const [userData, setUserData] = useState<EditUser>({
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
@@ -113,8 +113,8 @@ export default function GET(): React.ReactNode {
         if (error.error["email"]) toast.error("Enter Valid Email!");
         else toast.error(error.error);
       } else {
+        getUser();
         toast.success("Successfully Edited!");
-        // router.push("/");
       }
     } catch (error) {
       console.log(error);

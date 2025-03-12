@@ -9,6 +9,7 @@ type AuthContextType = {
   error: string;
   login: (credentials: { username: string; password: string }) => Promise<void>;
   logout: () => Promise<void>;
+  getUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextType>({
   error: "",
   login: async () => Promise.resolve(),
   logout: async () => Promise.resolve(),
+  getUser: async () => Promise.resolve(),
 });
 
 export function AuthProvider({
@@ -36,8 +38,6 @@ export function AuthProvider({
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(user));
     }
-  }, [user]);
-  useEffect(() => {
     if (!user) getUser();
   }, [user]);
 
@@ -73,7 +73,6 @@ export function AuthProvider({
   async function getUser(): Promise<void> {
     try {
       const res: Response = await fetch("/api/user");
-
       if (!res.ok) {
         const error = await res.json();
         setError(error.message);
@@ -109,7 +108,7 @@ export function AuthProvider({
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, error, login, logout }}
+      value={{ user, isAuthenticated, error, login, logout, getUser }}
     >
       {children}
     </AuthContext.Provider>
