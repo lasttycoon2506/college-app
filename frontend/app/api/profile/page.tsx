@@ -78,6 +78,15 @@ export default function GET(): React.ReactNode {
   useEffect(() => {
     getUserApplications();
     if (
+      !userData.firstName ||
+      !userData.lastName ||
+      !userData.email ||
+      !userData.sat ||
+      !userData.gpa ||
+      !userData.essay
+    ) {
+      setIsNotDirty(true);
+    } else if (
       (userData.firstName !== user!.firstName ||
         userData.lastName !== user!.lastName ||
         userData.email !== user!.email ||
@@ -224,6 +233,7 @@ export default function GET(): React.ReactNode {
                             type="number"
                             value={userData.sat ?? ""}
                             name="sat"
+                            placeholder="required"
                             onChange={handleChange}
                             required
                           />
@@ -243,6 +253,7 @@ export default function GET(): React.ReactNode {
                             type="number"
                             value={userData.gpa ?? ""}
                             name="gpa"
+                            placeholder="required"
                             onChange={handleChange}
                             required
                           />

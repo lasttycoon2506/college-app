@@ -25,7 +25,7 @@ export function mapBackendToFrontend(userBackend: UserBackend): User {
     email: userBackend.email,
     username: userBackend.username,
     essay: userBackend.essay || "",
-    sat: userBackend.sat ? userBackend.sat.toString() : "0",
-    gpa: userBackend.gpa ? userBackend.gpa.toString() : "0",
+    sat: userBackend.sat ? userBackend.sat.toString() : "",
+    gpa: userBackend.gpa ? userBackend.gpa.toString() : "",
   };
 }
