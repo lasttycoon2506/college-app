@@ -31,15 +31,6 @@ export async function GET(): Promise<NextResponse> {
     );
   }
 
-  try {
-    const res: Response = await fetch("/api/userApplications");
-    const resAsJson = await res.json();
-    const userApps = resAsJson.body.userApplications;
-    console.log(userApps);
-  } catch (error) {
-    console.log(error);
-  }
-
   const user: User = mapBackendToFrontend(userBackend);
 
   return NextResponse.json({ body: { user } }, { status: 200 });

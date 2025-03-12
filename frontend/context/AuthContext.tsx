@@ -1,5 +1,6 @@
 "use client";
 import { User } from "@/models/user";
+import { UserApplication } from "@/models/userApplication";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
@@ -80,11 +81,29 @@ export function AuthProvider({
       }
       const data = await res.json();
       const loadedUser: User = data.body.user;
+      const userApplications = await getUserApplications();
+      loadedUser.userApplications = userApplications;
       setIsAuthenticated(true);
       setUser(loadedUser);
       setError("");
     } catch (error: any) {
       setError(error);
+    }
+  }
+
+  async function getUserApplications(): Promise<UserApplication[]> {
+    try {
+      const res: Response = await fetch("/api/userApplications");
+      if (!res.ok) {
+        const error = await res.json();
+        return error;
+      }
+      const data = await res.json();
+      const userApplications: UserApplication[] = data.body.userApplications;
+      return userApplications;
+    } catch (error: any) {
+      setError(error);
+      return error;
     }
   }
 
