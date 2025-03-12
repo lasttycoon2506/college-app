@@ -75,7 +75,7 @@ export default function CollegeCard({
                 <div className="flex justify-center items-center">
                   <button
                     disabled={true}
-                    className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base"
+                    className="btn btn-wide shadow-md shadow-green-500/50 border-none text-regal-blue"
                   >
                     Already Applied!
                   </button>

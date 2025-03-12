@@ -1,29 +1,17 @@
-import { EditUser } from "@/models/editUser";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-async function editUser(token: string, userData: EditUser): Promise<any> {
+async function apply(token: string, collegeId: number): Promise<any> {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/currentUser/edit/",
+      `http://localhost:8000/api/colleges/apply/${collegeId}`,
       {
-        method: "PUT",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          first_name: userData.firstName,
-          last_name: userData.lastName,
-          email: userData.email,
-          username: userData.email,
-          password: userData.password,
-          sat: userData.sat,
-          gpa: userData.gpa,
-          essay: userData.essay,
-        }),
       }
     );
     if (!response.ok) {
@@ -37,11 +25,11 @@ async function editUser(token: string, userData: EditUser): Promise<any> {
   }
 }
 
-export async function PUT(req: NextRequest): Promise<NextResponse> {
-  const userData: EditUser = await req.json();
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const { id } = await req.json();
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-  const res = await editUser(token!.value, userData);
+  const res = await apply(token!.value, id);
   if (res.error) {
     return NextResponse.json({ error: res.error }, { status: 400 });
   }
