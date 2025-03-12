@@ -42,6 +42,8 @@ export default function GET(): React.ReactNode {
   ) {
     let { name, value } = e.target;
 
+    if (!value) {
+    }
     if (name === "password") {
       if (/^.{8}$/.test(value)) {
         setPasswordError(false);
@@ -147,7 +149,13 @@ export default function GET(): React.ReactNode {
                             value={userData.firstName ?? ""}
                             name="firstName"
                             onChange={handleChange}
+                            required
                           />
+                          {!userData.firstName && (
+                            <p className="text-red-500 text-xs italic">
+                              Missing!
+                            </p>
+                          )}
                         </div>
                       </div>
                     </h2>
@@ -160,7 +168,13 @@ export default function GET(): React.ReactNode {
                             value={userData.lastName ?? ""}
                             name="lastName"
                             onChange={handleChange}
+                            required
                           />
+                          {!userData.lastName && (
+                            <p className="text-red-500 text-xs italic">
+                              Missing!
+                            </p>
+                          )}
                         </div>
                       </div>
                     </h2>
@@ -173,7 +187,13 @@ export default function GET(): React.ReactNode {
                             value={userData.email ?? ""}
                             name="email"
                             onChange={handleChange}
+                            required
                           />
+                          {!userData.email && (
+                            <p className="text-red-500 text-xs italic">
+                              Missing!
+                            </p>
+                          )}
                         </div>
                       </div>
                     </h2>
@@ -205,6 +225,7 @@ export default function GET(): React.ReactNode {
                             value={userData.sat ?? ""}
                             name="sat"
                             onChange={handleChange}
+                            required
                           />
                           {satError && (
                             <p className="text-red-500 text-xs italic">
@@ -223,6 +244,7 @@ export default function GET(): React.ReactNode {
                             value={userData.gpa ?? ""}
                             name="gpa"
                             onChange={handleChange}
+                            required
                           />
                           {gpaError && (
                             <p className="text-red-500 text-xs italic">
@@ -270,6 +292,7 @@ export default function GET(): React.ReactNode {
                           value={userData.essay ?? ""}
                           onChange={handleChange}
                           name="essay"
+                          required
                         />
                         <div className="modal-action">
                           <div>
