@@ -42,11 +42,18 @@ export default function GET(): React.ReactNode {
   ) {
     let { name, value } = e.target;
 
-    if (!value) {
+    if (
+      name === "firstName" ||
+      name === "lastName" ||
+      name === "email" ||
+      name === "essay"
+    ) {
+      setUserData({ ...userData, [name]: value });
     }
     if (name === "password") {
       if (/^.{8}$/.test(value)) {
         setPasswordError(false);
+        setUserData({ ...userData, [name]: value });
       } else {
         setUserData({ ...userData, [name]: e.target.value });
         setPasswordError(true);
@@ -55,6 +62,7 @@ export default function GET(): React.ReactNode {
     if (name === "sat") {
       if (/^\d{3,4}$/.test(value)) {
         setSatError(false);
+        setUserData({ ...userData, [name]: value });
       } else {
         setUserData({ ...userData, [name]: e.target.value });
         setSatError(true);
@@ -63,12 +71,12 @@ export default function GET(): React.ReactNode {
     if (name === "gpa") {
       if (/^\d.\d{2}$/.test(value)) {
         setGpaError(false);
+        setUserData({ ...userData, [name]: value });
       } else {
         setUserData({ ...userData, [name]: e.target.value });
         setGpaError(true);
       }
     }
-    setUserData({ ...userData, [name]: value });
   }
 
   function resetPw() {
@@ -125,6 +133,7 @@ export default function GET(): React.ReactNode {
         else toast.error(error.error);
       } else {
         getUser();
+        setIsNotDirty(true);
         toast.success("Successfully Edited!");
       }
     } catch (error) {

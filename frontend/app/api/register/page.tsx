@@ -65,8 +65,8 @@ export default function POST(): React.ReactNode {
     if (name === "email" && value) {
       setEmailError(false);
     }
-    if (name === "password" && value) {
-      setPasswordError(false);
+    if (name === "password") {
+      if (!/^.{8}$/.test(value)) setPasswordError(true);
     }
 
     setUserData({
@@ -116,6 +116,7 @@ export default function POST(): React.ReactNode {
                   name="firstName"
                   value={userData.firstName}
                   onChange={handleChange}
+                  required
                 />
                 {firstNameError && (
                   <p className="text-red-500 text-xs italic">Missing!</p>
@@ -132,6 +133,7 @@ export default function POST(): React.ReactNode {
                   name="lastName"
                   value={userData.lastName}
                   onChange={handleChange}
+                  required
                 />
                 {lastNameError && (
                   <p className="text-red-500 text-xs italic">Missing!</p>
@@ -150,6 +152,7 @@ export default function POST(): React.ReactNode {
                   name="email"
                   value={userData.email}
                   onChange={handleChange}
+                  required
                 />
                 {emailError && (
                   <p className="text-red-500 text-xs italic">Missing!</p>
@@ -166,6 +169,7 @@ export default function POST(): React.ReactNode {
                   name="password"
                   value={userData.password}
                   onChange={handleChange}
+                  required
                 />
                 {passwordError && (
                   <p className="text-red-500 text-xs italic">Missing!</p>
