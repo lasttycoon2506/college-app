@@ -16,7 +16,7 @@ export default function GET(): React.ReactNode {
     lastName: user?.lastName || "",
     email: user?.email || "",
     username: user?.username || "",
-    password: "********",
+    password: "",
     sat: user?.sat || "",
     gpa: user?.gpa || "",
     essay: user?.essay || "",
@@ -32,6 +32,7 @@ export default function GET(): React.ReactNode {
       !userData.firstName ||
       !userData.lastName ||
       !userData.email ||
+      passwordError ||
       !userData.sat ||
       !userData.gpa ||
       !userData.essay
@@ -41,7 +42,6 @@ export default function GET(): React.ReactNode {
       (userData.firstName !== user!.firstName ||
         userData.lastName !== user!.lastName ||
         userData.email !== user!.email ||
-        userData.password !== "********" ||
         userData.sat?.toString() !== user!.sat.toString() ||
         userData.gpa?.toString() !== user!.gpa.toString() ||
         userData.essay?.toString() !== user!.essay.toString()) &&
@@ -131,10 +131,6 @@ export default function GET(): React.ReactNode {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if ((event.nativeEvent as SubmitEvent).submitter?.id === "submitEditBtn") {
-      //   if (userData.password === "********") {
-      //     userData.password = "";
-      //   }
-      console.log(userData.password);
       EditUser();
     }
   }
@@ -211,9 +207,10 @@ export default function GET(): React.ReactNode {
                       <div className="tooltip" data-tip="click to edit">
                         <div className="text-red-500">
                           <input
-                            type="text"
+                            type="password"
                             value={userData.password ?? ""}
                             name="password"
+                            placeholder="********"
                             onChange={handleChange}
                             onClickCapture={resetPw}
                           />
