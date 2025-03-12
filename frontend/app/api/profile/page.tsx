@@ -7,9 +7,6 @@ import { toast } from "react-toastify";
 import { EditUser } from "@/models/editUser";
 
 export default function GET(): React.ReactNode {
-  const [userApplications, setUserApplications] = useState<UserApplication[]>(
-    []
-  );
   const { user, getUser } = useContext(AuthContext);
   const [userData, setUserData] = useState<EditUser>({
     firstName: user?.firstName || "",
@@ -27,7 +24,6 @@ export default function GET(): React.ReactNode {
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
   useEffect(() => {
-    getUserApplications();
     if (
       !userData.firstName ||
       !userData.lastName ||
@@ -60,17 +56,6 @@ export default function GET(): React.ReactNode {
     userData.gpa,
     userData.essay,
   ]);
-
-  async function getUserApplications(): Promise<void> {
-    try {
-      const res: Response = await fetch("/api/userApplications");
-      const resAsJson = await res.json();
-      const userApps: UserApplication[] = resAsJson.body.userApplications;
-      setUserApplications(userApps);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -138,11 +123,11 @@ export default function GET(): React.ReactNode {
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24">
-        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-          <h1 className="text-3xl font-bold mb-4 ml-4">Your Profile</h1>
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/4 mx-20 mt-10">
-              {user && (
+        {user && (
+          <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+            <h1 className="text-3xl font-bold mb-4 ml-4">Your Profile</h1>
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/4 mx-20 mt-10">
                 <div>
                   <form onSubmit={handleSubmit}>
                     <h2 className="text-xl mb-4 ">
@@ -329,25 +314,27 @@ export default function GET(): React.ReactNode {
                     </button>
                   </form>
                 </div>
-              )}
-            </div>
-            <div className="md:w-3/4 md:pl-4">
-              <h2 className="text-xl font-semibold mb-4">Your Applications</h2>
-              <ul>
-                {userApplications.map(
-                  (userApplication: UserApplication, index) => (
-                    <div key={index}>
-                      <UserApplicationCard
-                        key={userApplication.id}
-                        userApplication={userApplication}
-                      />
-                    </div>
-                  )
-                )}
-              </ul>
+              </div>
+              <div className="md:w-3/4 md:pl-4">
+                <h2 className="text-xl font-semibold mb-4">
+                  Your Applications
+                </h2>
+                <ul>
+                  {user.userApplications!.map(
+                    (userApplication: UserApplication, index) => (
+                      <div key={index}>
+                        <UserApplicationCard
+                          key={userApplication.id}
+                          userApplication={userApplication}
+                        />
+                      </div>
+                    )
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
