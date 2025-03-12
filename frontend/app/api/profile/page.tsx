@@ -26,63 +26,6 @@ export default function GET(): React.ReactNode {
   const [gpaError, setGpaError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  async function getUserApplications(): Promise<void> {
-    try {
-      const res: Response = await fetch("/api/userApplications");
-      const resAsJson = await res.json();
-      const userApps: UserApplication[] = resAsJson.body.userApplications;
-      setUserApplications(userApps);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    let { name, value } = e.target;
-
-    if (
-      name === "firstName" ||
-      name === "lastName" ||
-      name === "email" ||
-      name === "essay"
-    ) {
-      setUserData({ ...userData, [name]: value });
-    }
-    if (name === "password") {
-      if (/^.{8}$/.test(value)) {
-        setPasswordError(false);
-        setUserData({ ...userData, [name]: value });
-      } else {
-        setUserData({ ...userData, [name]: e.target.value });
-        setPasswordError(true);
-      }
-    }
-    if (name === "sat") {
-      if (/^\d{3,4}$/.test(value)) {
-        setSatError(false);
-        setUserData({ ...userData, [name]: value });
-      } else {
-        setUserData({ ...userData, [name]: e.target.value });
-        setSatError(true);
-      }
-    }
-    if (name === "gpa") {
-      if (/^\d.\d{2}$/.test(value)) {
-        setGpaError(false);
-        setUserData({ ...userData, [name]: value });
-      } else {
-        setUserData({ ...userData, [name]: e.target.value });
-        setGpaError(true);
-      }
-    }
-  }
-
-  function resetPw() {
-    setUserData({ ...userData, password: "" });
-  }
-
   useEffect(() => {
     getUserApplications();
     if (
@@ -117,6 +60,63 @@ export default function GET(): React.ReactNode {
     userData.gpa,
     userData.essay,
   ]);
+
+  async function getUserApplications(): Promise<void> {
+    try {
+      const res: Response = await fetch("/api/userApplications");
+      const resAsJson = await res.json();
+      const userApps: UserApplication[] = resAsJson.body.userApplications;
+      setUserApplications(userApps);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    let { name, value } = e.target;
+
+    if (
+      name === "firstName" ||
+      name === "lastName" ||
+      name === "email" ||
+      name === "essay"
+    ) {
+      setUserData({ ...userData, [name]: value });
+    }
+    if (name === "password") {
+      if (/^.{8,30}$/.test(value)) {
+        setPasswordError(false);
+        setUserData({ ...userData, [name]: value });
+      } else {
+        setUserData({ ...userData, [name]: e.target.value });
+        setPasswordError(true);
+      }
+    }
+    if (name === "sat") {
+      if (/^\d{3,4}$/.test(value)) {
+        setSatError(false);
+        setUserData({ ...userData, [name]: value });
+      } else {
+        setUserData({ ...userData, [name]: e.target.value });
+        setSatError(true);
+      }
+    }
+    if (name === "gpa") {
+      if (/^\d.\d{2}$/.test(value)) {
+        setGpaError(false);
+        setUserData({ ...userData, [name]: value });
+      } else {
+        setUserData({ ...userData, [name]: e.target.value });
+        setGpaError(true);
+      }
+    }
+  }
+
+  function resetPw() {
+    setUserData({ ...userData, password: "" });
+  }
 
   async function EditUser(): Promise<void> {
     try {

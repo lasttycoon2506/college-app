@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 type UserData = {
@@ -22,6 +22,18 @@ export default function POST(): React.ReactNode {
   const [lastNameError, setLastNameError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [isNotValidForm, setIsNotValidForm] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (
+      !userData.firstName ||
+      !userData.lastName ||
+      !userData.email ||
+      !userData.password
+    ) {
+      setIsNotValidForm(true);
+    }
+  }, [userData.firstName]);
 
   async function Register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
@@ -58,45 +70,61 @@ export default function POST(): React.ReactNode {
 
     if (name === "firstName" && value) {
       setFirstNameError(false);
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
+    } else if (name === "firstName") {
+      console.log(value);
+      setUserData({
+        ...userData,
+        [name]: e.target.value,
+      });
     }
+
     if (name === "lastName" && value) {
       setLastNameError(false);
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
     }
     if (name === "email" && value) {
       setEmailError(false);
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
     }
-    if (name === "password") {
-      if (!/^.{8}$/.test(value)) setPasswordError(true);
+    if (name === "password" && value) {
+      if (!/^.{8,30}$/.test(value)) {
+        setUserData({
+          ...userData,
+          [name]: value,
+        });
+        setPasswordError(true);
+      } else {
+        setUserData({
+          ...userData,
+          [name]: e.target.value,
+        });
+        setPasswordError(false);
+        if (userData.firstName && userData.lastName && userData.email) {
+          setIsNotValidForm(false);
+        }
+      }
     }
-
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
 
-    if (!userData.firstName) {
-      setFirstNameError(true);
-    }
-    if (!userData.lastName) {
-      setLastNameError(true);
-    }
-    if (!userData.email) {
-      setEmailError(true);
-    }
-    if (!userData.password) {
-      setPasswordError(true);
-    }
-    if (
-      userData.firstName &&
+    userData.firstName &&
       userData.lastName &&
       userData.email &&
-      userData.password
-    )
-      Register();
+      userData.password;
+
+    Register();
   }
 
   return (
@@ -172,15 +200,17 @@ export default function POST(): React.ReactNode {
                   required
                 />
                 {passwordError && (
-                  <p className="text-red-500 text-xs italic">Missing!</p>
+                  <p className="text-red-500 text-xs italic">
+                    Must be at least 8 Characters!
+                  </p>
                 )}
-                <p className="text-gray-600 text-xs italic">
-                  Must be at least 8 characters long!
-                </p>
               </div>
             </div>
             <div className="flex items-center justify-center pt-10">
-              <button className="btn btn-wide bg-info shadow-md shadow-cyan-500/50 border-none text-base">
+              <button
+                disabled={isNotValidForm}
+                className="btn btn-wide bg-success enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base"
+              >
                 Register
               </button>
             </div>
