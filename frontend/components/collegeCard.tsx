@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import type { College } from "@/models/college";
-
 import Link from "next/link";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
@@ -68,6 +67,17 @@ export default function CollegeCard({
                 <div className="flex justify-center items-center">
                   <button className="btn btn-wide bg-error shadow-md border-none text-base opacity-50 cursor-not-allowed">
                     Deadline Passed
+                  </button>
+                </div>
+              ) : user?.userApplications?.some(
+                  (x) => x.college.id === college.id
+                ) ? (
+                <div className="flex justify-center items-center">
+                  <button
+                    disabled={true}
+                    className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base"
+                  >
+                    Already Applied!
                   </button>
                 </div>
               ) : (
