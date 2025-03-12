@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import type { College } from "@/models/college";
 
 import Link from "next/link";
+import { useContext } from "react";
+import AuthContext from "@/context/AuthContext";
 
 export default function CollegeCard({
   college,
@@ -9,6 +12,7 @@ export default function CollegeCard({
   college: College;
 }): React.ReactNode {
   const currentDate: string = new Date().toISOString().slice(0, 10);
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">
@@ -63,7 +67,7 @@ export default function CollegeCard({
                 .slice(0, 10) ? (
                 <div className="flex justify-center items-center">
                   <button className="btn btn-wide bg-error shadow-md border-none text-base opacity-50 cursor-not-allowed">
-                    Apply
+                    Deadline Passed
                   </button>
                 </div>
               ) : (

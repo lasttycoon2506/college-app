@@ -278,7 +278,7 @@ export default function GET(): React.ReactNode {
                         </button>
                       ) : (
                         <button
-                          className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base ml-4"
+                          className="btn bg-info enabled:hover:border-gray-400 enabled:opacity-100 w-20 disabled:opacity-50 shadow-md shadow-cyan-500/50 border-none text-base ml-4"
                           onClickCapture={() =>
                             (
                               document.getElementById(
