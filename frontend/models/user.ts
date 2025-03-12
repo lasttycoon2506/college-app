@@ -1,3 +1,5 @@
+import { UserApplication } from "./userApplication";
+
 export type UserBackend = {
   first_name: string;
   last_name: string;
@@ -16,6 +18,7 @@ export type User = {
   essay: string;
   sat: string;
   gpa: string;
+  userApplications?: UserApplication[];
 };
 
 export function mapBackendToFrontend(userBackend: UserBackend): User {

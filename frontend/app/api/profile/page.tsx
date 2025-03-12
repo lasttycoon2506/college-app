@@ -131,6 +131,10 @@ export default function GET(): React.ReactNode {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if ((event.nativeEvent as SubmitEvent).submitter?.id === "submitEditBtn") {
+      //   if (userData.password === "********") {
+      //     userData.password = "";
+      //   }
+      console.log(userData.password);
       EditUser();
     }
   }
