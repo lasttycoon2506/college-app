@@ -45,7 +45,7 @@ def editUser(request):
     user.last_name = data["last_name"]
     user.email = data["email"]
 
-    if data["password"] is not None:
+    if len(data["password"]) != 0:
         user.password = make_password(data["password"])
     if not data["essay"]:
         return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
