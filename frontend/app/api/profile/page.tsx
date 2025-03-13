@@ -38,6 +38,7 @@ export default function GET(): React.ReactNode {
       (userData.firstName !== user!.firstName ||
         userData.lastName !== user!.lastName ||
         userData.email !== user!.email ||
+        userData.password !== "" ||
         userData.sat?.toString() !== user!.sat.toString() ||
         userData.gpa?.toString() !== user!.gpa.toString() ||
         userData.essay?.toString() !== user!.essay.toString()) &&
