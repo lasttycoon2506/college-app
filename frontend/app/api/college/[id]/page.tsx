@@ -30,11 +30,11 @@ export default async function GET({
   return (
     <div className="bg-blue-50">
       <div className="container m-auto pt-10 pb-24">
-        <div className="card card-side bg-base-100 shadow-lg">
+        <div className="card card-side bg-base-100 shadow-2xl">
           <div className="flex justify-center items-center">
             <img
               src={`/campus${id}.jpg`}
-              className="max-w-sm rounded-xl shadow-2xl mt-7 mx-7"
+              className="max-w-sm rounded-2xl shadow-2xl mt-7 mx-7"
               style={{ height: 300 }}
             />
           </div>
@@ -78,7 +78,7 @@ export default async function GET({
           </div>
           {currentDate >
           new Date(college!.applicationDeadline).toISOString().slice(0, 10) ? (
-            <div className="flex justify-center items-center ps-10">
+            <div className="flex justify-center items-center ps-10 ">
               <div className="card bg-error text-neutral-content w-60">
                 <div className="card-body text-center">
                   <h2 className="card-title justify-center">App. Deadline</h2>

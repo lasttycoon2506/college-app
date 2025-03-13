@@ -44,17 +44,14 @@ export default function CollegeCard({
   return (
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">
       <figure>
-        <Image
-          className="dark:invert mr-6 rounded-lg"
+        <img
+          className="dark:invert mr-6 rounded-2xl shadow-xl mx-3 my-3"
           src={`/campus${college.id}.jpg`}
-          alt="clg campus"
-          width={300}
-          height={400}
-          priority={true}
+          style={{ width: 300, height: 225 }}
         />
       </figure>
       <div className="card-body">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1">
           <div>
             <h2 className="card-title mb-5 text-2xl">
               <strong>
