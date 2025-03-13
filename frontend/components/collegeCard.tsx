@@ -12,22 +12,24 @@ export default function CollegeCard({
   college: College;
 }): React.ReactNode {
   const currentDate: string = new Date().toISOString().slice(0, 10);
-  const { user } = useContext(AuthContext);
+  const { user, getUser } = useContext(AuthContext);
 
   async function applyToCollege(): Promise<void> {
     try {
-      const res: Response = await fetch(`/api/apply/${college.id}`, {
+      const res: Response = await fetch(`/api/apply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: "",
+        body: JSON.stringify({
+          id: college.id,
+        }),
       });
       if (!res.ok) {
         const error = await res.json();
         toast.error(error.error);
       } else {
-        // getUser();
+        getUser();
         toast.success("Successfully Applied!");
       }
     } catch (error) {
