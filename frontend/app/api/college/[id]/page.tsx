@@ -16,6 +16,7 @@ export default async function GET({
 }): Promise<React.ReactNode | NextResponse> {
   const { id } = await params;
   let college: College;
+
   try {
     college = await getCollegeDetails(id);
   } catch (error: any) {
@@ -28,7 +29,7 @@ export default async function GET({
 
   return (
     <div className="bg-blue-50">
-      <div className="container m-auto pt-5 pb-24">
+      <div className="container m-auto pt-10 pb-24">
         <div className="card card-side bg-base-100 shadow-lg">
           <div className="flex justify-center items-center">
             <img
@@ -75,53 +76,36 @@ export default async function GET({
               <strong>Division:</strong> {college!.division}
             </p>
           </div>
-          <div>
-            {currentDate >
-            new Date(college!.applicationDeadline)
-              .toISOString()
-              .slice(0, 10) ? (
-              <div className="grid grid-rows-2 gap-4 mt-20">
-                <div className="flex justify-center items-center">
-                  <div className="card bg-error text-neutral-content w-60">
-                    <div className="card-body text-center">
-                      <h2 className="card-title justify-center">
-                        App. Deadline
-                      </h2>
-                      <p>
-                        {new Date(college!.applicationDeadline)
-                          .toISOString()
-                          .slice(0, 10)}
-                      </p>
-                    </div>
-                  </div>
+          {currentDate >
+          new Date(college!.applicationDeadline).toISOString().slice(0, 10) ? (
+            <div className="flex justify-center items-center">
+              <div className="card bg-error text-neutral-content w-60">
+                <div className="card-body text-center">
+                  <h2 className="card-title justify-center">App. Deadline</h2>
+                  <p>
+                    {new Date(college!.applicationDeadline)
+                      .toISOString()
+                      .slice(0, 10)}
+                  </p>
                 </div>
               </div>
-            ) : (
-              <div className="grid grid-rows-2 gap-4 mt-20">
-                <div className="flex justify-center items-center">
-                  <div className="card bg-info text-neutral-content w-60">
-                    <div className="card-body text-center">
-                      <h2 className="card-title justify-center text-red-500">
-                        App. Deadline
-                      </h2>
-                      <p>
-                        {new Date(college!.applicationDeadline)
-                          .toISOString()
-                          .slice(0, 10)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-center items-center m-10">
-                    <button className="btn btn-lg btn-wide bg-success shadow-xl shadow-green-500/50 border-none text-2xl">
-                      Apply
-                    </button>
-                  </div>
+            </div>
+          ) : (
+            <div className="flex justify-center items-center ps-10">
+              <div className="card bg-info text-neutral-content w-60">
+                <div className="card-body text-center">
+                  <h2 className="card-title justify-center text-red-500">
+                    App. Deadline
+                  </h2>
+                  <p>
+                    {new Date(college!.applicationDeadline)
+                      .toISOString()
+                      .slice(0, 10)}
+                  </p>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
