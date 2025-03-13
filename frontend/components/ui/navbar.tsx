@@ -35,6 +35,12 @@ export default function Navbar(): React.ReactNode {
         <Link href="/">
           <button className="btn btn-ghost text-2xl font-bold">EZ Apply</button>
         </Link>
+        <div className="flex-none ml-20 text-l text-red-300">
+          <button>Register</button>
+        </div>
+        <div className="flex-none ml-10 text-l text-red-300">
+          <button>Browse</button>
+        </div>
       </div>
       {!user && <Login />}
       {user && (
