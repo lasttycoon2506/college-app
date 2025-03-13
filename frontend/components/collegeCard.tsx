@@ -108,6 +108,24 @@ export default function CollegeCard({
                     Already Applied!
                   </button>
                 </div>
+              ) : !user ? (
+                <div className="flex justify-center items-center">
+                  <button
+                    disabled={true}
+                    className="btn btn-wide bg-warning shadow-md shadow-green-500/50 border-none text-base"
+                  >
+                    Register To Apply!
+                  </button>
+                </div>
+              ) : !user?.gpa || !user.sat || !user.essay ? (
+                <div className="flex justify-center items-center">
+                  <button
+                    disabled={true}
+                    className="btn btn-wide bg-warning shadow-md shadow-green-500/50 border-none text-base"
+                  >
+                    Missing Scores!
+                  </button>
+                </div>
               ) : (
                 <div className="flex justify-center items-center">
                   <button

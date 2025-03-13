@@ -43,10 +43,10 @@ export default function Navbar(): React.ReactNode {
         <Link href="/">
           <button className="btn btn-ghost text-2xl font-bold">EZ Apply</button>
         </Link>
-        <div className="flex-none ml-20 text-l text-red-300">
+        <div className="flex-none ml-20 text-l text-white">
           <button onClickCapture={handleRegister}>Register</button>
         </div>
-        <div className="flex-none ml-10 text-l text-red-300">
+        <div className="flex-none ml-10 text-l text-white">
           <button onClickCapture={handleBrowse}>Browse</button>
         </div>
       </div>
