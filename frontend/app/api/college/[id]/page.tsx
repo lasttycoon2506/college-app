@@ -34,7 +34,7 @@ export default async function GET({
           <div className="flex justify-center items-center">
             <img
               src={`/campus${id}.jpg`}
-              className="max-w-sm rounded-lg shadow-2xl mt-7 mx-7"
+              className="max-w-sm rounded-xl shadow-2xl mt-7 mx-7"
               style={{ height: 300 }}
             />
           </div>
