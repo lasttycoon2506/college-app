@@ -47,15 +47,6 @@ def getCurrUserApplications(request):
     return Response(serializedResults.data)
 
 
-@api_view(['GET'])
-def hasApplied(request, id):
-    user = request.user
-    college = get_object_or_404(College, id=id)
-    hasApplied = college.applicants_set.filter(applicant=user).exists()
-
-    return Response(hasApplied)
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def addCollege(request):
