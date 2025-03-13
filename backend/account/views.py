@@ -44,6 +44,7 @@ def editUser(request):
     user.first_name = data["first_name"]
     user.last_name = data["last_name"]
     user.email = data["email"]
+    user.username = data["username"]
 
     if len(data["password"]) != 0:
         user.password = make_password(data["password"])
