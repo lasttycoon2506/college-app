@@ -4,6 +4,7 @@ import type { College } from "@/models/college";
 import Link from "next/link";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function CollegeCard({
   college,
@@ -12,6 +13,31 @@ export default function CollegeCard({
 }): React.ReactNode {
   const currentDate: string = new Date().toISOString().slice(0, 10);
   const { user } = useContext(AuthContext);
+
+  async function applyToCollege(): Promise<void> {
+    try {
+      const res: Response = await fetch(`/api/apply/${college.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        toast.error(error.error);
+      } else {
+        // getUser();
+        toast.success("Successfully Applied!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleApply(): void {
+    applyToCollege();
+  }
 
   return (
     <div className="card card-side bg-base-100 shadow-xl card-bordered border-neutral my-3">
@@ -82,11 +108,12 @@ export default function CollegeCard({
                 </div>
               ) : (
                 <div className="flex justify-center items-center">
-                  <Link href={`/api/apply/${college.id}`}>
-                    <button className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base">
-                      Apply
-                    </button>
-                  </Link>
+                  <button
+                    onClickCapture={handleApply}
+                    className="btn btn-wide bg-success shadow-md shadow-green-500/50 border-none text-base"
+                  >
+                    Apply
+                  </button>
                 </div>
               )}
             </div>

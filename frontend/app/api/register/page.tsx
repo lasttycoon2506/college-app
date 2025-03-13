@@ -39,7 +39,7 @@ export default function POST(): React.ReactNode {
     }
   }, [userData]);
 
-  async function Register(): Promise<void> {
+  async function register(): Promise<void> {
     const { firstName, lastName, email, password } = userData;
     try {
       const res: Response = await fetch("http://localhost:8000/api/register/", {
@@ -114,7 +114,7 @@ export default function POST(): React.ReactNode {
       userData.email &&
       userData.password;
 
-    Register();
+    register();
   }
 
   return (

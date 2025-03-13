@@ -90,7 +90,7 @@ export default function GET(): React.ReactNode {
     setUserData({ ...userData, password: "" });
   }
 
-  async function EditUser(): Promise<void> {
+  async function editUser(): Promise<void> {
     try {
       const res: Response = await fetch("/api/editUser", {
         method: "PUT",
@@ -116,7 +116,7 @@ export default function GET(): React.ReactNode {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if ((event.nativeEvent as SubmitEvent).submitter?.id === "submitEditBtn") {
-      EditUser();
+      editUser();
     }
   }
 
