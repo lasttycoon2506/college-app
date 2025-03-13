@@ -78,7 +78,7 @@ export default async function GET({
           </div>
           {currentDate >
           new Date(college!.applicationDeadline).toISOString().slice(0, 10) ? (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center ps-10">
               <div className="card bg-error text-neutral-content w-60">
                 <div className="card-body text-center">
                   <h2 className="card-title justify-center">App. Deadline</h2>

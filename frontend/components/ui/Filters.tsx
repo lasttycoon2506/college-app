@@ -21,6 +21,7 @@ export default function Filters(): React.ReactNode {
     "Open",
     "Closed",
   ];
+
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
   const { replace } = useRouter();
@@ -92,7 +93,7 @@ export default function Filters(): React.ReactNode {
             >
               <input
                 type="checkbox"
-                className="checkbox checkbox-primary checkbox-xs"
+                className="checkbox checkbox-neutral checkbox-xs"
                 checked={isChecked(filterOption)}
                 value={filterOption}
                 onChange={(e) => handleFilterChange(e)}
