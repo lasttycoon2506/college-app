@@ -9,5 +9,4 @@ urlpatterns = [
     path('colleges/delete/<str:id>/', views.deleteCollege, name='delete_college'),
     path('colleges/apply/<str:id>/', views.applyCollege, name='apply_college'),
     path('currentUser/applications/', views.getCurrUserApplications, name='current_user_applications'),
-    path('currentUser/applied/<str:id>/', views.hasApplied, name='current_user_applied')
 ]
