@@ -16,14 +16,18 @@ async function getPaginatedColleges(
   max_undergrad: string,
   deadline_open: string,
   deadline_closed: string
-): Promise<PaginatedColleges> {
-  const res: Response = await fetch(
-    `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
-  );
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+): Promise<PaginatedColleges | Error> {
+  try {
+    const res: Response = await fetch(
+      `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
+    );
+
+    return res.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) console.error(error);
+    else console.error("unknown error occurred");
+    throw new Error("unknown error occurred");
   }
-  return res.json();
 }
 
 export default async function GET({
@@ -71,25 +75,20 @@ export default async function GET({
       ? (deadline_open = today.toLocaleDateString())
       : (deadline_closed = today.toLocaleDateString());
   }
-  try {
-    paginatedColleges = await getPaginatedColleges(
-      Number(page),
-      keyword,
-      min_tuition,
-      max_tuition,
-      collegeType,
-      min_undergrad,
-      max_undergrad,
-      deadline_open,
-      deadline_closed
-    );
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: error.status }
-    );
-  }
-
+  const result = await getPaginatedColleges(
+    Number(page),
+    keyword,
+    min_tuition,
+    max_tuition,
+    collegeType,
+    min_undergrad,
+    max_undergrad,
+    deadline_open,
+    deadline_closed
+  );
+  if (result instanceof Error)
+    return NextResponse.json({ error: result.message }, { status: 500 });
+  else paginatedColleges = result;
   const totalColleges: number = paginatedColleges!.count;
 
   return (
