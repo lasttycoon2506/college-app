@@ -29,7 +29,7 @@ export default async function GET({
 
   return (
     <div className="bg-blue-50">
-      <div className="container m-auto pt-10 pb-24">
+      <div className="container m-auto pt-5 pb-24">
         <div className="card card-side bg-base-100 shadow-2xl">
           <div className="flex justify-center items-center">
             <img

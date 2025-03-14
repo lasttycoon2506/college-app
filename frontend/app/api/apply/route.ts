@@ -3,9 +3,17 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-async function apply(token: string, collegeId: number): Promise<any> {
+type ApiResponseType = {
+  status: number;
+  error: string;
+};
+
+async function apply(
+  token: string,
+  collegeId: number
+): Promise<ApiResponseType> {
   try {
-    const response = await fetch(
+    const response: Response = await fetch(
       `http://localhost:8000/api/colleges/apply/${collegeId}/`,
       {
         method: "POST",
@@ -14,22 +22,19 @@ async function apply(token: string, collegeId: number): Promise<any> {
         },
       }
     );
-    if (!response.ok) {
-      const error = await response.json();
-      return error;
-    }
-    const res = await response.json();
-    return res;
-  } catch (error) {
-    return error;
+    return response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) console.error(error);
+    else console.error("unknown error occurred");
+    return { status: 500, error: "An error occurred" };
   }
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const { id } = await req.json();
+  const { id }: { id: number } = await req.json();
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-  const res = await apply(token!.value, id);
+  const res: ApiResponseType = await apply(token!.value, id);
   if (res.error) {
     return NextResponse.json({ error: res.error }, { status: 400 });
   }

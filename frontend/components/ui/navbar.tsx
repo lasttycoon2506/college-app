@@ -30,7 +30,7 @@ export default function Navbar(): React.ReactNode {
     logout();
   }
   return (
-    <div className="navbar bg-base-100 bg-primary">
+    <div className="navbar bg-base-100 bg-primary rounded">
       <Image
         className="dark:invert mr-6 rounded-lg shadow-xl"
         src="/college.svg"

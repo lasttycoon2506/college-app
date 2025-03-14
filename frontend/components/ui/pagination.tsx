@@ -15,11 +15,10 @@ export default function Pagination({
   return (
     <section className="container mx-auto flex justify-center items-center my-8">
       {currentPg > 1 && (
-        <Link
-          className="mr-2 px-2 py-1 border border-gray-300 rounded"
-          href={`/api/colleges?page=${currentPg - 1}`}
-        >
-          Previous
+        <Link href={`/api/colleges?page=${currentPg - 1}`}>
+          <button className="btn w-40 bg-black shadow-lg border-none text-white mx-5">
+            Previous
+          </button>
         </Link>
       )}
 
@@ -28,11 +27,10 @@ export default function Pagination({
       </span>
 
       {currentPg < totalPgs && (
-        <Link
-          className="ml-2 px-2 py-1 border border-gray-300 rounded"
-          href={`/api/colleges?page=${currentPg + 1}`}
-        >
-          Next
+        <Link href={`/api/colleges?page=${currentPg + 1}`}>
+          <button className="btn w-40 bg-black shadow-lg border-none text-white mx-5">
+            Next
+          </button>
         </Link>
       )}
     </section>
