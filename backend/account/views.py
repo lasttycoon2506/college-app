@@ -41,6 +41,10 @@ def editUser(request):
     user = request.user
     data = request.data
 
+    if (data["first_name"] is None or data["last_name"] is None or data["email"] is None or data["username"] is None
+        or data["essay"] is None or data["gpa"] is None or data["sat"] is None):
+            return Response({"error": "missing field(s)"}, status=status.HTTP_400_BAD_REQUEST)
+    
     user.first_name = data["first_name"]
     user.last_name = data["last_name"]
     user.email = data["email"]
