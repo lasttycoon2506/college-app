@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 type ApiResponseType = {
   status: number;
-  error: string;
+  error?: string;
 };
 
 async function apply(

@@ -1,12 +1,23 @@
 import { College } from "@/models/college";
 import { NextResponse } from "next/server";
 
-async function getCollegeDetails(id: number): Promise<College> {
-  const res: Response = await fetch(`http://localhost:8000/api/college/${id}`);
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+type ApiResponseType = {
+  detail?: string;
+  college?: College;
+  error?: number;
+};
+
+async function getCollegeDetails(id: number): Promise<ApiResponseType> {
+  try {
+    const res: Response = await fetch(
+      `http://localhost:8000/api/college/${id}`
+    );
+    return res.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) console.error(error);
+    else console.error("unknown error occurred");
+    return { error: 500 };
   }
-  return res.json();
 }
 
 export default async function GET({
@@ -16,16 +27,15 @@ export default async function GET({
 }): Promise<React.ReactNode | NextResponse> {
   const { id } = await params;
   let college: College;
+  const currentDate: string = new Date().toISOString().slice(0, 10);
 
-  try {
-    college = await getCollegeDetails(id);
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: error.status }
-    );
+  const res: ApiResponseType = await getCollegeDetails(id);
+  if (res) {
+    if (res.detail) return NextResponse.json({ error: res, status: 404 });
+    else {
+      college = res as College;
+    }
   }
-  const currentDate = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="bg-blue-50">
