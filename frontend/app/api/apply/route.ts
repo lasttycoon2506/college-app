@@ -26,7 +26,6 @@ async function apply(
     const result = await res.json();
     if (!res.ok) {
       return {
-        data: null,
         error: { message: result.error, statusCode: res.status },
       };
     }
@@ -34,10 +33,9 @@ async function apply(
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(error);
-      return { data: null, error: { message: error.message, statusCode: 500 } };
+      return { error: { message: error.message, statusCode: 500 } };
     }
     return {
-      data: null,
       error: { message: "unknown error occurred", statusCode: 500 },
     };
   }

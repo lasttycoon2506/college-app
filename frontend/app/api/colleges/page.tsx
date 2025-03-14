@@ -2,6 +2,7 @@ import CollegeCard from "@/components/college-card";
 import Filters from "@/components/ui/filters";
 import Pagination from "@/components/ui/pagination";
 import Search from "@/components/ui/search";
+import { ApiResponse } from "@/models/api-response";
 import { College } from "@/models/college";
 import { PaginatedColleges } from "@/models/paginated-colleges";
 import { NextResponse } from "next/server";
@@ -16,17 +17,20 @@ async function getPaginatedColleges(
   max_undergrad: string,
   deadline_open: string,
   deadline_closed: string
-): Promise<PaginatedColleges | Error> {
+): Promise<ApiResponse<PaginatedColleges>> {
   try {
     const res: Response = await fetch(
       `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
     );
-
-    return res.json();
+    const result = await res.json();
+    if (!res.ok) return { error: { message: result, statusCode: res.status } };
+    return { data: result, statusCode: res.status };
   } catch (error: unknown) {
-    if (error instanceof Error) console.error(error);
-    else console.error("unknown error occurred");
-    throw new Error("unknown error occurred");
+    if (error instanceof Error) {
+      console.error(error);
+      return { error: { message: error.message, statusCode: 500 } };
+    }
+    return { error: { message: "unknown error occurred", statusCode: 500 } };
   }
 }
 
@@ -75,7 +79,7 @@ export default async function GET({
       ? (deadline_open = today.toLocaleDateString())
       : (deadline_closed = today.toLocaleDateString());
   }
-  const result = await getPaginatedColleges(
+  const res: ApiResponse<PaginatedColleges> = await getPaginatedColleges(
     Number(page),
     keyword,
     min_tuition,
@@ -86,9 +90,12 @@ export default async function GET({
     deadline_open,
     deadline_closed
   );
-  if (result instanceof Error)
-    return NextResponse.json({ error: result.message }, { status: 500 });
-  else paginatedColleges = result;
+  if (res.error)
+    return NextResponse.json({
+      error: res.error.message,
+      status: res.error.statusCode,
+    });
+  paginatedColleges = res.data;
   const totalColleges: number = paginatedColleges!.count;
 
   return (

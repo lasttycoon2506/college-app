@@ -9,19 +9,17 @@ async function getCollegeDetails(id: number): Promise<ApiResponse<College>> {
     );
     const result = await res.json();
     if (!res.ok) {
-      return { data: null, error: { message: result, statusCode: res.status } };
+      return { error: { message: result, statusCode: res.status } };
     }
     return { data: result, statusCode: res.status };
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(error);
       return {
-        data: null,
         error: { message: error.message, statusCode: 500 },
       };
     }
     return {
-      data: null,
       error: { message: "unknown error occurred", statusCode: 500 },
     };
   }
