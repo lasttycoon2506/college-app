@@ -1,4 +1,4 @@
-import { UserApplication } from "./userApplication";
+import { UserApplication } from "./user-application";
 
 export type UserBackend = {
   first_name: string;

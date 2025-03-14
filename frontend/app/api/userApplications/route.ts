@@ -1,4 +1,4 @@
-import { UserApplication } from "@/models/userApplication";
+import { UserApplication } from "@/models/user-application";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";

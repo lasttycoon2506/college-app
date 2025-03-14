@@ -1,10 +1,10 @@
 "use client";
-import UserApplicationCard from "@/components/UserApplicationCard";
+import UserApplicationCard from "@/components/user-application-card";
 import AuthContext from "@/context/AuthContext";
-import { UserApplication } from "@/models/userApplication";
+import { UserApplication } from "@/models/user-application";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { EditUser } from "@/models/editUser";
+import { EditUser } from "@/models/edit-user";
 
 export default function GET(): React.ReactNode {
   const { user, getUser } = useContext(AuthContext);

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Login from "../Login";
+import Login from "../login";
 import { useContext, useRef } from "react";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";

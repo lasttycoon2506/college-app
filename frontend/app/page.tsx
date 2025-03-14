@@ -1,5 +1,5 @@
-import CollegesListBtn from "@/components/CollegesListBtn";
-import RegisterBtn from "@/components/RegisterBtn";
+import CollegesListBtn from "@/components/colleges-list-btn";
+import RegisterBtn from "@/components/register-btn";
 
 export default function HomePage(): React.ReactNode {
   return (

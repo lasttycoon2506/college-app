@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@/models/user";
-import { UserApplication } from "@/models/userApplication";
+import { UserApplication } from "@/models/user-application";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useEffect, useState } from "react";
 

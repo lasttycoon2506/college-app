@@ -1,9 +1,9 @@
-import CollegeCard from "@/components/CollegeCard";
-import Filters from "@/components/ui/Filters";
-import Pagination from "@/components/ui/Pagination";
-import Search from "@/components/ui/Search";
+import CollegeCard from "@/components/college-card";
+import Filters from "@/components/ui/filters";
+import Pagination from "@/components/ui/pagination";
+import Search from "@/components/ui/search";
 import { College } from "@/models/college";
-import { PaginatedColleges } from "@/models/paginatedColleges";
+import { PaginatedColleges } from "@/models/paginated-colleges";
 import { NextResponse } from "next/server";
 
 async function getPaginatedColleges(

@@ -1,4 +1,4 @@
-import { UserApplication } from "@/models/userApplication";
+import { UserApplication } from "@/models/user-application";
 
 export default function UserApplicationCard({
   userApplication,
