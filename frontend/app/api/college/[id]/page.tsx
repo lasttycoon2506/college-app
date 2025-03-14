@@ -1,22 +1,29 @@
+import { ApiResponse } from "@/models/api-response";
 import { College } from "@/models/college";
 import { NextResponse } from "next/server";
 
-type ApiResponseType = {
-  detail?: string;
-  college?: College;
-  error?: number;
-};
-
-async function getCollegeDetails(id: number): Promise<ApiResponseType> {
+async function getCollegeDetails(id: number): Promise<ApiResponse<College>> {
   try {
     const res: Response = await fetch(
       `http://localhost:8000/api/college/${id}`
     );
-    return res.json();
+    const result = await res.json();
+    if (!res.ok) {
+      return { data: null, error: { message: result, statusCode: res.status } };
+    }
+    return { data: result, statusCode: res.status };
   } catch (error: unknown) {
-    if (error instanceof Error) console.error(error);
-    else console.error("unknown error occurred");
-    return { error: 500 };
+    if (error instanceof Error) {
+      console.error(error);
+      return {
+        data: null,
+        error: { message: error.message, statusCode: 500 },
+      };
+    }
+    return {
+      data: null,
+      error: { message: "unknown error occurred", statusCode: 500 },
+    };
   }
 }
 
@@ -29,11 +36,15 @@ export default async function GET({
   let college: College;
   const currentDate: string = new Date().toISOString().slice(0, 10);
 
-  const res: ApiResponseType = await getCollegeDetails(id);
+  const res: ApiResponse<College> = await getCollegeDetails(id);
   if (res) {
-    if (res.detail) return NextResponse.json({ error: res, status: 404 });
+    if (res.error)
+      return NextResponse.json({
+        error: res.error,
+        status: res.error.statusCode,
+      });
     else {
-      college = res as College;
+      college = res.data;
     }
   }
 
