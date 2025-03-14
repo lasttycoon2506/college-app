@@ -1,12 +1,16 @@
+import { ApiResponse } from "@/models/api-response";
 import { EditUser } from "@/models/edit-user";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-async function editUser(token: string, userData: EditUser): Promise<any> {
+async function editUser(
+  token: string,
+  userData: EditUser
+): Promise<ApiResponse<number>> {
   try {
-    const response = await fetch(
+    const res: Response = await fetch(
       "http://localhost:8000/api/currentUser/edit/",
       {
         method: "PUT",
@@ -26,14 +30,17 @@ async function editUser(token: string, userData: EditUser): Promise<any> {
         }),
       }
     );
-    if (!response.ok) {
-      const error = await response.json();
-      return error;
+    const result = await res.json();
+    if (!res.ok) {
+      return { error: result, statusCode: res.status };
     }
-    const res = await response.json();
-    return res;
-  } catch (error) {
-    return error;
+    return { data: result, statusCode: res.status };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error);
+      return { error: { message: error.message, statusCode: 500 } };
+    }
+    return { error: { message: "unexpected error occurred", statusCode: 500 } };
   }
 }
 
@@ -43,7 +50,10 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
   const token: RequestCookie | undefined = cookieStore.get("authToken");
   const res = await editUser(token!.value, userData);
   if (res.error) {
-    return NextResponse.json({ error: res.error }, { status: 400 });
+    return NextResponse.json(
+      { error: res.error },
+      { status: res.error.statusCode }
+    );
   }
   return NextResponse.json({ status: 200 });
 }
