@@ -1,47 +1,50 @@
+import { ApiResponse } from "@/models/api-response";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-type TokenType = {
+type Token = {
   refresh: string;
   access: string;
-  error?: string;
 };
 
 async function getLoginToken(
   username: string,
   password: string
-): Promise<TokenType> {
-  const res: Response = await fetch(`http://localhost:8000/api/token/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+): Promise<ApiResponse<Token>> {
+  try {
+    const res: Response = await fetch(`http://localhost:8000/api/token/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const result = await res.json();
+    if (!res.ok) {
+      return { error: { message: result, statusCode: res.status } };
+    }
+    return { data: result, statusCode: res.status };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error);
+      return { error: { message: error.message, statusCode: 500 } };
+    }
+    return { error: { message: "unexpected error occurred", statusCode: 500 } };
   }
-  return res.json();
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { username, password } = await req.json();
-  let token: TokenType;
+  let token: Token;
 
-  try {
-    token = await getLoginToken(username, password);
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: error.status }
-    );
-  }
-
-  if (token.error) {
-    return NextResponse.json(
-      { message: "Invalid credentials" },
-      { status: 401 }
-    );
+  const res = await getLoginToken(username, password);
+  if (res.error) {
+    return NextResponse.json({
+      error: res.error.message,
+      status: res.error.statusCode,
+    });
+  } else {
+    token = res.data;
   }
 
   (await cookies()).set("authToken", token.access, {
