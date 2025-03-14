@@ -48,12 +48,6 @@ def editUser(request):
 
     if len(data["password"]) != 0:
         user.password = make_password(data["password"])
-    if not data["essay"]:
-        return Response({"error": "missing essay"}, status=status.HTTP_400_BAD_REQUEST)
-    if not data["sat"]:
-        return Response({"error": "missing sat"}, status=status.HTTP_400_BAD_REQUEST)
-    if not data["gpa"]:
-        return Response({"error": "missing gpa"}, status=status.HTTP_400_BAD_REQUEST)
 
     user.userprofile.essay = data["essay"]
     user.userprofile.gpa = data["gpa"]
