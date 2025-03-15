@@ -95,7 +95,9 @@ export default async function GET({
       error: res.error.message,
       status: res.error.statusCode,
     });
-  paginatedColleges = res.data;
+  if (res.data) {
+    paginatedColleges = res.data;
+  }
   const totalColleges: number = paginatedColleges!.count;
 
   return (

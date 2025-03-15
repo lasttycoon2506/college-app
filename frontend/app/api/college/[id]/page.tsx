@@ -42,7 +42,9 @@ export default async function GET({
         status: res.error.statusCode,
       });
     else {
-      college = res.data;
+      if (res.data) {
+        college = res.data;
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import { UserApplication } from "@/models/user-application";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { EditUser } from "@/models/edit-user";
+import { ApiResponse } from "@/models/api-response";
 
 export default function GET(): React.ReactNode {
   const { user, getUser } = useContext(AuthContext);
@@ -100,17 +101,19 @@ export default function GET(): React.ReactNode {
         },
         body: JSON.stringify(userData),
       });
-      const result = res.json();
-      if (!res.ok) {
-        if (result.error["email"]) toast.error("Enter Valid Email!");
-        else toast.error(error.error);
+      const result: ApiResponse<number> = await res.json();
+      if (result.error) {
+        toast.error(
+          result.error.message || "unexpected error occurred while updating"
+        );
       } else {
         getUser();
         setIsNotDirty(true);
         toast.success("Successfully Edited!");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast.error(error.message);
+      else toast.error("unepected error occurred while updating");
     }
   }
 
