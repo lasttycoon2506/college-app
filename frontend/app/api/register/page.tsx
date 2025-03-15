@@ -56,8 +56,8 @@ export default function POST(): React.ReactNode {
           password,
         }),
       });
-      const result: ApiResponse<number> = await res.json();
-      if (result.error) {
+      if (!res.ok) {
+        const result = await res.json();
         toast.error(result.error.message);
       } else {
         toast.success("Successfully Registered!");

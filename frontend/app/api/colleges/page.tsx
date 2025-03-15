@@ -23,7 +23,9 @@ async function getPaginatedColleges(
       `http://localhost:8000/api/colleges/?page=${pg}&name=${keyword}&min_tuition=${min_tuition}&max_tuition=${max_tuition}&type=${collegeType}&min_undergrad=${min_undergrad}&max_undergrad=${max_undergrad}&deadline_open=${deadline_open}&deadline_closed=${deadline_closed}`
     );
     const result = await res.json();
-    if (!res.ok) return { error: { message: result, statusCode: res.status } };
+    if (!res.ok) {
+      return { error: { message: result, statusCode: res.status } };
+    }
     return { data: result, statusCode: res.status };
   } catch (error: unknown) {
     if (error instanceof Error) {

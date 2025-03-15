@@ -38,16 +38,18 @@ export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
 
-  const res: ApiResponse<UserBackend> = await getUser(token!.value);
-  if (res.error) {
+  if (token) {
+    const res: ApiResponse<UserBackend> = await getUser(token.value);
+    if (res.error) {
+      return NextResponse.json({
+        error: res.error.message,
+        status: res.error.statusCode,
+      });
+    }
     return NextResponse.json({
-      error: res.error.message,
-      status: res.error.statusCode,
+      body: mapBackendToFrontend(res.data!),
+      status: 200,
     });
   }
-
-  return NextResponse.json({
-    body: mapBackendToFrontend(res.data!),
-    status: 200,
-  });
+  return NextResponse.json({ message: "no token currently stored" });
 }
