@@ -47,16 +47,8 @@ export async function GET(): Promise<NextResponse> {
       status: res.error.statusCode,
     });
 
-  if (res.data) {
-    const userApplications: UserApplication[] = res.data;
-    return NextResponse.json({
-      body: userApplications,
-      status: res.statusCode,
-    });
-  }
-
   return NextResponse.json({
-    error: "unknown error occured while retrieving user apps",
-    status: 500,
+    body: res.data,
+    status: res.statusCode,
   });
 }

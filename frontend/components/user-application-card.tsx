@@ -4,7 +4,7 @@ export default function UserApplicationCard({
   userApplication,
 }: {
   userApplication: UserApplication;
-}) {
+}): React.ReactNode {
   return (
     <div className="card card-side bg-accent shadow-xl my-2 mr-8">
       <div className="card-body">

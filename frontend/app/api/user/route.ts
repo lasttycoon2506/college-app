@@ -45,13 +45,9 @@ export async function GET(): Promise<NextResponse> {
       status: res.error.statusCode,
     });
   }
-  if (res.data) {
-    const userBackend: UserBackend = res.data;
-    const user: User = mapBackendToFrontend(userBackend);
-    return NextResponse.json({ body: user, status: 200 });
-  }
+
   return NextResponse.json({
-    error: "unknown error occured while retrieving user",
-    status: 500,
+    body: mapBackendToFrontend(res.data!),
+    status: 200,
   });
 }

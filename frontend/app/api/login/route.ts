@@ -35,34 +35,30 @@ async function getLoginToken(
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { username, password } = await req.json();
-
   const res = await getLoginToken(username, password);
+
   if (res.error) {
     return NextResponse.json({
       error: res.error.message,
       status: res.error.statusCode,
     });
-  } else {
-    if (res.data) {
-      const token: Token = res.data;
+  }
 
-      try {
-        (await cookies()).set("authToken", token.access, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-          path: "/",
-        });
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          return NextResponse.json({ error: error.message, status: 500 });
-        }
-        return NextResponse.json({
-          error: "unknown error occurred setting token",
-          status: 500,
-        });
-      }
-    }
+  try {
+    (await cookies()).set("authToken", res.data!.access, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+    });
     return NextResponse.json({ message: "Login successful", status: 200 });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message, status: 500 });
+    }
+    return NextResponse.json({
+      error: "unknown error occurred setting token",
+      status: 500,
+    });
   }
 }

@@ -55,5 +55,5 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       { status: res.error.statusCode }
     );
   }
-  return NextResponse.json({ status: 200 });
+  return NextResponse.json({ status: res.statusCode });
 }
