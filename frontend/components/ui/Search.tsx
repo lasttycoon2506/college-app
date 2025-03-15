@@ -1,4 +1,5 @@
 "use client";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {
   ReadonlyURLSearchParams,
   usePathname,
@@ -10,7 +11,7 @@ import { useDebouncedCallback } from "use-debounce";
 export default function Search(): React.ReactNode {
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
-  const { replace } = useRouter();
+  const { replace }: AppRouterInstance = useRouter();
 
   const handleSearch = useDebouncedCallback((keyword: string): void => {
     const params: URLSearchParams = new URLSearchParams(searchParams);

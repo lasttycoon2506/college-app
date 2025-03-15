@@ -5,28 +5,29 @@ import Login from "../login";
 import { useContext, useRef } from "react";
 import AuthContext from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function Navbar(): React.ReactNode {
   const { user, logout } = useContext(AuthContext);
-  const { replace } = useRouter();
+  const { replace }: AppRouterInstance = useRouter();
   const navRef = useRef<HTMLButtonElement>(null);
 
-  function handleProfile() {
+  function handleProfile(): void {
     if (navRef.current) {
       navRef.current.blur();
     }
     replace("/api/profile");
   }
 
-  function handleRegister() {
+  function handleRegister(): void {
     replace("/api/register");
   }
 
-  function handleBrowse() {
+  function handleBrowse(): void {
     replace("/api/colleges");
   }
 
-  function handleLogout() {
+  function handleLogout(): void {
     logout();
   }
   return (

@@ -1,4 +1,5 @@
 "use client";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {
   ReadonlyURLSearchParams,
   usePathname,
@@ -24,7 +25,7 @@ export default function Filters(): React.ReactNode {
 
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
   const pathname: string = usePathname();
-  const { replace } = useRouter();
+  const { replace }: AppRouterInstance = useRouter();
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>): void {
     const params: URLSearchParams = new URLSearchParams(searchParams);

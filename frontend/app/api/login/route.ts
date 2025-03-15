@@ -35,7 +35,6 @@ async function getLoginToken(
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { username, password } = await req.json();
-  let token: Token;
 
   const res = await getLoginToken(username, password);
   if (res.error) {
@@ -45,7 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
   } else {
     if (res.data) {
-      token = res.data;
+      const token: Token = res.data;
 
       try {
         (await cookies()).set("authToken", token.access, {
