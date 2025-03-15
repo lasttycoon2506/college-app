@@ -61,7 +61,7 @@ export default function GET(): React.ReactNode {
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    let { name, value } = e.target;
+    let { name, value }: { name: string; value: string } = e.target;
 
     if (name === "password") {
       if (/^.{8,30}$/.test(value)) {
@@ -87,7 +87,7 @@ export default function GET(): React.ReactNode {
     setUserData({ ...userData, [name]: value });
   }
 
-  function resetPw() {
+  function resetPw(): void {
     setUserData({ ...userData, password: "" });
   }
 
@@ -100,9 +100,9 @@ export default function GET(): React.ReactNode {
         },
         body: JSON.stringify(userData),
       });
+      const result = res.json();
       if (!res.ok) {
-        const error = await res.json();
-        if (error.error["email"]) toast.error("Enter Valid Email!");
+        if (result.error["email"]) toast.error("Enter Valid Email!");
         else toast.error(error.error);
       } else {
         getUser();

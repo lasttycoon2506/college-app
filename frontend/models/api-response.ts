@@ -1,3 +1,4 @@
-export type ApiResponse<T> =
-  | { data: T; error?: null; statusCode: number }
-  | { data?: null; error: { message: string; statusCode?: number } };
+export type ApiResponse<T> = {
+  data?: T;
+  error?: { message?: string; statusCode?: number };
+};

@@ -33,8 +33,8 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           {children}
+          <ToastContainer position="bottom-right" />
         </AuthProvider>
-        <ToastContainer position="bottom-right" />
       </body>
     </html>
   );

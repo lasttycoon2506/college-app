@@ -6,16 +6,16 @@ import { toast } from "react-toastify";
 export default function Login(): React.ReactNode {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const { user, isAuthenticated, error, login } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (error.length !== 0) toast.error(error);
+  }, [user, isAuthenticated, error]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({ username, password });
-    if (error.length !== 0) toast.error(error);
   }
-
-  useEffect(() => {}, [user, isAuthenticated, error]);
 
   return (
     <form className="form" onSubmit={handleSubmit}>

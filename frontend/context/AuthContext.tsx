@@ -40,7 +40,7 @@ export function AuthProvider({
       localStorage.setItem("user", JSON.stringify(user));
     }
     if (!user) getUser();
-  }, [user]);
+  }, [user, error, isAuthenticated]);
 
   async function login({
     username,
@@ -58,10 +58,13 @@ export function AuthProvider({
         body: JSON.stringify({ username, password }),
       });
       const result = await res.json();
-      if (typeof result.error !== undefined) {
+
+      if (result.status !== 200) {
         setError("Incorrect Email or Password!");
+        setIsAuthenticated(false);
         return;
       }
+
       getUser();
       setIsAuthenticated(true);
       setError("");
@@ -86,8 +89,8 @@ export function AuthProvider({
       setIsAuthenticated(true);
       setUser(loadedUser);
       setError("");
-    } catch (error: any) {
-      setError(error);
+    } catch (e: any) {
+      console.log(e);
     }
   }
 
