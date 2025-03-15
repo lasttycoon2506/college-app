@@ -57,8 +57,8 @@ export function AuthProvider({
         },
         body: JSON.stringify({ username, password }),
       });
-      const resAsJson = await res.json();
-      if (resAsJson.error) {
+      const result = await res.json();
+      if (typeof result.error !== undefined) {
         setError("Incorrect Email or Password!");
         return;
       }

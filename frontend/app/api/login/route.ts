@@ -47,11 +47,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     token = res.data;
   }
 
-  (await cookies()).set("authToken", token.access, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/",
-  });
-  return NextResponse.json({ message: "Login successful" }, { status: 200 });
+  try {
+    (await cookies()).set("authToken", token.access, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message, status: 500 });
+    }
+    return NextResponse.json({
+      error: "unknown error occurred setting token",
+      status: 500,
+    });
+  }
+
+  return NextResponse.json({ message: "Login successful", status: 200 });
 }

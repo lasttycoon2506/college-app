@@ -12,11 +12,10 @@ export default function Login(): React.ReactNode {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({ username, password });
+    if (error.length !== 0) toast.error(error);
   }
 
-  useEffect(() => {
-    if (error) toast.error(error);
-  }, [user, isAuthenticated, error]);
+  useEffect(() => {}, [user, isAuthenticated, error]);
 
   return (
     <form className="form" onSubmit={handleSubmit}>
