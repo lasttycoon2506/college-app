@@ -103,9 +103,7 @@ export default function GET(): React.ReactNode {
       });
       const result: ApiResponse<number> = await res.json();
       if (result.error) {
-        toast.error(
-          result.error.message || "unexpected error occurred while updating"
-        );
+        toast.error(result.error.message);
       } else {
         getUser();
         setIsNotDirty(true);

@@ -1,4 +1,6 @@
 "use client";
+import { ApiResponse } from "@/models/api-response";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -17,7 +19,7 @@ export default function POST(): React.ReactNode {
     email: "",
     password: "",
   });
-  const router = useRouter();
+  const router: AppRouterInstance = useRouter();
   const [firstNameError, setFirstNameError] = useState<boolean>(false);
   const [lastNameError, setLastNameError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -54,23 +56,21 @@ export default function POST(): React.ReactNode {
           password,
         }),
       });
-      if (!res.ok) {
-        const error = await res.json();
-        if (error.error["password"])
-          toast.error("Password must be at least 8 characters!");
-        else if (error.error["email"]) toast.error("Enter Valid Email!");
-        else toast.error(error.error);
+      const result: ApiResponse<number> = await res.json();
+      if (result.error) {
+        toast.error(result.error.message);
       } else {
         toast.success("Successfully Registered!");
         router.push("/");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast.error(error.message);
+      else toast.error("unknown error occured while registering");
     }
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, value } = e.target;
+    const { name, value }: { name: string; value: string } = e.target;
 
     if (name === "firstName") {
       if (value) {
@@ -108,12 +108,10 @@ export default function POST(): React.ReactNode {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-
     userData.firstName &&
       userData.lastName &&
       userData.email &&
       userData.password;
-
     register();
   }
 
