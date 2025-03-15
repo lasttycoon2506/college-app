@@ -37,7 +37,6 @@ async function getUser(token: string): Promise<ApiResponse<UserBackend>> {
 export async function GET(): Promise<NextResponse> {
   const cookieStore: ReadonlyRequestCookies = await cookies();
   const token: RequestCookie | undefined = cookieStore.get("authToken");
-  let userBackend: UserBackend;
 
   const res: ApiResponse<UserBackend> = await getUser(token!.value);
   if (res.error) {
@@ -47,9 +46,9 @@ export async function GET(): Promise<NextResponse> {
     });
   }
   if (res.data) {
-    userBackend = res.data;
+    const userBackend: UserBackend = res.data;
     const user: User = mapBackendToFrontend(userBackend);
-    return NextResponse.json({ body: { user } }, { status: 200 });
+    return NextResponse.json({ body: user, status: 200 });
   }
   return NextResponse.json({
     error: "unknown error occured while retrieving user",
