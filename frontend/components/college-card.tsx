@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
+import { ApiResponse } from "@/models/api-response";
+import { ApplyResponse } from "@/models/apply-response";
 
 export default function CollegeCard({
   college,
@@ -25,15 +27,18 @@ export default function CollegeCard({
           id: college.id,
         }),
       });
-      if (!res.ok) {
-        const error = await res.json();
-        toast.error(error.error);
+      const result: ApiResponse<ApplyResponse> = await res.json();
+      if (result.error) {
+        toast.error(result.error.message);
       } else {
         getUser();
         toast.success("Successfully Applied!");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+      toast.error("unknown error occured while applying");
     }
   }
 

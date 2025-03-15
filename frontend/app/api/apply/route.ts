@@ -1,13 +1,9 @@
 import { ApiResponse } from "@/models/api-response";
+import { ApplyResponse } from "@/models/apply-response";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-
-type ApplyResponse = {
-  applied: boolean;
-  applicationId: number;
-};
 
 async function apply(
   token: string,
