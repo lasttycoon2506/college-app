@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/models/api-response";
-import { mapBackendToFrontend, User, UserBackend } from "@/models/user";
+import { mapBackendToFrontend, UserBackend } from "@/models/user";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
@@ -48,7 +48,7 @@ export async function GET(): Promise<NextResponse> {
     }
     return NextResponse.json({
       body: mapBackendToFrontend(res.data!),
-      status: 200,
+      status: res.statusCode,
     });
   }
   return NextResponse.json({ message: "no token currently stored" });

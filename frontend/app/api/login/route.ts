@@ -51,7 +51,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       sameSite: "strict",
       path: "/",
     });
-    return NextResponse.json({ message: "Login successful", status: 200 });
+    return NextResponse.json({
+      message: "Login successful",
+      status: res.statusCode,
+    });
   } catch (error: unknown) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message, status: 500 });

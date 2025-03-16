@@ -30,11 +30,12 @@ async function editUser(
         }),
       }
     );
-    const result = await res.json();
+
     if (!res.ok) {
-      return { error: result, statusCode: res.status };
+      const result = await res.json();
+      return { error: result.error, statusCode: res.status };
     }
-    return { data: result, statusCode: res.status };
+    return { statusCode: res.status };
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(error);

@@ -1,7 +1,9 @@
 "use client";
 import { User } from "@/models/user";
 import { UserApplication } from "@/models/user-application";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type AuthContextType = {
@@ -29,7 +31,7 @@ export function AuthProvider({
 }): React.ReactNode {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const { replace } = useRouter();
+  const { replace }: AppRouterInstance = useRouter();
   const [user, setUser] = useState<User | null>(() => {
     const storedValue = localStorage?.getItem("user");
     return storedValue ? JSON.parse(storedValue) : "";
@@ -39,7 +41,6 @@ export function AuthProvider({
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(user));
     }
-    if (!user) getUser();
   }, [user]);
 
   async function login({
@@ -57,8 +58,8 @@ export function AuthProvider({
         },
         body: JSON.stringify({ username, password }),
       });
-      const result = await res.json();
 
+      const result = await res.json();
       if (result.status !== 200) {
         setError("Incorrect Email or Password!");
         setIsAuthenticated(false);
@@ -69,63 +70,87 @@ export function AuthProvider({
       setIsAuthenticated(true);
       setError("");
       replace("/");
-    } catch (error: any) {
-      setError(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+        console.error(error.message);
+      } else {
+        setError("unknown error occured while logging in");
+        console.error("unknown error occured while logging in");
+      }
     }
   }
 
   async function getUser(): Promise<void> {
     try {
       const res: Response = await fetch("/api/user");
+      const result = await res.json();
+
       if (!res.ok) {
-        const error = await res.json();
-        setError(error.message);
+        setError(result.error);
         return;
       }
-      const data = await res.json();
-      const loadedUser: User = data.body;
-      const userApplications = await getUserApplications();
 
+      const loadedUser: User = result.body;
+      const userApplications: UserApplication[] = await getUserApplications();
       loadedUser.userApplications = userApplications;
       setIsAuthenticated(true);
       setUser(loadedUser);
       setError("");
-    } catch (e: any) {
-      console.log(e);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+        console.error(error.message);
+      } else {
+        setError("unknown error occured while loading user");
+        console.error("unknown error occured while loading user");
+      }
     }
   }
 
   async function getUserApplications(): Promise<UserApplication[]> {
     try {
       const res: Response = await fetch("/api/userApplications");
+      const result = await res.json();
+
       if (!res.ok) {
-        const error = await res.json();
-        return error;
+        setError(result.error);
       }
-      const data = await res.json();
-      const userApplications: UserApplication[] = data.body;
+      const userApplications: UserApplication[] = result.body;
       return userApplications;
-    } catch (error: any) {
-      setError(error);
-      return error;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+        console.error(error.message);
+      } else {
+        setError("unknown error occured while retrieving user apps");
+        console.error("unknown error occured while retrieving user apps");
+      }
+      return [];
     }
   }
 
   async function logout(): Promise<void> {
     try {
       const res: Response = await fetch("/api/logout", { method: "DELETE" });
+      const result = await res.json();
       if (res.ok) {
         setIsAuthenticated(false);
         setUser(null);
         setError("");
         replace("/");
       } else {
-        const error = await res.json();
-        setError(error.message);
+        setError(result.error);
         return;
       }
-    } catch (error: any) {
-      setError(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+        console.error(error.message);
+      } else {
+        setError("unknown error occured while logging out");
+        console.error("unknown error occured while logging out");
+      }
     }
   }
 

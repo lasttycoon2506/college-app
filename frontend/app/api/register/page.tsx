@@ -1,5 +1,4 @@
 "use client";
-import { ApiResponse } from "@/models/api-response";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
