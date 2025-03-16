@@ -2,20 +2,24 @@
 import AuthContext from "@/context/AuthContext";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function Login(): React.ReactNode {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { user, isAuthenticated, error, login } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (error.length !== 0) toast.error(error);
-  }, [user, isAuthenticated, error]);
+  useEffect(() => {}, [user, isAuthenticated, error]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     login({ username, password });
+    delayForToast();
   }
+
+  const delayForToast = useDebouncedCallback((): void => {
+    if (!isAuthenticated) toast.error(error);
+  }, 300);
 
   return (
     <form className="form" onSubmit={handleSubmit}>

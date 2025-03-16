@@ -40,7 +40,7 @@ export function AuthProvider({
       localStorage.setItem("user", JSON.stringify(user));
     }
     if (!user) getUser();
-  }, [user, error, isAuthenticated]);
+  }, [user]);
 
   async function login({
     username,
@@ -83,8 +83,9 @@ export function AuthProvider({
         return;
       }
       const data = await res.json();
-      const loadedUser: User = data.body.user;
+      const loadedUser: User = data.body;
       const userApplications = await getUserApplications();
+
       loadedUser.userApplications = userApplications;
       setIsAuthenticated(true);
       setUser(loadedUser);
@@ -102,7 +103,7 @@ export function AuthProvider({
         return error;
       }
       const data = await res.json();
-      const userApplications: UserApplication[] = data.body.userApplications;
+      const userApplications: UserApplication[] = data.body;
       return userApplications;
     } catch (error: any) {
       setError(error);

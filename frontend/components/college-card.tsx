@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import type { College } from "@/models/college";
 import Link from "next/link";
 import { useContext } from "react";
