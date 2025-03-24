@@ -20,3 +20,10 @@
 ## Navigation
 ### Home
 ![Screenshot 2025-03-24 121114](https://github.com/user-attachments/assets/4fd8d9a0-dbd1-450b-ae6e-4fa15eb4e701)
+### Browse
+![Uploading Screenshot 2025-03-24 121538.png…]()
+![Uploading Screenshot 2025-03-24 121621.png…]()
+![Uploading Screenshot 2025-03-24 121643.png…]()
+
+
+
