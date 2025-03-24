@@ -13,7 +13,7 @@
 
 ## Requirements
 
--Next.js Framework  
+-Next.js
 -Python (or choose to containerize within Docker)  
 -Docker (for PostgreSQL)
 
